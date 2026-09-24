@@ -1,0 +1,18 @@
+{
+  "options": {
+    "defaultCurrency": "GBP",
+    "dateOrder": "dmy",
+    "today": "2026-09-24"
+  },
+  "expected": {
+    "merchant": "Hatch & Quill",
+    "date": "2026-06-12",
+    "total": "44.99",
+    "tax": "1.67",
+    "currency": "GBP",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "holdout: Apple Pay (Visa contactless) payment; VAT table with a zero-rated row (tax = 1.67 + 0.00); 13-digit ISBN lines under titles; no subtotal printed; name on two lines (Hatch & Quill / Booksellers); postcode and VAT reg digits"
+}

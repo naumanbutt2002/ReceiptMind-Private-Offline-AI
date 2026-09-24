@@ -1,0 +1,14 @@
+{
+  "options": { "defaultCurrency": "AUD", "dateOrder": "dmy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "Woolworths Metro",
+    "date": "2026-09-12",
+    "total": "59.83",
+    "tax": "3.02",
+    "currency": "AUD",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "GST-inclusive; weighed item and Qty line, two discount lines, YOU SAVED, CHANGE 0.00, card slip repeats the total, points balance, date/time only at the bottom"
+}

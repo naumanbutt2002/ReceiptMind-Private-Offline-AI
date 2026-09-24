@@ -1,0 +1,14 @@
+{
+  "options": { "defaultCurrency": "EUR", "dateOrder": "dmy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "Aral",
+    "date": "2026-06-02",
+    "total": "73.51",
+    "tax": "11.61",
+    "currency": "EUR",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "Fuel with litres x EUR/l (3-decimal unit price); amounts suffixed ' EUR A'; total labelled Gesamtbetrag; EC-Karte girocard payment; OCR noise 'S' for 5 in the Beleg-Nr.; VAT table A/B; PAYBACK balance with dot thousands separator '2.418'; tax is the sum of the MwSt column (11,53 + 0,08)"
+}

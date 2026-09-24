@@ -1,0 +1,16 @@
+{
+  "options": { "defaultCurrency": "AUD", "dateOrder": "dmy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "The Grind House Cafe",
+    "date": "2026-08-03",
+    "total": "56.00",
+    "subtotal": "51.00",
+    "tax": "4.64",
+    "tip": "5.00",
+    "currency": "AUD",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "GST-inclusive cafe docket with a tip between Subtotal and TOTAL; two-digit year dd/mm/yy (03/08/26 = 3 Aug), order/table/covers numbers, '2 x ... @' quantity line, add-on modifier line"
+}

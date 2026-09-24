@@ -1,0 +1,14 @@
+{
+  "options": { "defaultCurrency": "EUR", "dateOrder": "dmy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "REWE",
+    "date": "2026-08-15",
+    "total": "24.13",
+    "tax": "1.94",
+    "currency": "EUR",
+    "paymentMethod": "cash"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "OCR layout dump in column order with decimal commas and A/B tax suffixes; double-height SUMME; weight and '2 Stk x 1,29' sub-lines with no price; Pfand and Rabatt lines; cash Geg. BAR 30,00 / Rückgeld 5,87; VAT table whose Gesamtbetrag row lists net 22,19 before tax and gross"
+}

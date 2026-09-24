@@ -1,0 +1,32 @@
+ARAL
+Aral Tankstelle
+Stresemannstraße 211
+22769 Hamburg
+Tel. 040 5558 3301
+USt-IdNr.: DE 319 804 562
+
+Beleg-Nr. 00S217   Kasse 1
+02.06.2026                  07:48
+
+Säule 05 Super E10
+  38,42 l x 1,789 EUR/l     68,73 EUR A
+Kaffee to go groß            3,49 EUR A
+Snickers 50g                 1,29 EUR B
+
+Gesamtbetrag                73,51 EUR
+
+EC-Karte (girocard)         73,51 EUR
+Kartenzahlung
+Karte: ############4412
+Terminal-ID: 64010237
+Trace-Nr.: 008812  Beleg 4471
+Autorisierung erfolgt
+
+MwSt-Satz    Netto     MwSt    Brutto
+A 19,0%      60,69    11,53     72,22
+B  7,0%       1,21     0,08      1,29
+
+PAYBACK Punkte heute: 36
+PAYBACK Kontostand:  2.418
+
+Vielen Dank und gute Fahrt!

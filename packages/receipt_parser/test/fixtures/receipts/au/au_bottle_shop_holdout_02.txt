@@ -1,0 +1,19 @@
+CELLAR 88
+Liquor & Bottle Shop
+88 Gouger St, Adelaide SA 5000
+ABN 71 612 409 385
+Liquor Licence 57612043
+Tue 21-Jul-2026 18:04   Trn 20931
+Coopers Pale Ale 6x375mL   24.99
+Old Man's Reserve Shiraz 750mL
+                           13.99
+Party Ice 5kg               4.50
+3 Items
+Subtotal                   43.48
+Rounding                   -0.03
+TOTAL                      43.45
+Cash                       50.00
+Change                      6.55
+GST Included                3.95
+Please drink responsibly.
+Under 25? No ID, no sale.

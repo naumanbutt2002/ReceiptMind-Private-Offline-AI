@@ -1,0 +1,30 @@
+       WELCOME TO
+        CHEVRON
+   Chevron #0207431
+   2250 E Camelback Rd
+   Phoenix, AZ 85016
+   (602) 555-0139
+
+03/02/2026         06:58:14
+TRAN# 9004187  INVOICE 0045219
+PUMP# 07
+
+SERVICE LEVEL: SELF
+PRODUCT: UNLD REGULAR
+GALLONS:            11.482
+PRICE/GAL:        $  3.499
+
+FUEL SALE         $ 40.18
+
+TOTAL             $ 40.18
+
+DEBIT
+CARD NUM: XXXXXXXXXXXX8093
+ENTRY: INSERTED
+AUTH#: 336210
+SEQ#: 00118
+RESP: APPROVED
+
+  Fuel prices include all
+     applicable taxes.
+  THANK YOU - COME AGAIN

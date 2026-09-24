@@ -1,0 +1,16 @@
+{
+  "options": { "defaultCurrency": "USD", "dateOrder": "mdy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "Luigi's Trattoria",
+    "date": "2026-07-18",
+    "total": "139.50",
+    "subtotal": "107.00",
+    "tax": "9.50",
+    "tip": "23.00",
+    "currency": "USD",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "Restaurant card slip: printed Total 116.50 before tip, handwritten TIP 23.00 and final TOTAL 139.50 on blank lines; suggested-gratuity table with percentages and amounts; NYC sales tax 8.875% added on top"
+}

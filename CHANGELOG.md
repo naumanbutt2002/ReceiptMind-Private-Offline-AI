@@ -14,3 +14,6 @@ and this project follows [Semantic Versioning](https://semver.org/).
 - Calendar-date type and currency table shared with the parser package.
 - On-device database (Drift, schema v1): receipts and categories, 7 default categories, search, month totals per currency.
 - Settings: default currency and date order from the device region, stored preferences override them.
+- Rule-based receipt parser: rebuilds rows from OCR layout, reads merchant, date, total, subtotal, tax (including VAT/MwSt
+  tables), tip, currency and payment method, with a confidence and reason per field and a validator for totals and dates.
+- English and German keyword lexicons, 28 synthetic receipt fixtures (AU, US, UK, DE) and an accuracy report tool.
