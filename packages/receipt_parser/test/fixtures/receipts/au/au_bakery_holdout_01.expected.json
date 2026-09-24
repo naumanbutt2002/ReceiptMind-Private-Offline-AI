@@ -1,0 +1,19 @@
+{
+  "options": {
+    "defaultCurrency": "AUD",
+    "dateOrder": "dmy",
+    "today": "2026-09-24"
+  },
+  "expected": {
+    "merchant": "Mick's Bread & Co",
+    "date": "2026-08-14",
+    "total": "41.82",
+    "subtotal": "41.20",
+    "tax": "1.18",
+    "currency": "AUD",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "holdout: apostrophe + ampersand in all-caps store name; card surcharge 1.5% (0.62) sits between subtotal and total and is included in the total; qty '2 @' lines under item names; ABN/phone/postcode digits; GST printed after payment"
+}

@@ -1,0 +1,14 @@
+{
+  "options": { "defaultCurrency": "GBP", "dateOrder": "dmy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "WHSmith",
+    "date": "2026-08-19",
+    "total": "44.16",
+    "tax": "5.33",
+    "currency": "GBP",
+    "paymentMethod": "cash"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "Date as '19-AUG-26'; total labelled BALANCE DUE (no TOTAL word); cash with CHANGE £5.84 and CASH £50.00 as the largest amount; OCR noise: stray '|' characters; S/Z VAT summary with zero-rated books and newspaper; long transaction barcode number"
+}

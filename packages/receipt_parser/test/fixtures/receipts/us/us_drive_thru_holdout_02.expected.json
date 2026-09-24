@@ -1,0 +1,19 @@
+{
+  "options": {
+    "defaultCurrency": "USD",
+    "dateOrder": "mdy",
+    "today": "2026-09-24"
+  },
+  "expected": {
+    "merchant": "Burger Barn",
+    "date": "2026-09-03",
+    "total": "21.27",
+    "subtotal": "19.97",
+    "tax": "1.30",
+    "currency": "USD",
+    "paymentMethod": "cash"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "holdout: date only as 'Sep 3, 2026 7:41 PM'; store name carries '#217' suffix that should be dropped; leading quantity '1' on item lines and modifier lines without prices; cash tendered 25.00 > total; survey code digits"
+}

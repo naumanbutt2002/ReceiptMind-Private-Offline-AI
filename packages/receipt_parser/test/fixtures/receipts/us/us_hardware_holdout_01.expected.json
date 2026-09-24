@@ -1,0 +1,19 @@
+{
+  "options": {
+    "defaultCurrency": "USD",
+    "dateOrder": "mdy",
+    "today": "2026-09-24"
+  },
+  "expected": {
+    "merchant": "Hank & Sons Hardware",
+    "date": "2026-08-11",
+    "total": "51.11",
+    "subtotal": "47.43",
+    "tax": "3.68",
+    "currency": "USD",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "holdout: two separate tax lines (state 1.90 + county 1.78 = 3.68) with percentages printed; 2-digit-year date 08/11/26 (mdy) plus a later return-by date 11/09/26 that is in the future; store # and SKU numbers; ampersand in name"
+}

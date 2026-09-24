@@ -1,0 +1,18 @@
+{
+  "options": {
+    "defaultCurrency": "EUR",
+    "dateOrder": "dmy",
+    "today": "2026-09-24"
+  },
+  "expected": {
+    "merchant": "Bäckerei Kröger & Töchter",
+    "date": "2026-09-03",
+    "total": "11.50",
+    "tax": "1.02",
+    "currency": "EUR",
+    "paymentMethod": "cash"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "holdout: date only as '03. September 2026'; Bar 20,00 + Rückgeld 8,50 (cash, tendered > total); two-rate MwSt table 7%/19% (tax = 0,57 + 0,45); umlauts + ampersand in name; 'à 0,95' unit price and price on its own line; Steuernummer with slashes; no subtotal"
+}

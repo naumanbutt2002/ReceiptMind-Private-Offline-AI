@@ -1,0 +1,14 @@
+{
+  "options": { "defaultCurrency": "GBP", "dateOrder": "dmy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "Esso",
+    "date": "2026-01-03",
+    "total": "61.19",
+    "tax": "10.20",
+    "currency": "GBP",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "Fuel priced in pence per litre (142.9 p/L); ambiguous dmy date 03/01/2026 (3 Jan); VAT summary printed after the payment block; alphanumeric auth code; Nectar points"
+}

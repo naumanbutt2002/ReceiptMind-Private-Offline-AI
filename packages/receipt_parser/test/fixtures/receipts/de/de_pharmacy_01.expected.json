@@ -1,0 +1,14 @@
+{
+  "options": { "defaultCurrency": "EUR", "dateOrder": "dmy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "Stadt-Apotheke am Markt",
+    "date": "2026-02-11",
+    "total": "19.22",
+    "tax": "2.90",
+    "currency": "EUR",
+    "paymentMethod": "cash"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "Cash sale: total labelled 'zu zahlen', 'Gegeben BAR 50,00' is the largest amount, Rückgeld 30,78; 'EUR' prefix before amounts; item name wrapped over two lines with the price on the second; discount with A suffix; savings sentence; mixed-case merchant name with hyphen; tax is the sum of the MwSt column (2,78 + 0,12)"
+}

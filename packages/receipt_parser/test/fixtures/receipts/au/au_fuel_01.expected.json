@@ -1,0 +1,14 @@
+{
+  "options": { "defaultCurrency": "AUD", "dateOrder": "dmy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "Shell",
+    "date": "2026-07-21",
+    "total": "86.49",
+    "tax": "7.86",
+    "currency": "AUD",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "OCR layout dump: prices come back as a separate right column after all item names; right boxes skewed ~5 px lower; double-height TOTAL; fuel line with litres and price per litre; GST-inclusive"
+}

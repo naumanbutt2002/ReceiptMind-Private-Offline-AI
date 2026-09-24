@@ -1,0 +1,14 @@
+{
+  "options": { "defaultCurrency": "GBP", "dateOrder": "dmy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "Boots",
+    "date": "2026-09-09",
+    "total": "32.43",
+    "tax": "4.97",
+    "currency": "GBP",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "OCR layout dump in column order; prices with VAT-code suffixes ('29.95 A', '2.60 Z'); voucher with £ inside the label; VAT summary (A 20% + Z 0%) as full-width lines after the columns; points balance with thousands separator"
+}

@@ -1,0 +1,35 @@
+{
+  "engineId": "mlkit-latin",
+  "imageWidth": 1000,
+  "imageHeight": 1500,
+  "lines": [
+    {"text": "SHELL", "box": {"left": 400, "top": 60, "right": 600, "bottom": 150}},
+    {"text": "Shell Parramatta", "box": {"left": 330, "top": 180, "right": 670, "bottom": 220}},
+    {"text": "285 Church St, Parramatta NSW 2150", "box": {"left": 180, "top": 235, "right": 820, "bottom": 275}},
+    {"text": "Ph (02) 9630 1184", "box": {"left": 340, "top": 290, "right": 660, "bottom": 330}},
+    {"text": "ABN 63 512 847 390", "box": {"left": 320, "top": 345, "right": 680, "bottom": 385}},
+    {"text": "TAX INVOICE", "box": {"left": 380, "top": 400, "right": 620, "bottom": 440}},
+    {"text": "21/07/2026 07:12   Trans: 88213", "box": {"left": 60, "top": 470, "right": 940, "bottom": 510}},
+
+    {"text": "Pump 04 Unleaded 91", "box": {"left": 60, "top": 560, "right": 440, "bottom": 600}},
+    {"text": "42.15L @ $1.899/L", "box": {"left": 90, "top": 615, "right": 420, "bottom": 655}},
+    {"text": "Mars Bar 47g", "box": {"left": 60, "top": 670, "right": 300, "bottom": 710}},
+    {"text": "Mount Franklin Water 600ml", "box": {"left": 60, "top": 725, "right": 560, "bottom": 765}},
+    {"text": "TOTAL", "box": {"left": 60, "top": 800, "right": 260, "bottom": 880}},
+    {"text": "GST INCLUDED IN TOTAL", "box": {"left": 60, "top": 905, "right": 500, "bottom": 945}},
+    {"text": "EFTPOS", "box": {"left": 60, "top": 980, "right": 200, "bottom": 1020}},
+
+    {"text": "80.04", "box": {"left": 800, "top": 565, "right": 940, "bottom": 605}},
+    {"text": "2.50", "box": {"left": 820, "top": 675, "right": 940, "bottom": 715}},
+    {"text": "3.95", "box": {"left": 820, "top": 730, "right": 940, "bottom": 770}},
+    {"text": "$86.49", "box": {"left": 700, "top": 805, "right": 940, "bottom": 885}},
+    {"text": "7.86", "box": {"left": 820, "top": 910, "right": 940, "bottom": 950}},
+    {"text": "86.49", "box": {"left": 800, "top": 985, "right": 940, "bottom": 1025}},
+
+    {"text": "VISA CREDIT", "box": {"left": 60, "top": 1080, "right": 300, "bottom": 1120}},
+    {"text": "**** **** **** 7730", "box": {"left": 60, "top": 1135, "right": 460, "bottom": 1175}},
+    {"text": "AUTH 339120  RRN 000512907741", "box": {"left": 60, "top": 1190, "right": 680, "bottom": 1230}},
+    {"text": "APPROVED", "box": {"left": 400, "top": 1260, "right": 600, "bottom": 1300}},
+    {"text": "Thank you for choosing Shell", "box": {"left": 220, "top": 1340, "right": 780, "bottom": 1380}}
+  ]
+}

@@ -1,0 +1,268 @@
+{
+  "engineId": "mlkit-latin",
+  "imageWidth": 1000,
+  "imageHeight": 2400,
+  "lines": [
+    {
+      "text": "Hammer & Nagel",
+      "box": {
+        "left": 250,
+        "top": 60,
+        "right": 750,
+        "bottom": 140
+      }
+    },
+    {
+      "text": "Ihr Baumarkt in Vaihingen",
+      "box": {
+        "left": 280,
+        "top": 150,
+        "right": 720,
+        "bottom": 190
+      }
+    },
+    {
+      "text": "Industriestraße 12",
+      "box": {
+        "left": 330,
+        "top": 200,
+        "right": 670,
+        "bottom": 240
+      }
+    },
+    {
+      "text": "70563 Stuttgart",
+      "box": {
+        "left": 360,
+        "top": 250,
+        "right": 640,
+        "bottom": 290
+      }
+    },
+    {
+      "text": "Tel. 0711 4589320",
+      "box": {
+        "left": 340,
+        "top": 300,
+        "right": 660,
+        "bottom": 340
+      }
+    },
+    {
+      "text": "USt-IdNr. DE287654321",
+      "box": {
+        "left": 300,
+        "top": 350,
+        "right": 700,
+        "bottom": 390
+      }
+    },
+    {
+      "text": "15.05.2026 16:48",
+      "box": {
+        "left": 60,
+        "top": 430,
+        "right": 380,
+        "bottom": 470
+      }
+    },
+    {
+      "text": "Kasse 02  Bon 3317",
+      "box": {
+        "left": 600,
+        "top": 430,
+        "right": 940,
+        "bottom": 470
+      }
+    },
+    {
+      "text": "EUR",
+      "box": {
+        "left": 860,
+        "top": 510,
+        "right": 940,
+        "bottom": 550
+      }
+    },
+    {
+      "text": "Schrauben 4x40 200St",
+      "box": {
+        "left": 60,
+        "top": 570,
+        "right": 460,
+        "bottom": 610
+      }
+    },
+    {
+      "text": "Silikon transp. 310ml",
+      "box": {
+        "left": 60,
+        "top": 620,
+        "right": 450,
+        "bottom": 660
+      }
+    },
+    {
+      "text": "2 x 5,99",
+      "box": {
+        "left": 100,
+        "top": 665,
+        "right": 260,
+        "bottom": 705
+      }
+    },
+    {
+      "text": "Malerrolle 25cm",
+      "box": {
+        "left": 60,
+        "top": 710,
+        "right": 360,
+        "bottom": 750
+      }
+    },
+    {
+      "text": "Abdeckfolie 4x5m",
+      "box": {
+        "left": 60,
+        "top": 760,
+        "right": 380,
+        "bottom": 800
+      }
+    },
+    {
+      "text": "6,49 A",
+      "box": {
+        "left": 800,
+        "top": 570,
+        "right": 940,
+        "bottom": 610
+      }
+    },
+    {
+      "text": "11,98 A",
+      "box": {
+        "left": 780,
+        "top": 620,
+        "right": 940,
+        "bottom": 660
+      }
+    },
+    {
+      "text": "8,95 A",
+      "box": {
+        "left": 800,
+        "top": 710,
+        "right": 940,
+        "bottom": 750
+      }
+    },
+    {
+      "text": "3,49 A",
+      "box": {
+        "left": 800,
+        "top": 760,
+        "right": 940,
+        "bottom": 800
+      }
+    },
+    {
+      "text": "SUMME",
+      "box": {
+        "left": 60,
+        "top": 840,
+        "right": 260,
+        "bottom": 890
+      }
+    },
+    {
+      "text": "Girocard",
+      "box": {
+        "left": 60,
+        "top": 900,
+        "right": 240,
+        "bottom": 940
+      }
+    },
+    {
+      "text": "30,91",
+      "box": {
+        "left": 800,
+        "top": 840,
+        "right": 940,
+        "bottom": 890
+      }
+    },
+    {
+      "text": "30,91",
+      "box": {
+        "left": 800,
+        "top": 900,
+        "right": 940,
+        "bottom": 940
+      }
+    },
+    {
+      "text": "Satz  Netto  MwSt  Brutto",
+      "box": {
+        "left": 60,
+        "top": 980,
+        "right": 940,
+        "bottom": 1020
+      }
+    },
+    {
+      "text": "A 19%  25,97  4,94  30,91",
+      "box": {
+        "left": 60,
+        "top": 1030,
+        "right": 940,
+        "bottom": 1070
+      }
+    },
+    {
+      "text": "Terminal-ID 53811726",
+      "box": {
+        "left": 60,
+        "top": 1110,
+        "right": 500,
+        "bottom": 1150
+      }
+    },
+    {
+      "text": "Beleg-Nr. 0412  Trace 004187",
+      "box": {
+        "left": 60,
+        "top": 1160,
+        "right": 600,
+        "bottom": 1200
+      }
+    },
+    {
+      "text": "Betrag EUR 30,91",
+      "box": {
+        "left": 60,
+        "top": 1210,
+        "right": 500,
+        "bottom": 1250
+      }
+    },
+    {
+      "text": "Zahlung erfolgt",
+      "box": {
+        "left": 60,
+        "top": 1260,
+        "right": 400,
+        "bottom": 1300
+      }
+    },
+    {
+      "text": "Vielen Dank für Ihren Einkauf!",
+      "box": {
+        "left": 220,
+        "top": 1360,
+        "right": 780,
+        "bottom": 1400
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "options": { "defaultCurrency": "EUR", "dateOrder": "dmy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "dm-drogerie markt",
+    "date": "2026-09-07",
+    "total": "28.34",
+    "tax": "4.22",
+    "currency": "EUR",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "Lower-case merchant name with a hyphen; tax codes '1'/'2' instead of A/B, so prices end with a bare digit ('3,75 1'); quantity line '3 x 1,25' printed above its item; SUMME EUR; EC-Karte/girocard card slip repeating the amount; dd.mm.yy date in the footer next to store/till numbers; tax is the sum of the MwSt column (4,01 + 0,21)"
+}
