@@ -1,9 +1,8 @@
 /// Rule-based receipt parser for OCR text.
 ///
 /// Pure Dart: no Flutter or plugin imports, so it can be tested with
-/// `dart test` and reused by any OCR engine. The parser itself arrives in
-/// milestone M2 (see docs/PLAN.md §8); the shared value types below are used
-/// by the app too.
+/// `dart test` and reused by any OCR engine. The parser itself is still in
+/// progress; the shared value types below are used by the app too.
 library;
 
 export 'src/model/date_order.dart';

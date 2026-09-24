@@ -18,10 +18,7 @@ By taking part you agree to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 lib/                         Flutter app (feature-first: app/, core/, features/)
 packages/receipt_parser/     Pure-Dart rule parser (no Flutter imports) + receipt fixtures
 test/                        App tests (mirror lib/)
-docs/                        Plan, decisions, QA reports
 ```
-
-The architecture and the reasons behind it are in [docs/PLAN.md](docs/PLAN.md).
 
 ## Checks to run before a pull request
 

@@ -9,7 +9,7 @@
 Your receipts never leave your phone.
 
 > 🚧 **Early development.** v0.1 (scan → review → track → export) is being built in the open.
-> See the [implementation plan](docs/PLAN.md) and the [roadmap](#roadmap).
+> See the [roadmap](#roadmap) for what's coming.
 
 ## Privacy
 
