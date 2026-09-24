@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <!-- ReceiptMind is offline by design: the release build must not be able to reach the
          network, including through permissions that plugins (e.g. ML Kit) merge in.
-         CI checks the built APK for this. Debug and profile builds keep INTERNET for
+         Check the built APK with `aapt2 dump permissions`. Debug and profile builds keep INTERNET for
          hot reload and the Dart VM service. -->
     <uses-permission android:name="android.permission.INTERNET" tools:node="remove"/>
 </manifest>

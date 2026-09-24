@@ -7,7 +7,7 @@ plugins {
 }
 
 // Release signing is read from android/key.properties (never committed).
-// When it is missing (contributors, PR CI), release builds fall back to debug signing.
+// When it is missing (contributors, local builds), release builds fall back to debug signing.
 val keystoreProperties = Properties()
 val keystorePropertiesFile = rootProject.file("key.properties")
 if (keystorePropertiesFile.exists()) {

@@ -39,8 +39,6 @@ flutter gen-l10n
 dart run build_runner build
 ```
 
-CI fails when generated files are out of date.
-
 ## Commits and pull requests
 
 - Use [Conventional Commits](https://www.conventionalcommits.org/): `feat(parser): detect German VAT lines`.

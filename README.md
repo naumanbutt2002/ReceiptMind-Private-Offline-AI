@@ -1,6 +1,5 @@
 # ReceiptMind: Private Offline AI Receipt Scanner
 
-[![CI](https://github.com/naumanbutt2002/ReceiptMind-Private-Offline-AI/actions/workflows/ci.yml/badge.svg)](https://github.com/naumanbutt2002/ReceiptMind-Private-Offline-AI/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Flutter](https://img.shields.io/badge/Flutter-3.47-02569B?logo=flutter)](https://flutter.dev)
 
@@ -15,7 +14,7 @@ Your receipts never leave your phone.
 
 - Receipt photos, recognised text and your spending data are stored **only on your device**.
 - The Android release build has **no `INTERNET` permission**, so the app cannot send anything anywhere.
-  CI checks every release APK for this, and you can verify it yourself with `aapt2 dump permissions`.
+  You can verify it yourself with `aapt2 dump permissions`.
 - Android cloud backup is turned off, so receipts are not copied to Google Drive behind your back.
   An explicit, encrypted backup you control is planned for v0.3.
 - No analytics and no crash reporting.
