@@ -1,0 +1,19 @@
+{
+  "@@locale": "en",
+  "appTitle": "ReceiptMind",
+  "@appTitle": {"description": "App name shown in the app bar and task switcher."},
+  "navReceipts": "Receipts",
+  "@navReceipts": {"description": "Bottom navigation label for the receipt list."},
+  "navSettings": "Settings",
+  "@navSettings": {"description": "Bottom navigation label for settings."},
+  "receiptsEmptyTitle": "No receipts yet",
+  "@receiptsEmptyTitle": {"description": "Title of the empty state on the receipt list."},
+  "receiptsEmptyBody": "Scanning is coming soon. Everything you add stays on this phone.",
+  "@receiptsEmptyBody": {"description": "Body of the empty state on the receipt list."},
+  "settingsAbout": "About ReceiptMind",
+  "@settingsAbout": {"description": "Settings tile that opens the about dialog."},
+  "settingsAboutSubtitle": "Private, offline AI receipt scanner",
+  "@settingsAboutSubtitle": {"description": "Subtitle of the about tile."},
+  "aboutLegalese": "Licensed under the Apache License 2.0. Your receipts never leave this device.",
+  "@aboutLegalese": {"description": "Legal line in the about dialog."}
+}

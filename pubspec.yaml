@@ -1,0 +1,52 @@
+name: receipt_mind
+description: "Private, offline AI receipt scanner and expense tracker."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.13.0
+  flutter: ">=3.47.0"
+
+workspace:
+  - packages/receipt_parser
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  receipt_parser:
+    path: packages/receipt_parser
+
+  cunning_document_scanner: ^3.0.3
+  collection: ^1.19.1
+  csv: ^8.0.0
+  drift: ^2.35.0
+  drift_flutter: ^0.3.1
+  flutter_image_compress: ^2.5.1
+  flutter_riverpod: ^3.4.3
+  go_router: ^18.0.1
+  google_mlkit_text_recognition: ^0.17.1
+  intl: any
+  package_info_plus: ^10.2.1
+  path: ^1.9.1
+  path_provider: ^2.1.6
+  riverpod_annotation: ^4.0.7
+  share_plus: ^13.3.0
+  shared_preferences: ^2.5.5
+  uuid: ^4.6.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  build_runner: ^2.16.1
+  drift_dev: ^2.35.0
+  flutter_lints: ^6.0.0
+  mocktail: ^1.0.5
+  riverpod_generator: ^4.0.9
+
+flutter:
+  uses-material-design: true
+  generate: true

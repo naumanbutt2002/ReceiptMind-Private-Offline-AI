@@ -1,0 +1,14 @@
+name: receipt_parser
+description: Rule-based receipt parser for OCR text (merchant, date, totals, tax, currency). Pure Dart.
+version: 0.1.0
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ^3.13.0
+
+dependencies:
+  collection: ^1.19.1
+
+dev_dependencies:
+  test: ^1.31.1  # capped by flutter_test's test_api pin (shared workspace resolution)

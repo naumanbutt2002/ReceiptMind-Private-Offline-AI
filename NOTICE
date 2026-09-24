@@ -1,0 +1,11 @@
+ReceiptMind: Private Offline AI Receipt Scanner
+Copyright 2026 Muhammad Nauman
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This product depends on third-party packages that carry their own licenses;
+the app lists them under Settings → About → Licenses.
+
+Google ML Kit (used for on-device text recognition and document scanning on
+Android and iOS) is closed-source and is provided under Google's own terms:
+https://developers.google.com/ml-kit/terms
