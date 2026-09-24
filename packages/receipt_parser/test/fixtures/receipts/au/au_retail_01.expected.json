@@ -1,0 +1,14 @@
+{
+  "options": { "defaultCurrency": "AUD", "dateOrder": "dmy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "Kmart",
+    "date": "2026-04-26",
+    "total": "79.50",
+    "tax": "7.23",
+    "currency": "AUD",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "OCR noise: 'T0TAL' with a zero and 'S' for 5 in the phone number; written date 'Sun 26 Apr 2026' plus a later returns-until date 26/05/2026; 8-digit SKU prefixes; long barcode footer"
+}

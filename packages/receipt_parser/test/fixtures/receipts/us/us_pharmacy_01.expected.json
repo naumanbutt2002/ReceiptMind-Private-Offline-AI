@@ -1,0 +1,15 @@
+{
+  "options": { "defaultCurrency": "USD", "dateOrder": "mdy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "Walgreens",
+    "date": "2026-05-19",
+    "total": "51.55",
+    "subtotal": "50.04",
+    "tax": "1.51",
+    "currency": "USD",
+    "paymentMethod": "cash"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "Cash sale: CASH 60.00 larger than TOTAL, CHANGE 8.45; sales tax 8.875% only on 'T' items (OTC medicine exempt); coupon line; rewards cash balance amounts; long RFN number; store number and register digits before the mdy date"
+}

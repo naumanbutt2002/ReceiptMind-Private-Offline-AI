@@ -1,0 +1,18 @@
+{
+  "options": {
+    "defaultCurrency": "EUR",
+    "dateOrder": "dmy",
+    "today": "2026-09-24"
+  },
+  "expected": {
+    "merchant": "Hammer & Nagel",
+    "date": "2026-05-15",
+    "total": "30.91",
+    "tax": "4.94",
+    "currency": "EUR",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "holdout: OCR layout dump in column order (all item names, then all prices; totals block likewise) so labels and amounts must be re-paired by box geometry; girocard payment; single 19% MwSt row; tagline 'Ihr Baumarkt in Vaihingen' under the name; '2 x 5,99' qty line has no price of its own; 4x40/200St/310ml/4x5m digits in names"
+}

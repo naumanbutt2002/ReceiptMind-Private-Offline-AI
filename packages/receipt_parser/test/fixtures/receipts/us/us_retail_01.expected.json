@@ -1,0 +1,15 @@
+{
+  "options": { "defaultCurrency": "USD", "dateOrder": "mdy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "Target",
+    "date": "2026-09-05",
+    "total": "57.36",
+    "subtotal": "53.28",
+    "tax": "4.08",
+    "currency": "USD",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "OCR noise: '12. 50' split price and a stray '|'; slogan line under the store name; tax line also contains the taxable base '$49.49'; mdy date 09/05/2026 (5 Sep, not 9 May); 9-digit DPCIs; long REC# number"
+}

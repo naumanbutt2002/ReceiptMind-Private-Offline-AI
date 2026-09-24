@@ -1,0 +1,19 @@
+{
+  "options": {
+    "defaultCurrency": "GBP",
+    "dateOrder": "dmy",
+    "today": "2026-09-24"
+  },
+  "expected": {
+    "merchant": "St. Mary's Garden Centre",
+    "date": "2026-04-18",
+    "total": "36.42",
+    "subtotal": "40.47",
+    "tax": "6.07",
+    "currency": "GBP",
+    "paymentMethod": "cash"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "holdout: period + apostrophe in store name; loyalty discount after SUBTOTAL so subtotal (40.47) > total (36.42); VAT given inline on one line; date as 'Sat 18 Apr 2026'; cash 40.00 tendered is the largest amount; negative amount written -£4.05"
+}

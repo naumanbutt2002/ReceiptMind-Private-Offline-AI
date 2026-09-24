@@ -1,0 +1,15 @@
+{
+  "options": { "defaultCurrency": "GBP", "dateOrder": "dmy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "The Crown & Anchor",
+    "date": "2026-02-27",
+    "total": "62.00",
+    "subtotal": "62.00",
+    "tax": "10.33",
+    "currency": "GBP",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "Pub bill with ampersand in the name; VAT summary row repeats the gross 62.00; 'Service is not included' but no tip; AMEX 15-digit masked card; table/covers/bill numbers"
+}

@@ -1,0 +1,15 @@
+{
+  "options": { "defaultCurrency": "USD", "dateOrder": "mdy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "Kroger",
+    "date": "2026-04-11",
+    "total": "39.48",
+    "subtotal": "37.72",
+    "tax": "1.76",
+    "currency": "USD",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "OCR layout dump in column order; total labelled '**** BALANCE' while 'TOTAL SAVINGS $1.00' is a trap; trailing-minus discount '1.00-'; 'T' taxable suffix; mdy date 04/11/26 only in the footer"
+}

@@ -1,0 +1,13 @@
+{
+  "options": { "defaultCurrency": "USD", "dateOrder": "mdy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "Chevron",
+    "date": "2026-03-02",
+    "total": "40.18",
+    "currency": "USD",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "Pay-at-pump slip: 'WELCOME TO' above the brand, ambiguous mdy date 03/02/2026 (2 Mar), gallons and $/gal with 3 decimals, '$ 40.18' with space after the dollar sign, no tax line, time with seconds"
+}

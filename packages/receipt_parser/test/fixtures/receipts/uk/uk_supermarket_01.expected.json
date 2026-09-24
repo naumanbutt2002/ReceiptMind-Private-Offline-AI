@@ -1,0 +1,15 @@
+{
+  "options": { "defaultCurrency": "GBP", "dateOrder": "dmy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "Tesco Express",
+    "date": "2026-06-14",
+    "total": "18.81",
+    "subtotal": "18.81",
+    "tax": "1.45",
+    "currency": "GBP",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "VAT-inclusive with a 'VAT RATE NET VAT' summary (A 20% / Z 0%); store name split over two lines 'TESCO' / 'Express'; '£' omitted on item lines; Clubcard price discount; TOTAL TO PAY; CHANGE DUE £0.00; date dd/mm/yy only in the footer run-on with till numbers"
+}

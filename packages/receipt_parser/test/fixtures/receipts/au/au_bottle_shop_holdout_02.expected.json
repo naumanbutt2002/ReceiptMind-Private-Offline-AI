@@ -1,0 +1,19 @@
+{
+  "options": {
+    "defaultCurrency": "AUD",
+    "dateOrder": "dmy",
+    "today": "2026-09-24"
+  },
+  "expected": {
+    "merchant": "Cellar 88",
+    "date": "2026-07-21",
+    "total": "43.45",
+    "subtotal": "43.48",
+    "tax": "3.95",
+    "currency": "AUD",
+    "paymentMethod": "cash"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "holdout: store name is a word + number (and street number 88 repeats it); date as 'Tue 21-Jul-2026'; cash rounding -0.03 so subtotal != total; Cash 50.00 tendered is the largest amount; volumes 6x375mL/750mL/5kg in item names; apostrophe in an item name"
+}

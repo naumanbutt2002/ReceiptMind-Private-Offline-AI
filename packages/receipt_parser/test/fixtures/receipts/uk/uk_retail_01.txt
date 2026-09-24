@@ -1,0 +1,29 @@
+WHSmith
+Manchester Piccadilly Station
+Unit 4, Station Approach
+Manchester M60 7RA
+VAT Reg: GB 239 5516 82
+
+19-AUG-26   17:36   STORE 1452
+TILL 02   TRANS 008817   OP 330
+
+THE GUARDIAN                  2.20  Z
+PBK THE SILENT COAST          9.99  Z
+| MOLESKINE NOTEBOOK A5      16.99  S
+PILOT G2 GEL PENS 4PK         6.99  S
+DURACELL PLUS AA 8PK          9.99  S
+  OFFER: DURACELL £2 OFF     -2.00
+
+5 ITEMS
+BALANCE DUE                 £44.16
+CASH                        £50.00 |
+CHANGE                       £5.84
+
+VAT      RATE     NET      VAT
+S       20.0%   26.64     5.33
+Z        0.0%   12.19     0.00
+
+Exchange or refund within 28 days
+with this receipt.
+Thank you for shopping at WHSmith
+0014520208817190826

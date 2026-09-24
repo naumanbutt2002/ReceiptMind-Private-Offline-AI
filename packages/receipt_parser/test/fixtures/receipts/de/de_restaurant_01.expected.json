@@ -1,0 +1,14 @@
+{
+  "options": { "defaultCurrency": "EUR", "dateOrder": "dmy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "Gasthaus Zum Löwen",
+    "date": "2026-03-21",
+    "total": "50.40",
+    "tax": "4.57",
+    "currency": "EUR",
+    "paymentMethod": "card"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "Restaurant bill with drinks at 19% (A) and food at 7% (B); two-digit year 21.03.26 plus ISO TSE timestamps; 'à 4,80' unit price with the amount wrapped to the next line; OCR noise '6, 50'; umlauts in merchant name; Steuernummer line; no tip; tax is the sum of the MwSt column (2,16 + 2,41)"
+}

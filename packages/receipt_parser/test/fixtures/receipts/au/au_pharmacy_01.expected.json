@@ -1,0 +1,15 @@
+{
+  "options": { "defaultCurrency": "AUD", "dateOrder": "dmy", "today": "2026-09-24" },
+  "expected": {
+    "merchant": "Bayside Discount Chemist",
+    "date": "2026-05-05",
+    "total": "51.65",
+    "subtotal": "51.66",
+    "tax": "2.09",
+    "currency": "AUD",
+    "paymentMethod": "cash"
+  },
+  "xfail": [],
+  "source": "synthetic",
+  "notes": "Cash sale with ROUNDING -0.01 so TOTAL differs from SUBTOTAL; CASH 60.00 is the largest amount; mixed GST-free/GST items; PBS script number; points balance"
+}

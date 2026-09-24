@@ -1,0 +1,39 @@
+{
+  "engineId": "mlkit-latin",
+  "imageWidth": 1000,
+  "imageHeight": 1550,
+  "lines": [
+    {"text": "Boots", "box": {"left": 400, "top": 50, "right": 600, "bottom": 140}},
+    {"text": "Boots UK - Leeds Briggate", "box": {"left": 260, "top": 165, "right": 740, "bottom": 205}},
+    {"text": "Tel: 0113 555 0142", "box": {"left": 330, "top": 220, "right": 670, "bottom": 260}},
+    {"text": "VAT Reg No. 482 7719 36", "box": {"left": 290, "top": 275, "right": 710, "bottom": 315}},
+    {"text": "09/09/2026 12:40  Till 3  Trans 4417", "box": {"left": 110, "top": 345, "right": 890, "bottom": 385}},
+
+    {"text": "No7 Protect & Perfect Serum 30ml", "box": {"left": 60, "top": 440, "right": 640, "bottom": 480}},
+    {"text": "Boots Paracetamol 16 Caplets", "box": {"left": 60, "top": 495, "right": 600, "bottom": 535}},
+    {"text": "Rennie Peppermint 48 Tablets", "box": {"left": 60, "top": 550, "right": 600, "bottom": 590}},
+    {"text": "Egg Mayo Sandwich", "box": {"left": 60, "top": 605, "right": 400, "bottom": 645}},
+    {"text": "No7 £5 Off Voucher", "box": {"left": 100, "top": 660, "right": 460, "bottom": 700}},
+    {"text": "TOTAL", "box": {"left": 60, "top": 740, "right": 240, "bottom": 780}},
+    {"text": "Visa Contactless", "box": {"left": 60, "top": 795, "right": 380, "bottom": 835}},
+    {"text": "Change", "box": {"left": 60, "top": 850, "right": 200, "bottom": 890}},
+
+    {"text": "29.95 A", "box": {"left": 770, "top": 440, "right": 940, "bottom": 480}},
+    {"text": "0.59 A", "box": {"left": 790, "top": 495, "right": 940, "bottom": 535}},
+    {"text": "4.29 A", "box": {"left": 790, "top": 550, "right": 940, "bottom": 590}},
+    {"text": "2.60 Z", "box": {"left": 790, "top": 605, "right": 940, "bottom": 645}},
+    {"text": "-5.00", "box": {"left": 810, "top": 660, "right": 940, "bottom": 700}},
+    {"text": "£32.43", "box": {"left": 790, "top": 740, "right": 940, "bottom": 780}},
+    {"text": "£32.43", "box": {"left": 790, "top": 795, "right": 940, "bottom": 835}},
+    {"text": "£0.00", "box": {"left": 810, "top": 850, "right": 940, "bottom": 890}},
+
+    {"text": "VAT RATE   NET    VAT", "box": {"left": 60, "top": 930, "right": 600, "bottom": 970}},
+    {"text": "A 20%    24.86   4.97", "box": {"left": 60, "top": 985, "right": 600, "bottom": 1025}},
+    {"text": "Z 0%      2.60   0.00", "box": {"left": 60, "top": 1040, "right": 600, "bottom": 1080}},
+    {"text": "Advantage Card ****5520", "box": {"left": 60, "top": 1120, "right": 520, "bottom": 1160}},
+    {"text": "Points earned 128   Balance 2,340", "box": {"left": 60, "top": 1175, "right": 720, "bottom": 1215}},
+    {"text": "Visa ************3317  Auth 552901", "box": {"left": 60, "top": 1255, "right": 760, "bottom": 1295}},
+    {"text": "Thank you for shopping at Boots", "box": {"left": 200, "top": 1335, "right": 800, "bottom": 1375}},
+    {"text": "Refunds within 35 days with receipt", "box": {"left": 170, "top": 1390, "right": 830, "bottom": 1430}}
+  ]
+}

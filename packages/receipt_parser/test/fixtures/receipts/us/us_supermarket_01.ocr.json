@@ -1,0 +1,48 @@
+{
+  "engineId": "mlkit-latin",
+  "imageWidth": 1000,
+  "imageHeight": 1800,
+  "lines": [
+    {"text": "Kroger", "box": {"left": 380, "top": 50, "right": 620, "bottom": 140}},
+    {"text": "Kroger Marketplace", "box": {"left": 320, "top": 165, "right": 680, "bottom": 205}},
+    {"text": "3417 N High St", "box": {"left": 370, "top": 220, "right": 630, "bottom": 260}},
+    {"text": "Columbus, OH 43214", "box": {"left": 340, "top": 275, "right": 660, "bottom": 315}},
+    {"text": "Store (614) 555-0187", "box": {"left": 300, "top": 330, "right": 700, "bottom": 370}},
+    {"text": "Pharmacy (614) 555-0192", "box": {"left": 270, "top": 385, "right": 730, "bottom": 425}},
+
+    {"text": "KRO WHOLE MILK GAL", "box": {"left": 60, "top": 490, "right": 420, "bottom": 530}},
+    {"text": "BANANAS", "box": {"left": 60, "top": 545, "right": 240, "bottom": 585}},
+    {"text": "2.45 lb @ 0.60 /lb", "box": {"left": 100, "top": 600, "right": 440, "bottom": 640}},
+    {"text": "SIMPLE TRUTH EGGS 12CT", "box": {"left": 60, "top": 655, "right": 500, "bottom": 695}},
+    {"text": "CHEERIOS 18OZ", "box": {"left": 60, "top": 710, "right": 330, "bottom": 750}},
+    {"text": "SC KROGER SAVINGS", "box": {"left": 100, "top": 765, "right": 460, "bottom": 805}},
+    {"text": "TIDE PODS 42CT", "box": {"left": 60, "top": 820, "right": 340, "bottom": 860}},
+    {"text": "BOUNTY PAPER TWL 6RL", "box": {"left": 60, "top": 875, "right": 460, "bottom": 915}},
+    {"text": "SUBTOTAL", "box": {"left": 60, "top": 950, "right": 280, "bottom": 990}},
+    {"text": "TAX", "box": {"left": 60, "top": 1005, "right": 150, "bottom": 1045}},
+    {"text": "**** BALANCE", "box": {"left": 60, "top": 1060, "right": 340, "bottom": 1100}},
+    {"text": "VISA", "box": {"left": 60, "top": 1135, "right": 160, "bottom": 1175}},
+    {"text": "CHANGE", "box": {"left": 60, "top": 1190, "right": 210, "bottom": 1230}},
+
+    {"text": "3.49", "box": {"left": 820, "top": 490, "right": 940, "bottom": 530}},
+    {"text": "1.47", "box": {"left": 820, "top": 545, "right": 940, "bottom": 585}},
+    {"text": "4.29", "box": {"left": 820, "top": 655, "right": 940, "bottom": 695}},
+    {"text": "5.99", "box": {"left": 820, "top": 710, "right": 940, "bottom": 750}},
+    {"text": "1.00-", "box": {"left": 810, "top": 765, "right": 940, "bottom": 805}},
+    {"text": "13.99 T", "box": {"left": 760, "top": 820, "right": 940, "bottom": 860}},
+    {"text": "9.49 T", "box": {"left": 780, "top": 875, "right": 940, "bottom": 915}},
+    {"text": "37.72", "box": {"left": 800, "top": 950, "right": 940, "bottom": 990}},
+    {"text": "1.76", "box": {"left": 820, "top": 1005, "right": 940, "bottom": 1045}},
+    {"text": "39.48", "box": {"left": 800, "top": 1060, "right": 940, "bottom": 1100}},
+    {"text": "39.48", "box": {"left": 800, "top": 1135, "right": 940, "bottom": 1175}},
+    {"text": "0.00", "box": {"left": 820, "top": 1190, "right": 940, "bottom": 1230}},
+
+    {"text": "VISA ************2206", "box": {"left": 60, "top": 1270, "right": 500, "bottom": 1310}},
+    {"text": "REF# 812244  AUTH# 04417C", "box": {"left": 60, "top": 1325, "right": 560, "bottom": 1365}},
+    {"text": "TOTAL SAVINGS $1.00", "box": {"left": 300, "top": 1400, "right": 700, "bottom": 1440}},
+    {"text": "Fuel Points Earned Today: 39", "box": {"left": 200, "top": 1455, "right": 800, "bottom": 1495}},
+    {"text": "Total April Fuel Points: 612", "box": {"left": 200, "top": 1510, "right": 800, "bottom": 1550}},
+    {"text": "Thank you for shopping Kroger", "box": {"left": 220, "top": 1580, "right": 780, "bottom": 1620}},
+    {"text": "04/11/26 10:23am 406 06 118 5519", "box": {"left": 160, "top": 1650, "right": 840, "bottom": 1690}}
+  ]
+}
