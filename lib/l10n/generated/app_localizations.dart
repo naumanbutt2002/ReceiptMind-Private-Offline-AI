@@ -141,6 +141,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Licensed under the Apache License 2.0. Your receipts never leave this device.'**
   String get aboutLegalese;
+
+  /// Settings section header for receipt defaults.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt defaults'**
+  String get settingsSectionReceipts;
+
+  /// Settings section header for app information.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get settingsSectionAbout;
+
+  /// Settings tile: currency used for new receipts.
+  ///
+  /// In en, this message translates to:
+  /// **'Default currency'**
+  String get settingsDefaultCurrency;
+
+  /// Subtitle showing the default currency code and a formatted example amount.
+  ///
+  /// In en, this message translates to:
+  /// **'{code} · for example {example}'**
+  String settingsDefaultCurrencyValue(String code, String example);
+
+  /// Settings tile: how dates are read and shown.
+  ///
+  /// In en, this message translates to:
+  /// **'Date format'**
+  String get settingsDateFormat;
+
+  /// Subtitle: date order name plus today's date as an example.
+  ///
+  /// In en, this message translates to:
+  /// **'{order} · {example}'**
+  String dateOrderValue(String order, String example);
+
+  /// Date order option.
+  ///
+  /// In en, this message translates to:
+  /// **'Day / month / year'**
+  String get dateOrderDmy;
+
+  /// Date order option.
+  ///
+  /// In en, this message translates to:
+  /// **'Month / day / year'**
+  String get dateOrderMdy;
+
+  /// Date order option.
+  ///
+  /// In en, this message translates to:
+  /// **'Year / month / day'**
+  String get dateOrderYmd;
+
+  /// Settings tile for receipt categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get settingsCategories;
+
+  /// Number of receipt categories.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 category} other{{count} categories}}'**
+  String settingsCategoriesCount(int count);
 }
 
 class _AppLocalizationsDelegate

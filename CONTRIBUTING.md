@@ -39,7 +39,7 @@ If you change a Riverpod provider, a Drift table or `lib/l10n/app_en.arb`, regen
 
 ```bash
 flutter gen-l10n
-dart run build_runner build -d
+dart run build_runner build
 ```
 
 CI fails when generated files are out of date.

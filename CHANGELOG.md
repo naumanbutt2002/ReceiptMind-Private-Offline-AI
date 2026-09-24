@@ -11,3 +11,7 @@ and this project follows [Semantic Versioning](https://semver.org/).
   app shell with Receipts and Settings tabs, light/dark theme, localization setup.
 - Release builds ship without the Android `INTERNET` permission; Android cloud backup is off.
 - CI: format, generated-code, analyze and test checks; release APK permission check; iOS build.
+- Money type with exact minor units, locale-aware formatting and input parsing (USD, EUR, JPY, KWD, …).
+- Calendar-date type and currency table shared with the parser package.
+- On-device database (Drift, schema v1): receipts and categories, 7 default categories, search, month totals per currency.
+- Settings: default currency and date order from the device region, stored preferences override them.

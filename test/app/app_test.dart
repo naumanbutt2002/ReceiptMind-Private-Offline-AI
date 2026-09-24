@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:receipt_mind/app/app.dart';
+import 'package:receipt_mind/core/db/app_database.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../helpers/test_app.dart';
+
+Finder navItem(String label) =>
+    find.descendant(of: find.byType(NavigationBar), matching: find.text(label));
 
 void main() {
-  setUp(() {
+  late SharedPreferencesWithCache prefs;
+  late AppDatabase db;
+
+  setUpAll(initializeDateFormatting);
+
+  setUp(() async {
+    prefs = await inMemoryPrefs();
+    db = inMemoryDatabase();
+    addTearDown(db.close);
     PackageInfo.setMockInitialValues(
       appName: 'ReceiptMind',
       packageName: 'io.github.naumanbutt2002.receiptmind',
@@ -16,7 +30,7 @@ void main() {
   });
 
   Future<void> pumpApp(WidgetTester tester) async {
-    await tester.pumpWidget(const ProviderScope(child: ReceiptMindApp()));
+    await tester.pumpWidget(testApp(prefs: prefs, db: db));
     await tester.pumpAndSettle();
   }
 
@@ -34,18 +48,18 @@ void main() {
   ) async {
     await pumpApp(tester);
 
-    await tester.tap(find.text('Settings'));
+    await tester.tap(navItem('Settings'));
     await tester.pumpAndSettle();
     expect(find.text('About ReceiptMind'), findsOneWidget);
 
-    await tester.tap(find.text('Receipts'));
+    await tester.tap(navItem('Receipts'));
     await tester.pumpAndSettle();
     expect(find.text('No receipts yet'), findsOneWidget);
   });
 
   testWidgets('system back on settings returns to receipts', (tester) async {
     await pumpApp(tester);
-    await tester.tap(find.text('Settings'));
+    await tester.tap(navItem('Settings'));
     await tester.pumpAndSettle();
 
     final handled = await tester.binding.handlePopRoute();
@@ -57,7 +71,7 @@ void main() {
 
   testWidgets('about dialog shows the license line', (tester) async {
     await pumpApp(tester);
-    await tester.tap(find.text('Settings'));
+    await tester.tap(navItem('Settings'));
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('About ReceiptMind'));

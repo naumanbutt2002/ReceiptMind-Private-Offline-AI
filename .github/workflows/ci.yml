@@ -34,11 +34,11 @@ jobs:
       - name: Check generated code is up to date
         run: |
           flutter gen-l10n
-          dart run build_runner build -d
+          dart run build_runner build
           if [ -n "$(git status --porcelain)" ]; then
             git status --porcelain
             git diff
-            echo "::error::Generated code is stale. Run 'flutter gen-l10n' and 'dart run build_runner build -d', then commit."
+            echo "::error::Generated code is stale. Run 'flutter gen-l10n' and 'dart run build_runner build', then commit."
             exit 1
           fi
       - run: flutter analyze

@@ -34,4 +34,49 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get aboutLegalese =>
       'Licensed under the Apache License 2.0. Your receipts never leave this device.';
+
+  @override
+  String get settingsSectionReceipts => 'Receipt defaults';
+
+  @override
+  String get settingsSectionAbout => 'About';
+
+  @override
+  String get settingsDefaultCurrency => 'Default currency';
+
+  @override
+  String settingsDefaultCurrencyValue(String code, String example) {
+    return '$code · for example $example';
+  }
+
+  @override
+  String get settingsDateFormat => 'Date format';
+
+  @override
+  String dateOrderValue(String order, String example) {
+    return '$order · $example';
+  }
+
+  @override
+  String get dateOrderDmy => 'Day / month / year';
+
+  @override
+  String get dateOrderMdy => 'Month / day / year';
+
+  @override
+  String get dateOrderYmd => 'Year / month / day';
+
+  @override
+  String get settingsCategories => 'Categories';
+
+  @override
+  String settingsCategoriesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count categories',
+      one: '1 category',
+    );
+    return '$_temp0';
+  }
 }

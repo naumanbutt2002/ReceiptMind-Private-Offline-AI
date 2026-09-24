@@ -1,19 +1,104 @@
 {
   "@@locale": "en",
   "appTitle": "ReceiptMind",
-  "@appTitle": {"description": "App name shown in the app bar and task switcher."},
+  "@appTitle": {
+    "description": "App name shown in the app bar and task switcher."
+  },
   "navReceipts": "Receipts",
-  "@navReceipts": {"description": "Bottom navigation label for the receipt list."},
+  "@navReceipts": {
+    "description": "Bottom navigation label for the receipt list."
+  },
   "navSettings": "Settings",
-  "@navSettings": {"description": "Bottom navigation label for settings."},
+  "@navSettings": {
+    "description": "Bottom navigation label for settings."
+  },
   "receiptsEmptyTitle": "No receipts yet",
-  "@receiptsEmptyTitle": {"description": "Title of the empty state on the receipt list."},
+  "@receiptsEmptyTitle": {
+    "description": "Title of the empty state on the receipt list."
+  },
   "receiptsEmptyBody": "Scanning is coming soon. Everything you add stays on this phone.",
-  "@receiptsEmptyBody": {"description": "Body of the empty state on the receipt list."},
+  "@receiptsEmptyBody": {
+    "description": "Body of the empty state on the receipt list."
+  },
   "settingsAbout": "About ReceiptMind",
-  "@settingsAbout": {"description": "Settings tile that opens the about dialog."},
+  "@settingsAbout": {
+    "description": "Settings tile that opens the about dialog."
+  },
   "settingsAboutSubtitle": "Private, offline AI receipt scanner",
-  "@settingsAboutSubtitle": {"description": "Subtitle of the about tile."},
+  "@settingsAboutSubtitle": {
+    "description": "Subtitle of the about tile."
+  },
   "aboutLegalese": "Licensed under the Apache License 2.0. Your receipts never leave this device.",
-  "@aboutLegalese": {"description": "Legal line in the about dialog."}
+  "@aboutLegalese": {
+    "description": "Legal line in the about dialog."
+  },
+  "settingsSectionReceipts": "Receipt defaults",
+  "@settingsSectionReceipts": {
+    "description": "Settings section header for receipt defaults."
+  },
+  "settingsSectionAbout": "About",
+  "@settingsSectionAbout": {
+    "description": "Settings section header for app information."
+  },
+  "settingsDefaultCurrency": "Default currency",
+  "@settingsDefaultCurrency": {
+    "description": "Settings tile: currency used for new receipts."
+  },
+  "settingsDefaultCurrencyValue": "{code} · for example {example}",
+  "@settingsDefaultCurrencyValue": {
+    "description": "Subtitle showing the default currency code and a formatted example amount.",
+    "placeholders": {
+      "code": {
+        "type": "String",
+        "example": "AUD"
+      },
+      "example": {
+        "type": "String",
+        "example": "$1,234.56"
+      }
+    }
+  },
+  "settingsDateFormat": "Date format",
+  "@settingsDateFormat": {
+    "description": "Settings tile: how dates are read and shown."
+  },
+  "dateOrderValue": "{order} · {example}",
+  "@dateOrderValue": {
+    "description": "Subtitle: date order name plus today's date as an example.",
+    "placeholders": {
+      "order": {
+        "type": "String",
+        "example": "Day / month / year"
+      },
+      "example": {
+        "type": "String",
+        "example": "24/09/2026"
+      }
+    }
+  },
+  "dateOrderDmy": "Day / month / year",
+  "@dateOrderDmy": {
+    "description": "Date order option."
+  },
+  "dateOrderMdy": "Month / day / year",
+  "@dateOrderMdy": {
+    "description": "Date order option."
+  },
+  "dateOrderYmd": "Year / month / day",
+  "@dateOrderYmd": {
+    "description": "Date order option."
+  },
+  "settingsCategories": "Categories",
+  "@settingsCategories": {
+    "description": "Settings tile for receipt categories."
+  },
+  "settingsCategoriesCount": "{count, plural, =1{1 category} other{{count} categories}}",
+  "@settingsCategoriesCount": {
+    "description": "Number of receipt categories.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }
