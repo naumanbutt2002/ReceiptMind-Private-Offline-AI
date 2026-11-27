@@ -76,6 +76,10 @@ void main() {
       'Sep 12, 2026 7:41 PM': '2026-09-12',
       '03. März 2026': '2026-03-03',
       '25/08/2026': '2026-08-25',
+      // Spaces ML Kit added on a real device (M3 on-device OCR test).
+      '12/09/ 2026 14:32': '2026-09-12',
+      '12. 09. 2026': '2026-09-12',
+      '2026 -09-12': '2026-09-12',
     };
     cases.forEach((text, iso) {
       test('"$text"', () => expect(date(text)?.toIso(), iso));

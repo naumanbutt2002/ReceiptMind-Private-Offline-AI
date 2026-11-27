@@ -198,6 +198,65 @@ void main() {
     expect((await db.receiptsDao.getReceipt(id))?.merchant, 'Kmart');
   });
 
+  test('watchReceipt emits changes and null after delete', () async {
+    await db.receiptsDao.insertReceipt(
+      receipt(merchant: 'Aldi', date: LocalDate(2026, 9, 3)),
+    );
+    final id = (await db.receiptsDao.watchReceipts().first).single.id;
+    final merchants = <String?>[];
+    final sub = db.receiptsDao
+        .watchReceipt(id)
+        .listen((row) => merchants.add(row?.merchant));
+    await pumpEventQueue();
+    final row = (await db.receiptsDao.getReceipt(id))!;
+    await db.receiptsDao.updateReceipt(row.copyWith(merchant: 'Aldi Süd'));
+    await pumpEventQueue();
+    await db.receiptsDao.deleteReceipt(id);
+    await pumpEventQueue();
+    await sub.cancel();
+    expect(merchants, ['Aldi', 'Aldi Süd', null]);
+    expect(await db.receiptsDao.watchReceipt('missing').first, isNull);
+  });
+
+  test('receiptsBetween is inclusive and sorted oldest first', () async {
+    for (final (merchant, date, created) in [
+      ('Before', LocalDate(2026, 8, 31), 1),
+      ('Last B', LocalDate(2026, 9, 30), 3),
+      ('First', LocalDate(2026, 9, 1), 1),
+      ('Last A', LocalDate(2026, 9, 30), 2),
+      ('After', LocalDate(2026, 10, 1), 1),
+    ]) {
+      await db.receiptsDao.insertReceipt(
+        receipt(
+          merchant: merchant,
+          date: date,
+          createdAt: DateTime.utc(2026, 10, 2, created),
+        ),
+      );
+    }
+    Future<List<String>> between({LocalDate? from, LocalDate? to}) async =>
+        (await db.receiptsDao.receiptsBetween(
+          from: from,
+          to: to,
+        )).map((r) => r.merchant).toList();
+
+    expect(
+      await between(from: LocalDate(2026, 9, 1), to: LocalDate(2026, 9, 30)),
+      ['First', 'Last A', 'Last B'],
+    );
+    expect(await between(to: LocalDate(2026, 9, 1)), ['Before', 'First']);
+    expect(await between(from: LocalDate(2026, 9, 30)), [
+      'Last A',
+      'Last B',
+      'After',
+    ]);
+    expect(await between(), hasLength(5));
+    expect(
+      await between(from: LocalDate(2026, 9, 2), to: LocalDate(2026, 9, 29)),
+      isEmpty,
+    );
+  });
+
   test('deleting a category un-categorises its receipts', () async {
     final dining = (await db.categoriesDao.watchAll().first)[1];
     await db.receiptsDao.insertReceipt(

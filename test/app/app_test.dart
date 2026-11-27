@@ -1,7 +1,9 @@
+import 'package:drift/drift.dart' show Value;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:receipt_mind/core/date/local_date.dart';
 import 'package:receipt_mind/core/db/app_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -31,6 +33,8 @@ void main() {
 
   Future<void> pumpApp(WidgetTester tester) async {
     await tester.pumpWidget(testApp(prefs: prefs, db: db));
+    // Unmount before the database closes, so no query is left waiting.
+    addTearDown(() => tester.pumpWidget(const SizedBox()));
     await tester.pumpAndSettle();
   }
 
@@ -50,7 +54,8 @@ void main() {
 
     await tester.tap(navItem('Settings'));
     await tester.pumpAndSettle();
-    expect(find.text('About ReceiptMind'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('About & privacy'), 200);
+    expect(find.text('About & privacy'), findsOneWidget);
 
     await tester.tap(navItem('Receipts'));
     await tester.pumpAndSettle();
@@ -69,16 +74,24 @@ void main() {
     expect(find.text('No receipts yet'), findsOneWidget);
   });
 
-  testWidgets('about dialog shows the license line', (tester) async {
+  testWidgets('about & privacy shows the license line and version', (
+    tester,
+  ) async {
     await pumpApp(tester);
     await tester.tap(navItem('Settings'));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('About ReceiptMind'));
+    await tester.scrollUntilVisible(find.text('About & privacy'), 200);
+    await tester.tap(find.text('About & privacy'));
     await tester.pumpAndSettle();
 
-    expect(find.textContaining('Apache License 2.0'), findsOneWidget);
-    expect(find.text('0.1.0'), findsOneWidget);
+    expect(find.textContaining('0.1.0'), findsWidgets);
+    await tester.scrollUntilVisible(
+      find.textContaining('Apache License 2.0'),
+      200,
+      scrollable: find.byType(Scrollable).last,
+    );
+    expect(find.textContaining('Apache License 2.0'), findsWidgets);
   });
 
   testWidgets('empty state fits a landscape phone at 200 % text size', (
@@ -105,4 +118,81 @@ void main() {
     final context = tester.element(find.text('No receipts yet'));
     expect(Theme.of(context).brightness, Brightness.dark);
   });
+
+  testWidgets('deleting the filtered category in Settings resets the list '
+      'filter to All', (tester) async {
+    final dining = (await db.select(db.categories).get()).firstWhere(
+      (c) => c.name == 'Dining',
+    );
+    for (final (id, merchant, categoryId) in [
+      ('a', 'Pizza Place', dining.id),
+      ('b', 'Hardware Hut', null),
+    ]) {
+      await db.receiptsDao.insertReceipt(
+        ReceiptsCompanion.insert(
+          id: id,
+          merchant: merchant,
+          purchaseDate: LocalDate(2026, 9, 20),
+          totalMinor: 1000,
+          currency: 'USD',
+          categoryId: Value(categoryId),
+          extractionMethod: ExtractionMethod.manual,
+          createdAt: DateTime(2026, 9, 20),
+          updatedAt: DateTime(2026, 9, 20),
+        ),
+      );
+    }
+    await pumpApp(tester);
+
+    await tester.tap(find.byKey(ValueKey('list-filter-${dining.id}')));
+    await tester.pumpAndSettle();
+    expect(find.text('Hardware Hut'), findsNothing);
+
+    await tester.tap(navItem('Settings'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Categories'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('More options for Dining'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Delete'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.widgetWithText(FilledButton, 'Delete'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(navItem('Receipts'));
+    await tester.pumpAndSettle();
+    expect(find.text('Pizza Place'), findsOneWidget);
+    expect(find.text('Hardware Hut'), findsOneWidget);
+    expect(find.text('No matching receipts'), findsNothing);
+    expect(
+      tester
+          .widget<ChoiceChip>(find.byKey(const Key('list-filter-all')))
+          .selected,
+      isTrue,
+    );
+    // Let the "Deleted" snack bar time out.
+    await tester.pump(const Duration(seconds: 10));
+    await tester.pumpAndSettle();
+  });
+
+  for (final brightness in Brightness.values) {
+    testWidgets('the app shell meets the accessibility guidelines '
+        '(${brightness.name})', (tester) async {
+      tester.platformDispatcher.platformBrightnessTestValue = brightness;
+      addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
+      final handle = tester.ensureSemantics();
+      await pumpApp(tester);
+
+      await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
+      await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));
+      await expectLater(tester, meetsGuideline(textContrastGuideline));
+
+      await tester.tap(navItem('Settings'));
+      await tester.pumpAndSettle();
+      await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
+      await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));
+      await expectLater(tester, meetsGuideline(textContrastGuideline));
+      handle.dispose();
+    });
+  }
 }

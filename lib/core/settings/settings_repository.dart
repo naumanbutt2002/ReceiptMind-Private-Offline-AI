@@ -26,26 +26,35 @@ class SettingsRepository {
   /// Device locale, e.g. `en_AU`.
   final String locale;
 
+  /// The stored settings. Missing, unknown or wrongly typed values fall back
+  /// to their defaults, so a corrupt preferences file can't stop the app
+  /// from starting.
   AppSettings load() {
-    final storedCurrency = _prefs.getString(keyDefaultCurrency);
+    final storedCurrency = _string(keyDefaultCurrency);
+    final currency =
+        storedCurrency != null && Currencies.isWellFormed(storedCurrency)
+        ? storedCurrency
+        : null;
+    final dateOrder = _byNameOrNull(DateOrder.values, _string(keyDateOrder));
+    final developerMode = _prefs.get(keyDeveloperMode);
     return AppSettings(
-      themeMode: _byName(
-        ThemeMode.values,
-        _prefs.getString(keyThemeMode),
-        ThemeMode.system,
-      ),
-      defaultCurrency:
-          storedCurrency != null && Currencies.isWellFormed(storedCurrency)
-          ? storedCurrency
-          : LocaleDefaults.currencyFor(locale),
-      dateOrder: _byName(
-        DateOrder.values,
-        _prefs.getString(keyDateOrder),
-        LocaleDefaults.dateOrderFor(locale),
-      ),
-      developerMode: _prefs.getBool(keyDeveloperMode) ?? false,
+      themeMode:
+          _byNameOrNull(ThemeMode.values, _string(keyThemeMode)) ??
+          ThemeMode.system,
+      defaultCurrency: currency ?? LocaleDefaults.currencyFor(locale),
+      currencyFromLocale: currency == null,
+      dateOrder: dateOrder ?? LocaleDefaults.dateOrderFor(locale),
+      dateOrderFromLocale: dateOrder == null,
+      developerMode: developerMode is bool && developerMode,
     );
   }
+
+  /// [SharedPreferencesWithCache.getString] throws for a value of another
+  /// type; this returns `null` instead.
+  String? _string(String key) => switch (_prefs.get(key)) {
+    final String value => value,
+    _ => null,
+  };
 
   Future<void> setThemeMode(ThemeMode mode) =>
       _prefs.setString(keyThemeMode, mode.name);
@@ -57,16 +66,22 @@ class SettingsRepository {
     return _prefs.setString(keyDefaultCurrency, code);
   }
 
+  /// Forgets the user's currency, so the locale default applies again.
+  Future<void> clearDefaultCurrency() => _prefs.remove(keyDefaultCurrency);
+
   Future<void> setDateOrder(DateOrder order) =>
       _prefs.setString(keyDateOrder, order.name);
+
+  /// Back to "Auto": the date order follows the locale again.
+  Future<void> clearDateOrder() => _prefs.remove(keyDateOrder);
 
   Future<void> setDeveloperMode(bool enabled) =>
       _prefs.setBool(keyDeveloperMode, enabled);
 
-  static T _byName<T extends Enum>(List<T> values, String? name, T fallback) {
+  static T? _byNameOrNull<T extends Enum>(List<T> values, String? name) {
     for (final value in values) {
       if (value.name == name) return value;
     }
-    return fallback;
+    return null;
   }
 }

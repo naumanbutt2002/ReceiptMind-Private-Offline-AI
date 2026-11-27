@@ -135,11 +135,13 @@ final class DateExtractor {
     }
   }
 
+  // OCR sometimes adds a space next to a separator (`12/09/ 2026`).
   static final _ymd = RegExp(
-    r'(?<!\d)(\d{4})([./-])(\d{1,2})\2(\d{1,2})(?!\d)',
+    r'(?<!\d)(\d{4}) ?([./-]) ?(\d{1,2}) ?\2 ?(\d{1,2})(?!\d)',
   );
   static final _numeric = RegExp(
-    r'(?<![\d.,])(\d{1,2})([./-])(\d{1,2})\2(\d{4}|\d{2})(?![\d]|[.,]\d)',
+    r'(?<![\d.,])(\d{1,2}) ?([./-]) ?(\d{1,2}) ?\2 ?(\d{4}|\d{2})'
+    r'(?![\d]|[.,]\d)',
   );
   static final _time = RegExp(r'(?<!\d)\d{1,2}:\d{2}(?!\d)');
 

@@ -16,13 +16,13 @@
   "@receiptsEmptyTitle": {
     "description": "Title of the empty state on the receipt list."
   },
-  "receiptsEmptyBody": "Scanning is coming soon. Everything you add stays on this phone.",
+  "receiptsEmptyBody": "Scan a paper receipt or type one in. Everything you add stays on this phone.",
   "@receiptsEmptyBody": {
     "description": "Body of the empty state on the receipt list."
   },
-  "settingsAbout": "About ReceiptMind",
+  "settingsAbout": "About & privacy",
   "@settingsAbout": {
-    "description": "Settings tile that opens the about dialog."
+    "description": "Settings tile that opens the About & Privacy screen."
   },
   "settingsAboutSubtitle": "Private, offline AI receipt scanner",
   "@settingsAboutSubtitle": {
@@ -100,5 +100,1217 @@
         "type": "int"
       }
     }
+  },
+  "scanTitle": "Scan receipt",
+  "@scanTitle": {
+    "description": "App bar title of the scan progress screen."
+  },
+  "scanOpeningScanner": "Opening scanner…",
+  "@scanOpeningScanner": {
+    "description": "Shown while the document scanner is starting."
+  },
+  "scanReading": "Reading receipt…",
+  "@scanReading": {
+    "description": "Shown while text recognition and parsing run on the scanned photo."
+  },
+  "scanReadingHint": "This happens on your phone. Nothing is uploaded.",
+  "@scanReadingHint": {
+    "description": "Privacy note under the reading progress indicator."
+  },
+  "scanPermissionCameraTitle": "Camera access is off",
+  "@scanPermissionCameraTitle": {
+    "description": "Title when the user denied camera access."
+  },
+  "scanPermissionCameraBody": "ReceiptMind needs the camera to scan receipts. Allow camera access for ReceiptMind in your phone's settings, then try again.",
+  "@scanPermissionCameraBody": {
+    "description": "Explains how to allow camera access after it was denied."
+  },
+  "scanPermissionGalleryTitle": "Photo access is off",
+  "@scanPermissionGalleryTitle": {
+    "description": "Title when the user denied access to photos."
+  },
+  "scanPermissionGalleryBody": "ReceiptMind needs access to your photos to import a receipt. Allow photo access for ReceiptMind in your phone's settings, then try again.",
+  "@scanPermissionGalleryBody": {
+    "description": "Explains how to allow photo access after it was denied."
+  },
+  "scanUnavailableTitle": "Scanner not available",
+  "@scanUnavailableTitle": {
+    "description": "Title when the device has no document scanner."
+  },
+  "scanUnavailableBody": "The document scanner isn't available on this phone right now. You can enter the receipt by hand instead.",
+  "@scanUnavailableBody": {
+    "description": "Body when the device has no document scanner."
+  },
+  "scanErrorTitle": "Couldn't open the scanner",
+  "@scanErrorTitle": {
+    "description": "Title for any other scanner error."
+  },
+  "scanErrorBody": "Something went wrong. Try again, or enter the receipt by hand.",
+  "@scanErrorBody": {
+    "description": "Body for any other scanner error."
+  },
+  "scanTryAgain": "Try again",
+  "@scanTryAgain": {
+    "description": "Button that opens the scanner again after a failure."
+  },
+  "scanEnterManually": "Enter manually",
+  "@scanEnterManually": {
+    "description": "Button that opens an empty receipt form instead of scanning."
+  },
+  "scanCancel": "Cancel scan",
+  "@scanCancel": {
+    "description": "Tooltip of the close button on the scan progress screen."
+  },
+  "receiptsScanFirst": "Scan your first receipt",
+  "@receiptsScanFirst": {
+    "description": "Call-to-action button on the empty receipt list; opens the camera scanner."
+  },
+  "receiptsAddManually": "Enter one manually",
+  "@receiptsAddManually": {
+    "description": "Secondary button on the empty receipt list; opens manual entry."
+  },
+  "listSearchHint": "Search merchant, notes or receipt text",
+  "@listSearchHint": {
+    "description": "Hint in the search bar on the receipt list."
+  },
+  "listClearSearch": "Clear search",
+  "@listClearSearch": {
+    "description": "Tooltip of the button that clears the search text."
+  },
+  "listFilterAll": "All",
+  "@listFilterAll": {
+    "description": "Category filter chip that shows receipts of every category."
+  },
+  "listThisMonth": "This month",
+  "@listThisMonth": {
+    "description": "Small label above the current month's totals card."
+  },
+  "listNoReceiptsThisMonth": "No receipts this month",
+  "@listNoReceiptsThisMonth": {
+    "description": "Shown in the month summary card when the current month has no receipts."
+  },
+  "listNoMatchesTitle": "No matching receipts",
+  "@listNoMatchesTitle": {
+    "description": "Title shown when a search or category filter has no results."
+  },
+  "listNoMatchesBody": "Try a different search or category.",
+  "@listNoMatchesBody": {
+    "description": "Body shown when a search or category filter has no results."
+  },
+  "listClearFilters": "Clear search and filter",
+  "@listClearFilters": {
+    "description": "Button that resets the search text and the category filter."
+  },
+  "listLoadError": "Couldn't load your receipts.",
+  "@listLoadError": {
+    "description": "Shown when the receipt list fails to load."
+  },
+  "listDelete": "Delete",
+  "@listDelete": {
+    "description": "Label shown behind a receipt row while it is swiped away."
+  },
+  "listReceiptDeleted": "Deleted {merchant}",
+  "@listReceiptDeleted": {
+    "description": "SnackBar text after a receipt was deleted.",
+    "placeholders": {
+      "merchant": {
+        "type": "String",
+        "example": "Woolworths"
+      }
+    }
+  },
+  "listUndo": "Undo",
+  "@listUndo": {
+    "description": "SnackBar action that restores a deleted receipt."
+  },
+  "listUncategorised": "Uncategorised",
+  "@listUncategorised": {
+    "description": "Category name for receipts without a category."
+  },
+  "listRowSemantics": "{merchant}, {date}, {amount}, {category}",
+  "@listRowSemantics": {
+    "description": "Screen-reader label of one receipt row.",
+    "placeholders": {
+      "merchant": {
+        "type": "String",
+        "example": "Woolworths"
+      },
+      "date": {
+        "type": "String",
+        "example": "24/09/2026"
+      },
+      "amount": {
+        "type": "String",
+        "example": "$45.60"
+      },
+      "category": {
+        "type": "String",
+        "example": "Groceries"
+      }
+    }
+  },
+  "fabAddReceipt": "Add receipt",
+  "@fabAddReceipt": {
+    "description": "Tooltip of the floating button on the receipt list."
+  },
+  "fabSheetTitle": "Add a receipt",
+  "@fabSheetTitle": {
+    "description": "Title of the bottom sheet opened by the floating button."
+  },
+  "fabScan": "Scan",
+  "@fabScan": {
+    "description": "Bottom sheet option: scan a receipt with the camera."
+  },
+  "fabScanSubtitle": "Use the camera; edges are found automatically",
+  "@fabScanSubtitle": {
+    "description": "Subtitle of the Scan option."
+  },
+  "fabImport": "Import from photos",
+  "@fabImport": {
+    "description": "Bottom sheet option: pick a receipt photo from the gallery."
+  },
+  "fabImportSubtitle": "Pick a photo of a receipt and crop it",
+  "@fabImportSubtitle": {
+    "description": "Subtitle of the Import from photos option."
+  },
+  "fabManual": "Enter manually",
+  "@fabManual": {
+    "description": "Bottom sheet option: type in a receipt without a photo."
+  },
+  "fabManualSubtitle": "Type in the details without a photo",
+  "@fabManualSubtitle": {
+    "description": "Subtitle of the Enter manually option."
+  },
+  "detailTitle": "Receipt",
+  "@detailTitle": {
+    "description": "App bar title of the receipt detail screen."
+  },
+  "detailEdit": "Edit",
+  "@detailEdit": {
+    "description": "Action on the receipt detail screen."
+  },
+  "detailDelete": "Delete",
+  "@detailDelete": {
+    "description": "Action on the receipt detail screen."
+  },
+  "detailSharePhoto": "Share photo",
+  "@detailSharePhoto": {
+    "description": "Action that shares the receipt photo through the system share sheet."
+  },
+  "detailShareFailed": "Couldn't share the photo.",
+  "@detailShareFailed": {
+    "description": "SnackBar text when sharing the photo fails."
+  },
+  "detailDeleteTitle": "Delete this receipt?",
+  "@detailDeleteTitle": {
+    "description": "Title of the delete confirmation dialog."
+  },
+  "detailDeleteBody": "{merchant} is removed from your list. You can undo this right after.",
+  "@detailDeleteBody": {
+    "description": "Body of the delete confirmation dialog.",
+    "placeholders": {
+      "merchant": {
+        "type": "String",
+        "example": "Woolworths"
+      }
+    }
+  },
+  "detailCancel": "Cancel",
+  "@detailCancel": {
+    "description": "Dialog button that cancels."
+  },
+  "detailNotFoundTitle": "Receipt not found",
+  "@detailNotFoundTitle": {
+    "description": "Title shown when the receipt no longer exists."
+  },
+  "detailNotFoundBody": "It may have been deleted.",
+  "@detailNotFoundBody": {
+    "description": "Body shown when the receipt no longer exists."
+  },
+  "detailBackToList": "Back to receipts",
+  "@detailBackToList": {
+    "description": "Button on the not-found state that returns to the list."
+  },
+  "detailPhoto": "Receipt photo. Double-tap to view full screen.",
+  "@detailPhoto": {
+    "description": "Screen-reader label of the receipt photo on the detail screen."
+  },
+  "detailPhotoMissing": "Photo not available",
+  "@detailPhotoMissing": {
+    "description": "Shown when the receipt photo file is missing."
+  },
+  "detailNoPhoto": "No photo",
+  "@detailNoPhoto": {
+    "description": "Shown when the receipt has no photo (entered manually)."
+  },
+  "detailCloseFullScreen": "Close",
+  "@detailCloseFullScreen": {
+    "description": "Tooltip of the close button on the full-screen photo."
+  },
+  "detailMerchant": "Merchant",
+  "@detailMerchant": {
+    "description": "Field label."
+  },
+  "detailDate": "Date",
+  "@detailDate": {
+    "description": "Field label."
+  },
+  "detailTotal": "Total",
+  "@detailTotal": {
+    "description": "Field label."
+  },
+  "detailSubtotal": "Subtotal",
+  "@detailSubtotal": {
+    "description": "Field label."
+  },
+  "detailTax": "Tax",
+  "@detailTax": {
+    "description": "Field label."
+  },
+  "detailTip": "Tip",
+  "@detailTip": {
+    "description": "Field label."
+  },
+  "detailCurrency": "Currency",
+  "@detailCurrency": {
+    "description": "Field label."
+  },
+  "detailCategory": "Category",
+  "@detailCategory": {
+    "description": "Field label."
+  },
+  "detailPaymentMethod": "Payment method",
+  "@detailPaymentMethod": {
+    "description": "Field label."
+  },
+  "detailNotes": "Notes",
+  "@detailNotes": {
+    "description": "Field label."
+  },
+  "detailPaymentCard": "Card",
+  "@detailPaymentCard": {
+    "description": "Payment method value."
+  },
+  "detailPaymentCash": "Cash",
+  "@detailPaymentCash": {
+    "description": "Payment method value."
+  },
+  "detailPaymentOther": "Other",
+  "@detailPaymentOther": {
+    "description": "Payment method value."
+  },
+  "detailMethodRules": "Read from the photo by the rule parser",
+  "@detailMethodRules": {
+    "description": "How the fields were filled in: on-device rule parser."
+  },
+  "detailMethodAiText": "Read from the photo by on-device AI",
+  "@detailMethodAiText": {
+    "description": "How the fields were filled in: on-device AI on the recognised text."
+  },
+  "detailMethodAiVision": "Read from the photo by on-device AI (image)",
+  "@detailMethodAiVision": {
+    "description": "How the fields were filled in: on-device AI on the image."
+  },
+  "detailMethodManual": "Entered manually",
+  "@detailMethodManual": {
+    "description": "How the fields were filled in: typed by the user."
+  },
+  "detailConfidence": "{method} · {percent}% confidence",
+  "@detailConfidence": {
+    "description": "Small note: extraction method plus overall confidence.",
+    "placeholders": {
+      "method": {
+        "type": "String",
+        "example": "Read from the photo by the rule parser"
+      },
+      "percent": {
+        "type": "int",
+        "example": "87"
+      }
+    }
+  },
+  "settingsDefaultCurrencyAutoValue": "Device default · {code} · for example {example}",
+  "@settingsDefaultCurrencyAutoValue": {
+    "description": "Subtitle when the default currency follows the device region.",
+    "placeholders": {
+      "code": {
+        "type": "String",
+        "example": "AUD"
+      },
+      "example": {
+        "type": "String",
+        "example": "$1,234.56"
+      }
+    }
+  },
+  "settingsDateFormatAuto": "Auto ({order})",
+  "@settingsDateFormatAuto": {
+    "description": "Date format option that follows the device locale; shows the order it resolves to.",
+    "placeholders": {
+      "order": {
+        "type": "String",
+        "example": "Day / month / year"
+      }
+    }
+  },
+  "settingsSectionData": "Data",
+  "@settingsSectionData": {
+    "description": "Settings section header for categories and export."
+  },
+  "appearanceSection": "Appearance",
+  "@appearanceSection": {
+    "description": "Settings section header for the theme."
+  },
+  "appearanceTheme": "Theme",
+  "@appearanceTheme": {
+    "description": "Settings tile and dialog title for light/dark theme."
+  },
+  "appearanceSystem": "System default",
+  "@appearanceSystem": {
+    "description": "Theme option: follow the system light/dark setting."
+  },
+  "appearanceLight": "Light",
+  "@appearanceLight": {
+    "description": "Theme option."
+  },
+  "appearanceDark": "Dark",
+  "@appearanceDark": {
+    "description": "Theme option."
+  },
+  "exportCsv": "Export to CSV",
+  "@exportCsv": {
+    "description": "Settings tile that exports receipts as a CSV file."
+  },
+  "exportCsvSubtitle": "Share your receipts as a spreadsheet file",
+  "@exportCsvSubtitle": {
+    "description": "Subtitle of the CSV export tile."
+  },
+  "exportChooseTitle": "Export receipts",
+  "@exportChooseTitle": {
+    "description": "Title of the dialog that asks which receipts to export."
+  },
+  "exportAll": "All receipts",
+  "@exportAll": {
+    "description": "Export option: every receipt."
+  },
+  "exportDateRange": "Choose dates…",
+  "@exportDateRange": {
+    "description": "Export option: pick a date range first."
+  },
+  "exportEmpty": "No receipts to export",
+  "@exportEmpty": {
+    "description": "Snack bar when the export has no receipts."
+  },
+  "exportFailed": "Couldn't export receipts",
+  "@exportFailed": {
+    "description": "Snack bar when writing or sharing the CSV failed."
+  },
+  "exportShareSubject": "ReceiptMind receipts",
+  "@exportShareSubject": {
+    "description": "Subject used when the CSV is shared (e.g. by email)."
+  },
+  "aboutTitle": "About & privacy",
+  "@aboutTitle": {
+    "description": "Title of the About & Privacy screen."
+  },
+  "aboutTagline": "Private Offline AI Receipt Scanner",
+  "@aboutTagline": {
+    "description": "Full product name under the app name on the About screen."
+  },
+  "aboutVersion": "Version {version}",
+  "@aboutVersion": {
+    "description": "App version on the About screen.",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "0.1.0 (1)"
+      }
+    }
+  },
+  "aboutPrivacyTitle": "Privacy",
+  "@aboutPrivacyTitle": {
+    "description": "Section header for the privacy statement."
+  },
+  "aboutPrivacySummary": "Your receipts never leave this phone.",
+  "@aboutPrivacySummary": {
+    "description": "One-line summary of the privacy statement."
+  },
+  "aboutPrivacyOnDevice": "Receipt photos, recognised text and your spending data are stored only on this device.",
+  "@aboutPrivacyOnDevice": {
+    "description": "Privacy statement: local storage."
+  },
+  "aboutPrivacyNoInternet": "The Android release build has no internet permission, so the app cannot send anything anywhere.",
+  "@aboutPrivacyNoInternet": {
+    "description": "Privacy statement: no INTERNET permission."
+  },
+  "aboutPrivacyNoBackup": "Android cloud backup is turned off, so receipts are not copied to Google Drive behind your back.",
+  "@aboutPrivacyNoBackup": {
+    "description": "Privacy statement: cloud backup off."
+  },
+  "aboutPrivacyNoTracking": "No analytics and no crash reporting.",
+  "@aboutPrivacyNoTracking": {
+    "description": "Privacy statement: no telemetry."
+  },
+  "aboutPrivacyMlKit": "Text recognition uses Google ML Kit on this device. ML Kit normally sends anonymous usage metrics (device model, app version, latency) to Google; without network permission it cannot. Receipt content is never part of those metrics.",
+  "@aboutPrivacyMlKit": {
+    "description": "Privacy statement: ML Kit runs on-device and its metrics cannot be sent."
+  },
+  "aboutSourceCode": "Source code: {url}",
+  "@aboutSourceCode": {
+    "description": "Where the open-source code is published.",
+    "placeholders": {
+      "url": {
+        "type": "String",
+        "example": "github.com/naumanbutt2002/ReceiptMind-Private-Offline-AI"
+      }
+    }
+  },
+  "aboutLicensesButton": "Open-source licenses",
+  "@aboutLicensesButton": {
+    "description": "Button that opens the list of open-source licenses."
+  },
+  "currencyPickerTitle": "Choose currency",
+  "@currencyPickerTitle": {
+    "description": "Title of the currency picker sheet."
+  },
+  "currencyPickerSearchHint": "Search by code or symbol",
+  "@currencyPickerSearchHint": {
+    "description": "Hint in the currency search field."
+  },
+  "currencyPickerClearSearch": "Clear search",
+  "@currencyPickerClearSearch": {
+    "description": "Tooltip of the button that clears the currency search."
+  },
+  "currencyPickerNoResults": "No matching currency",
+  "@currencyPickerNoResults": {
+    "description": "Shown when the currency search matches nothing."
+  },
+  "currencyPickerDeviceDefault": "Use device default",
+  "@currencyPickerDeviceDefault": {
+    "description": "Currency picker entry that follows the device region."
+  },
+  "developerModeTitle": "Developer mode",
+  "@developerModeTitle": {
+    "description": "Settings switch that turns developer mode off again."
+  },
+  "developerModeSubtitle": "Extra tools for checking how receipts are read",
+  "@developerModeSubtitle": {
+    "description": "Subtitle of the developer mode switch."
+  },
+  "developerModeOn": "Developer mode is on",
+  "@developerModeOn": {
+    "description": "Snack bar after tapping the version 7 times."
+  },
+  "developerModeAlreadyOn": "Developer mode is already on",
+  "@developerModeAlreadyOn": {
+    "description": "Snack bar when the version is tapped 7 times while developer mode is on."
+  },
+  "versionTitle": "Version",
+  "@versionTitle": {
+    "description": "Settings tile showing the app version."
+  },
+  "versionValue": "{version} ({build})",
+  "@versionValue": {
+    "description": "App version and build number.",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "0.1.0"
+      },
+      "build": {
+        "type": "String",
+        "example": "1"
+      }
+    }
+  },
+  "reviewTitleNewScan": "Review receipt",
+  "@reviewTitleNewScan": {
+    "description": "App bar title of the review screen after a scan."
+  },
+  "reviewTitleManual": "New receipt",
+  "@reviewTitleManual": {
+    "description": "App bar title of the review screen for manual entry."
+  },
+  "reviewTitleEdit": "Edit receipt",
+  "@reviewTitleEdit": {
+    "description": "App bar title of the review screen when editing a saved receipt."
+  },
+  "reviewSave": "Save",
+  "@reviewSave": {
+    "description": "Button that saves the receipt on the review screen."
+  },
+  "reviewClose": "Close",
+  "@reviewClose": {
+    "description": "Tooltip of the close button in the review screen's app bar."
+  },
+  "reviewSaved": "Receipt saved",
+  "@reviewSaved": {
+    "description": "SnackBar shown after a receipt was saved."
+  },
+  "reviewSaveFailed": "Couldn't save the receipt. Please try again.",
+  "@reviewSaveFailed": {
+    "description": "SnackBar shown when saving a receipt failed."
+  },
+  "reviewDiscardNewTitle": "Discard this receipt?",
+  "@reviewDiscardNewTitle": {
+    "description": "Title of the confirmation dialog when leaving an unsaved new receipt."
+  },
+  "reviewDiscardEditTitle": "Discard changes?",
+  "@reviewDiscardEditTitle": {
+    "description": "Title of the confirmation dialog when leaving an edited receipt without saving."
+  },
+  "reviewDiscardNewBody": "The receipt won't be saved.",
+  "@reviewDiscardNewBody": {
+    "description": "Body of the confirmation dialog when leaving an unsaved new receipt."
+  },
+  "reviewDiscardEditBody": "Your changes won't be saved.",
+  "@reviewDiscardEditBody": {
+    "description": "Body of the confirmation dialog when leaving an edited receipt without saving."
+  },
+  "reviewDiscard": "Discard",
+  "@reviewDiscard": {
+    "description": "Confirms discarding the receipt or the changes."
+  },
+  "reviewKeepEditing": "Keep editing",
+  "@reviewKeepEditing": {
+    "description": "Cancels the discard dialog and returns to the form."
+  },
+  "reviewOcrFailed": "Couldn't read this receipt — fill it in manually",
+  "@reviewOcrFailed": {
+    "description": "Banner on the review screen when OCR failed or found no text."
+  },
+  "reviewViewRecognisedText": "View recognised text",
+  "@reviewViewRecognisedText": {
+    "description": "Button that opens a sheet with the raw OCR text."
+  },
+  "reviewRecognisedTextTitle": "Recognised text",
+  "@reviewRecognisedTextTitle": {
+    "description": "Title of the sheet that shows the raw OCR text."
+  },
+  "reviewPhotoLabel": "Receipt photo",
+  "@reviewPhotoLabel": {
+    "description": "Screen reader label of the receipt photo on the review screen."
+  },
+  "reviewPhotoHint": "Opens the photo full screen",
+  "@reviewPhotoHint": {
+    "description": "Screen reader hint: what tapping the receipt photo does."
+  },
+  "reviewPhotoFullScreen": "View photo full screen",
+  "@reviewPhotoFullScreen": {
+    "description": "Tooltip of the button that opens the receipt photo full screen."
+  },
+  "reviewPhotoUnavailable": "The photo can't be shown",
+  "@reviewPhotoUnavailable": {
+    "description": "Shown in place of a receipt photo that can't be loaded."
+  },
+  "reviewScanUnavailable": "This scan is no longer available. Please scan the receipt again.",
+  "@reviewScanUnavailable": {
+    "description": "Shown when the review screen opens without a scan (for example after the app was closed)."
+  },
+  "reviewReceiptNotFound": "This receipt no longer exists.",
+  "@reviewReceiptNotFound": {
+    "description": "Shown when the receipt to edit can't be found."
+  },
+  "reviewBackToReceipts": "Back to receipts",
+  "@reviewBackToReceipts": {
+    "description": "Button that leaves the review screen when there is nothing to review."
+  },
+  "reviewMoreDetails": "More details",
+  "@reviewMoreDetails": {
+    "description": "Expandable section with subtotal, tax and tip."
+  },
+  "reviewWarningLabel": "Needs checking",
+  "@reviewWarningLabel": {
+    "description": "Screen reader label of the warning icon next to a field the parser wasn't sure about."
+  },
+  "fieldMerchant": "Merchant",
+  "@fieldMerchant": {
+    "description": "Form field label: the shop or business name."
+  },
+  "fieldDate": "Date",
+  "@fieldDate": {
+    "description": "Form field label: the purchase date."
+  },
+  "fieldPickDate": "Pick a date",
+  "@fieldPickDate": {
+    "description": "Tooltip of the button that opens the date picker."
+  },
+  "fieldTotal": "Total",
+  "@fieldTotal": {
+    "description": "Form field label: the total amount paid."
+  },
+  "fieldCurrency": "Currency",
+  "@fieldCurrency": {
+    "description": "Form field label: the receipt's currency."
+  },
+  "fieldSubtotal": "Subtotal",
+  "@fieldSubtotal": {
+    "description": "Form field label: the amount before tax and tip."
+  },
+  "fieldTax": "Tax",
+  "@fieldTax": {
+    "description": "Form field label: the tax amount."
+  },
+  "fieldTip": "Tip",
+  "@fieldTip": {
+    "description": "Form field label: the tip amount."
+  },
+  "fieldCategory": "Category",
+  "@fieldCategory": {
+    "description": "Form section label: the receipt's category."
+  },
+  "fieldPaymentMethod": "Payment method",
+  "@fieldPaymentMethod": {
+    "description": "Form section label: how the receipt was paid."
+  },
+  "fieldPaymentCard": "Card",
+  "@fieldPaymentCard": {
+    "description": "Payment method option."
+  },
+  "fieldPaymentCash": "Cash",
+  "@fieldPaymentCash": {
+    "description": "Payment method option."
+  },
+  "fieldPaymentOther": "Other",
+  "@fieldPaymentOther": {
+    "description": "Payment method option."
+  },
+  "fieldNotes": "Notes",
+  "@fieldNotes": {
+    "description": "Form field label: free-text notes."
+  },
+  "fieldMerchantRequired": "Enter the merchant",
+  "@fieldMerchantRequired": {
+    "description": "Validation error: the merchant is empty."
+  },
+  "fieldDateRequired": "Pick the purchase date",
+  "@fieldDateRequired": {
+    "description": "Validation error: no date was chosen."
+  },
+  "fieldTotalRequired": "Enter the total",
+  "@fieldTotalRequired": {
+    "description": "Validation error: the total is empty."
+  },
+  "fieldAmountInvalid": "Enter an amount like {example}",
+  "@fieldAmountInvalid": {
+    "description": "Validation error: the amount can't be read.",
+    "placeholders": {
+      "example": {
+        "type": "String",
+        "example": "12.50"
+      }
+    }
+  },
+  "fieldWarningCheck": "Check this value",
+  "@fieldWarningCheck": {
+    "description": "Helper text on a field the parser wasn't sure about."
+  },
+  "fieldWarningTotalMismatch": "Total doesn't match subtotal + tax + tip",
+  "@fieldWarningTotalMismatch": {
+    "description": "Helper text: the amounts don't add up."
+  },
+  "fieldWarningTaxTooHigh": "Tax should be less than the total",
+  "@fieldWarningTaxTooHigh": {
+    "description": "Helper text: the tax is not smaller than the total."
+  },
+  "fieldWarningNonPositiveTotal": "Total should be more than zero",
+  "@fieldWarningNonPositiveTotal": {
+    "description": "Helper text: the total is zero or negative."
+  },
+  "fieldWarningMissingTotal": "No total found on the receipt",
+  "@fieldWarningMissingTotal": {
+    "description": "Helper text: the parser found no total."
+  },
+  "fieldWarningMissingDate": "No date found on the receipt",
+  "@fieldWarningMissingDate": {
+    "description": "Helper text: the parser found no date."
+  },
+  "fieldWarningFutureDate": "This date is in the future",
+  "@fieldWarningFutureDate": {
+    "description": "Helper text: the purchase date is after today."
+  },
+  "fieldWarningOldDate": "This date is more than two years ago",
+  "@fieldWarningOldDate": {
+    "description": "Helper text: the purchase date is very old."
+  },
+  "fieldWarningUnknownCurrency": "Unknown currency, check it",
+  "@fieldWarningUnknownCurrency": {
+    "description": "Helper text: the currency code isn't one the app knows."
+  },
+  "devToolsTooltip": "Developer tools",
+  "@devToolsTooltip": {
+    "description": "Tooltip of the bug icon in the review screen's app bar (developer mode only)."
+  },
+  "devInspectOcr": "Inspect OCR",
+  "@devInspectOcr": {
+    "description": "Developer menu item that opens the OCR debug screen."
+  },
+  "devExportFixture": "Export as fixture",
+  "@devExportFixture": {
+    "description": "Developer menu item that exports the scan as a parser test fixture."
+  },
+  "devOcrTitle": "OCR debug",
+  "@devOcrTitle": {
+    "description": "Title of the OCR debug screen."
+  },
+  "devNoScan": "No scan to inspect",
+  "@devNoScan": {
+    "description": "Shown on the OCR debug screen when there is no scan in review."
+  },
+  "devModeOff": "Turn on developer mode to use this screen.",
+  "@devModeOff": {
+    "description": "Shown on the OCR debug screen when developer mode is off."
+  },
+  "devTabOverlay": "Overlay",
+  "@devTabOverlay": {
+    "description": "OCR debug tab with the photo and boxes."
+  },
+  "devTabParser": "Parser",
+  "@devTabParser": {
+    "description": "OCR debug tab with fields, validator issues and the parser trace."
+  },
+  "devTabText": "Text",
+  "@devTabText": {
+    "description": "OCR debug tab with the rows and raw OCR text."
+  },
+  "devLayerLines": "Lines",
+  "@devLayerLines": {
+    "description": "Toggle for OCR line boxes on the overlay."
+  },
+  "devLayerWords": "Words",
+  "@devLayerWords": {
+    "description": "Toggle for OCR word boxes on the overlay."
+  },
+  "devLayerRows": "Rows",
+  "@devLayerRows": {
+    "description": "Toggle for the parser's visual rows on the overlay."
+  },
+  "devLayerFields": "Fields",
+  "@devLayerFields": {
+    "description": "Toggle that highlights the rows each field was read from."
+  },
+  "devPhotoLabel": "Receipt photo with OCR boxes",
+  "@devPhotoLabel": {
+    "description": "Screen reader label of the photo on the OCR debug screen."
+  },
+  "devPhotoMissing": "Photo not available",
+  "@devPhotoMissing": {
+    "description": "Shown instead of the photo when the image file can't be loaded."
+  },
+  "devSectionSummary": "Summary",
+  "@devSectionSummary": {
+    "description": "OCR debug section header."
+  },
+  "devSectionFields": "Fields",
+  "@devSectionFields": {
+    "description": "OCR debug section header for the parsed fields."
+  },
+  "devSectionIssues": "Validator issues",
+  "@devSectionIssues": {
+    "description": "OCR debug section header."
+  },
+  "devSectionTrace": "Parser trace",
+  "@devSectionTrace": {
+    "description": "OCR debug section header."
+  },
+  "devSectionRows": "Rows",
+  "@devSectionRows": {
+    "description": "OCR debug section header for the rebuilt rows."
+  },
+  "devSectionOcrText": "OCR text",
+  "@devSectionOcrText": {
+    "description": "OCR debug section header for the raw OCR text."
+  },
+  "devSummaryEngine": "OCR engine",
+  "@devSummaryEngine": {
+    "description": "Label in the OCR debug summary."
+  },
+  "devSummaryImage": "Image size",
+  "@devSummaryImage": {
+    "description": "Label in the OCR debug summary."
+  },
+  "devSummaryLines": "OCR lines",
+  "@devSummaryLines": {
+    "description": "Label in the OCR debug summary: number of OCR lines."
+  },
+  "devSummaryRows": "Rows",
+  "@devSummaryRows": {
+    "description": "Label in the OCR debug summary: number of rebuilt rows."
+  },
+  "devSummaryParser": "Parser version",
+  "@devSummaryParser": {
+    "description": "Label in the OCR debug summary."
+  },
+  "devSummaryConfidence": "Overall confidence",
+  "@devSummaryConfidence": {
+    "description": "Label in the OCR debug summary."
+  },
+  "devUnknown": "unknown",
+  "@devUnknown": {
+    "description": "Value shown when something is not known."
+  },
+  "devFieldNotFound": "not found",
+  "@devFieldNotFound": {
+    "description": "Shown for a field the parser didn't find."
+  },
+  "devFieldConfidence": "confidence {value}",
+  "@devFieldConfidence": {
+    "description": "Parser confidence of a field, e.g. 'confidence 0.92'.",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "devFieldRow": "row {index}",
+  "@devFieldRow": {
+    "description": "Row a field was read from, e.g. 'row 23'.",
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "devNoIssues": "No issues",
+  "@devNoIssues": {
+    "description": "Shown when the validator found nothing."
+  },
+  "devNoTrace": "No trace",
+  "@devNoTrace": {
+    "description": "Shown when the parser left no trace lines."
+  },
+  "devNoParse": "The parser did not run on this scan.",
+  "@devNoParse": {
+    "description": "Shown when there is no parser output."
+  },
+  "devNoText": "OCR found no text.",
+  "@devNoText": {
+    "description": "Shown when the OCR result is empty."
+  },
+  "devAnonTitle": "Before you share",
+  "@devAnonTitle": {
+    "description": "Title of the reminder dialog shown before exporting a fixture."
+  },
+  "devAnonBody": "These files contain the full text of the receipt. Remove or replace anything personal before you share them: card numbers, names, loyalty or member IDs, and addresses.\n\nNothing is uploaded automatically. You choose where the files go.",
+  "@devAnonBody": {
+    "description": "Body of the anonymisation reminder dialog."
+  },
+  "devAnonFileName": "File name",
+  "@devAnonFileName": {
+    "description": "Label of the fixture name field in the reminder dialog."
+  },
+  "devAnonFileNameHelper": "For example au_supermarket_01",
+  "@devAnonFileNameHelper": {
+    "description": "Helper text under the fixture name field."
+  },
+  "devAnonCancel": "Cancel",
+  "@devAnonCancel": {
+    "description": "Closes the reminder dialog without exporting."
+  },
+  "devAnonContinue": "Continue",
+  "@devAnonContinue": {
+    "description": "Confirms the reminder dialog and exports the fixture."
+  },
+  "devExportSubject": "ReceiptMind fixture {name}",
+  "@devExportSubject": {
+    "description": "Subject used when sharing fixture files.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "devExportNoOcr": "This scan has no OCR result to export.",
+  "@devExportNoOcr": {
+    "description": "Snack bar when the scan can't be exported."
+  },
+  "devExportFailed": "Couldn't export the fixture.",
+  "@devExportFailed": {
+    "description": "Snack bar when writing or sharing the fixture failed."
+  },
+  "categoriesTitle": "Categories",
+  "@categoriesTitle": {
+    "description": "App bar title of the categories screen."
+  },
+  "categoriesAdd": "Add category",
+  "@categoriesAdd": {
+    "description": "Button that opens the dialog to create a category."
+  },
+  "categoriesEmpty": "No categories yet. Add one to group your receipts.",
+  "@categoriesEmpty": {
+    "description": "Empty state of the categories screen."
+  },
+  "categoriesLoadError": "Couldn't load categories.",
+  "@categoriesLoadError": {
+    "description": "Shown when the category list fails to load."
+  },
+  "categoriesReceiptCount": "{count, plural, =0{No receipts} =1{1 receipt} other{{count} receipts}}",
+  "@categoriesReceiptCount": {
+    "description": "Subtitle of a category row: how many receipts use it.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "categoriesMoreOptions": "More options for {name}",
+  "@categoriesMoreOptions": {
+    "description": "Tooltip of the overflow menu button on a category row.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Groceries"
+      }
+    }
+  },
+  "categoriesEdit": "Edit",
+  "@categoriesEdit": {
+    "description": "Overflow menu item and action that edits a category."
+  },
+  "categoriesDelete": "Delete",
+  "@categoriesDelete": {
+    "description": "Overflow menu item and button that deletes a category."
+  },
+  "categoriesNewTitle": "New category",
+  "@categoriesNewTitle": {
+    "description": "Title of the dialog that creates a category."
+  },
+  "categoriesEditTitle": "Edit category",
+  "@categoriesEditTitle": {
+    "description": "Title of the dialog that edits a category."
+  },
+  "categoriesNameLabel": "Name",
+  "@categoriesNameLabel": {
+    "description": "Label of the category name field."
+  },
+  "categoriesNameRequired": "Enter a name",
+  "@categoriesNameRequired": {
+    "description": "Validation error when the category name is empty."
+  },
+  "categoriesNameTooLong": "Use at most {max} characters",
+  "@categoriesNameTooLong": {
+    "description": "Validation error when the category name is too long.",
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "categoriesNameDuplicate": "A category with this name already exists",
+  "@categoriesNameDuplicate": {
+    "description": "Validation error when another category has the same name."
+  },
+  "categoriesIconLabel": "Icon",
+  "@categoriesIconLabel": {
+    "description": "Label above the icon picker in the category dialog."
+  },
+  "categoriesColourLabel": "Colour",
+  "@categoriesColourLabel": {
+    "description": "Label above the colour picker in the category dialog."
+  },
+  "categoriesColourOption": "Colour {index} of {count}",
+  "@categoriesColourOption": {
+    "description": "Screen reader label for a colour swatch in the picker.",
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "categoriesCancel": "Cancel",
+  "@categoriesCancel": {
+    "description": "Button that closes a category dialog without changes."
+  },
+  "categoriesSave": "Save",
+  "@categoriesSave": {
+    "description": "Button that saves the category."
+  },
+  "categoriesSaveError": "Couldn't save the category. Please try again.",
+  "@categoriesSaveError": {
+    "description": "Shown when saving a category fails for an unexpected reason."
+  },
+  "categoriesDeleteTitle": "Delete “{name}”?",
+  "@categoriesDeleteTitle": {
+    "description": "Title of the confirmation dialog before deleting a category.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Groceries"
+      }
+    }
+  },
+  "categoriesDeleteBody": "{count, plural, =0{No receipts use this category.} =1{1 receipt will become uncategorised.} other{{count} receipts will become uncategorised.}}",
+  "@categoriesDeleteBody": {
+    "description": "Body of the delete confirmation: how many receipts lose their category.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "categoriesDeleted": "Deleted “{name}”",
+  "@categoriesDeleted": {
+    "description": "Snack bar shown after a category is deleted.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Groceries"
+      }
+    }
+  },
+  "categoriesIconGroceries": "Groceries",
+  "@categoriesIconGroceries": {
+    "description": "Screen reader name of the 'groceries' category icon in the icon picker."
+  },
+  "categoriesIconDining": "Dining",
+  "@categoriesIconDining": {
+    "description": "Screen reader name of the 'dining' category icon in the icon picker."
+  },
+  "categoriesIconTransport": "Transport",
+  "@categoriesIconTransport": {
+    "description": "Screen reader name of the 'transport' category icon in the icon picker."
+  },
+  "categoriesIconShopping": "Shopping",
+  "@categoriesIconShopping": {
+    "description": "Screen reader name of the 'shopping' category icon in the icon picker."
+  },
+  "categoriesIconBills": "Bills",
+  "@categoriesIconBills": {
+    "description": "Screen reader name of the 'bills' category icon in the icon picker."
+  },
+  "categoriesIconHealth": "Health",
+  "@categoriesIconHealth": {
+    "description": "Screen reader name of the 'health' category icon in the icon picker."
+  },
+  "categoriesIconOther": "Other",
+  "@categoriesIconOther": {
+    "description": "Screen reader name of the 'other' category icon in the icon picker."
+  },
+  "categoriesIconCoffee": "Coffee",
+  "@categoriesIconCoffee": {
+    "description": "Screen reader name of the 'coffee' category icon in the icon picker."
+  },
+  "categoriesIconDrinks": "Drinks",
+  "@categoriesIconDrinks": {
+    "description": "Screen reader name of the 'drinks' category icon in the icon picker."
+  },
+  "categoriesIconFuel": "Fuel",
+  "@categoriesIconFuel": {
+    "description": "Screen reader name of the 'fuel' category icon in the icon picker."
+  },
+  "categoriesIconParking": "Parking",
+  "@categoriesIconParking": {
+    "description": "Screen reader name of the 'parking' category icon in the icon picker."
+  },
+  "categoriesIconTravel": "Travel",
+  "@categoriesIconTravel": {
+    "description": "Screen reader name of the 'travel' category icon in the icon picker."
+  },
+  "categoriesIconHome": "Home",
+  "@categoriesIconHome": {
+    "description": "Screen reader name of the 'home' category icon in the icon picker."
+  },
+  "categoriesIconUtilities": "Utilities",
+  "@categoriesIconUtilities": {
+    "description": "Screen reader name of the 'utilities' category icon in the icon picker."
+  },
+  "categoriesIconPhone": "Phone",
+  "@categoriesIconPhone": {
+    "description": "Screen reader name of the 'phone' category icon in the icon picker."
+  },
+  "categoriesIconElectronics": "Electronics",
+  "@categoriesIconElectronics": {
+    "description": "Screen reader name of the 'electronics' category icon in the icon picker."
+  },
+  "categoriesIconSubscriptions": "Subscriptions",
+  "@categoriesIconSubscriptions": {
+    "description": "Screen reader name of the 'subscriptions' category icon in the icon picker."
+  },
+  "categoriesIconEntertainment": "Entertainment",
+  "@categoriesIconEntertainment": {
+    "description": "Screen reader name of the 'entertainment' category icon in the icon picker."
+  },
+  "categoriesIconGames": "Games",
+  "@categoriesIconGames": {
+    "description": "Screen reader name of the 'games' category icon in the icon picker."
+  },
+  "categoriesIconEducation": "Education",
+  "@categoriesIconEducation": {
+    "description": "Screen reader name of the 'education' category icon in the icon picker."
+  },
+  "categoriesIconBooks": "Books",
+  "@categoriesIconBooks": {
+    "description": "Screen reader name of the 'books' category icon in the icon picker."
+  },
+  "categoriesIconFitness": "Fitness",
+  "@categoriesIconFitness": {
+    "description": "Screen reader name of the 'fitness' category icon in the icon picker."
+  },
+  "categoriesIconPharmacy": "Pharmacy",
+  "@categoriesIconPharmacy": {
+    "description": "Screen reader name of the 'pharmacy' category icon in the icon picker."
+  },
+  "categoriesIconBeauty": "Beauty",
+  "@categoriesIconBeauty": {
+    "description": "Screen reader name of the 'beauty' category icon in the icon picker."
+  },
+  "categoriesIconClothing": "Clothing",
+  "@categoriesIconClothing": {
+    "description": "Screen reader name of the 'clothing' category icon in the icon picker."
+  },
+  "categoriesIconKids": "Kids",
+  "@categoriesIconKids": {
+    "description": "Screen reader name of the 'kids' category icon in the icon picker."
+  },
+  "categoriesIconPets": "Pets",
+  "@categoriesIconPets": {
+    "description": "Screen reader name of the 'pets' category icon in the icon picker."
+  },
+  "categoriesIconGifts": "Gifts",
+  "@categoriesIconGifts": {
+    "description": "Screen reader name of the 'gifts' category icon in the icon picker."
+  },
+  "categoriesIconWork": "Work",
+  "@categoriesIconWork": {
+    "description": "Screen reader name of the 'work' category icon in the icon picker."
+  },
+  "categoriesIconRepairs": "Repairs",
+  "@categoriesIconRepairs": {
+    "description": "Screen reader name of the 'repairs' category icon in the icon picker."
+  },
+  "categoriesIconInsurance": "Insurance",
+  "@categoriesIconInsurance": {
+    "description": "Screen reader name of the 'insurance' category icon in the icon picker."
+  },
+  "reviewSaveFailedStorage": "Not enough storage space to save the receipt. Free up some space and try again.",
+  "@reviewSaveFailedStorage": {
+    "description": "SnackBar shown when saving a receipt failed because the phone's storage is full."
+  },
+  "reviewPhotoMissingTitle": "Photo no longer available",
+  "@reviewPhotoMissingTitle": {
+    "description": "Title of the dialog shown when the scanned photo was deleted (e.g. by the system) before the receipt could be saved."
+  },
+  "reviewPhotoMissingBody": "The scanned photo was removed from the phone's temporary storage before it could be saved. You can save the receipt without the photo, or discard it and scan again.",
+  "@reviewPhotoMissingBody": {
+    "description": "Body of the dialog shown when the scanned photo is gone before saving."
+  },
+  "reviewSaveWithoutPhoto": "Save without photo",
+  "@reviewSaveWithoutPhoto": {
+    "description": "Button in the missing-photo dialog that saves the receipt without its photo."
+  },
+  "listDeleteFailed": "Couldn't delete the receipt. Please try again.",
+  "@listDeleteFailed": {
+    "description": "SnackBar when deleting a receipt from the list or the detail screen fails; the receipt is still there."
+  },
+  "listRestoreFailed": "Couldn't restore the receipt.",
+  "@listRestoreFailed": {
+    "description": "SnackBar when Undo after deleting a receipt fails."
+  },
+  "categoriesDeleteError": "Couldn't delete the category. Please try again.",
+  "@categoriesDeleteError": {
+    "description": "SnackBar when deleting a category fails."
   }
 }
