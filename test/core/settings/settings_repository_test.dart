@@ -18,6 +18,8 @@ void main() {
     expect(settings.defaultCurrency, 'AUD');
     expect(settings.dateOrder, DateOrder.dmy);
     expect(settings.developerMode, isFalse);
+    expect(settings.currencyFromLocale, isTrue);
+    expect(settings.dateOrderFromLocale, isTrue);
   });
 
   test('stored values win over locale defaults', () async {
@@ -32,6 +34,8 @@ void main() {
     expect(settings.defaultCurrency, 'EUR');
     expect(settings.dateOrder, DateOrder.ymd);
     expect(settings.developerMode, isTrue);
+    expect(settings.currencyFromLocale, isFalse);
+    expect(settings.dateOrderFromLocale, isFalse);
   });
 
   test('corrupt stored values fall back to defaults', () async {
@@ -44,6 +48,25 @@ void main() {
     expect(settings.themeMode, ThemeMode.system);
     expect(settings.defaultCurrency, 'USD');
     expect(settings.dateOrder, DateOrder.mdy);
+    expect(settings.currencyFromLocale, isTrue);
+    expect(settings.dateOrderFromLocale, isTrue);
+  });
+
+  test('values of the wrong type fall back to defaults', () async {
+    // getString/getBool throw a TypeError for these; loading must not.
+    final prefs = await inMemoryPrefs({
+      SettingsRepository.keyThemeMode: 2,
+      SettingsRepository.keyDefaultCurrency: true,
+      SettingsRepository.keyDateOrder: 1.5,
+      SettingsRepository.keyDeveloperMode: 'yes',
+    });
+    final settings = SettingsRepository(prefs, locale: 'en_AU').load();
+    expect(settings.themeMode, ThemeMode.system);
+    expect(settings.defaultCurrency, 'AUD');
+    expect(settings.currencyFromLocale, isTrue);
+    expect(settings.dateOrder, DateOrder.dmy);
+    expect(settings.dateOrderFromLocale, isTrue);
+    expect(settings.developerMode, isFalse);
   });
 
   test('rejects malformed currency codes', () async {
@@ -75,5 +98,42 @@ void main() {
     expect(settings.defaultCurrency, 'NZD');
     expect(settings.dateOrder, DateOrder.ymd);
     expect(settings.developerMode, isTrue);
+  });
+
+  test('reset returns currency and date order to the locale', () async {
+    final prefs = await inMemoryPrefs({
+      SettingsRepository.keyDefaultCurrency: 'EUR',
+      SettingsRepository.keyDateOrder: 'ymd',
+    });
+    final container = ProviderContainer(
+      overrides: [
+        sharedPreferencesProvider.overrideWithValue(prefs),
+        deviceLocaleProvider.overrideWithValue('en_US'),
+      ],
+    );
+    addTearDown(container.dispose);
+    final controller = container.read(settingsControllerProvider.notifier);
+
+    await controller.resetDefaultCurrency();
+    await controller.resetDateOrder();
+
+    final settings = container.read(settingsControllerProvider);
+    expect(settings.defaultCurrency, 'USD');
+    expect(settings.currencyFromLocale, isTrue);
+    expect(settings.dateOrder, DateOrder.mdy);
+    expect(settings.dateOrderFromLocale, isTrue);
+    expect(prefs.getString(SettingsRepository.keyDefaultCurrency), isNull);
+    expect(prefs.getString(SettingsRepository.keyDateOrder), isNull);
+
+    // Choosing a value again stores it and stops following the locale.
+    await controller.setDateOrder(DateOrder.dmy);
+    expect(
+      container.read(settingsControllerProvider).dateOrderFromLocale,
+      isFalse,
+    );
+    expect(
+      SettingsRepository(prefs, locale: 'en_US').load().dateOrder,
+      DateOrder.dmy,
+    );
   });
 }

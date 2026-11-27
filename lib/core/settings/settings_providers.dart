@@ -38,12 +38,30 @@ class SettingsController extends _$SettingsController {
 
   Future<void> setDefaultCurrency(String code) async {
     await _repo.setDefaultCurrency(code);
-    state = state.copyWith(defaultCurrency: code);
+    state = state.copyWith(defaultCurrency: code, currencyFromLocale: false);
+  }
+
+  /// "Use device default": the currency follows the device region again.
+  Future<void> resetDefaultCurrency() async {
+    await _repo.clearDefaultCurrency();
+    state = state.copyWith(
+      defaultCurrency: _repo.load().defaultCurrency,
+      currencyFromLocale: true,
+    );
   }
 
   Future<void> setDateOrder(DateOrder order) async {
     await _repo.setDateOrder(order);
-    state = state.copyWith(dateOrder: order);
+    state = state.copyWith(dateOrder: order, dateOrderFromLocale: false);
+  }
+
+  /// "Auto": the date order follows the device locale again.
+  Future<void> resetDateOrder() async {
+    await _repo.clearDateOrder();
+    state = state.copyWith(
+      dateOrder: _repo.load().dateOrder,
+      dateOrderFromLocale: true,
+    );
   }
 
   Future<void> setDeveloperMode(bool enabled) async {
