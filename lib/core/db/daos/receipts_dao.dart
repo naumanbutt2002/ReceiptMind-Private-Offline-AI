@@ -58,12 +58,49 @@ class ReceiptsDao extends DatabaseAccessor<AppDatabase>
   Future<ReceiptRow?> getReceipt(String id) =>
       (select(receipts)..where((r) => r.id.equals(id))).getSingleOrNull();
 
+  /// One receipt, re-emitted when it changes; `null` once it is deleted.
+  Stream<ReceiptRow?> watchReceipt(String id) =>
+      (select(receipts)..where((r) => r.id.equals(id))).watchSingleOrNull();
+
+  /// Receipts purchased between [from] and [to] (both inclusive, either may
+  /// be open), oldest first. Used by the CSV export.
+  Future<List<ReceiptRow>> receiptsBetween({LocalDate? from, LocalDate? to}) {
+    final select = this.select(receipts);
+    if (from != null) {
+      select.where((r) => r.purchaseDate.isBiggerOrEqualValue(from.toIso()));
+    }
+    if (to != null) {
+      select.where((r) => r.purchaseDate.isSmallerOrEqualValue(to.toIso()));
+    }
+    select.orderBy([
+      (r) => OrderingTerm.asc(r.purchaseDate),
+      (r) => OrderingTerm.asc(r.createdAt),
+    ]);
+    return select.get();
+  }
+
   Future<void> insertReceipt(ReceiptsCompanion receipt) =>
       into(receipts).insert(receipt);
 
-  /// Re-inserts a deleted row unchanged (used by "Undo").
-  Future<void> restoreReceipt(ReceiptRow row) =>
-      into(receipts).insert(row, mode: InsertMode.insertOrReplace);
+  /// Re-inserts a deleted row (used by "Undo"). If its category was deleted
+  /// in the meantime, the receipt comes back uncategorised instead of failing
+  /// the foreign key.
+  Future<void> restoreReceipt(ReceiptRow row) => transaction(() async {
+    var restored = row;
+    final categoryId = row.categoryId;
+    if (categoryId != null) {
+      final categories = attachedDatabase.categories;
+      final category =
+          await (selectOnly(categories)
+                ..addColumns([categories.id])
+                ..where(categories.id.equals(categoryId)))
+              .getSingleOrNull();
+      if (category == null) {
+        restored = row.copyWith(categoryId: const Value(null));
+      }
+    }
+    await into(receipts).insert(restored, mode: InsertMode.insertOrReplace);
+  });
 
   Future<bool> updateReceipt(ReceiptRow row) => update(receipts).replace(row);
 
