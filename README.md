@@ -186,27 +186,14 @@ aapt2 dump permissions build/app/outputs/flutter-apk/app-release.apk | grep INTE
 ## Architecture
 
 ```mermaid
-flowchart TB
-  subgraph UI["Flutter UI · Material 3"]
-    L[Receipt list · search · filters] --- R[Review screen] --- S[Settings · export · developer mode]
-  end
-  subgraph State["Riverpod 3 providers · go_router"]
-    C[Scan flow controller] --- Q[Receipts / categories / settings]
-  end
-  subgraph Platform["Platform plugins behind interfaces"]
-    DS[DocumentScanner] --- OE[OcrEngine · ML Kit] --- IS[ReceiptImageStore]
-  end
-  subgraph Parser["packages/receipt_parser · pure Dart"]
-    RB[Row builder] --> EX[Field extractors] --> VA[Validator]
-  end
-  DB[(Drift · SQLite<br/>private app storage)]
-  UI --> State
-  C --> DS
-  C --> OE
-  OE -->|OcrDocument| Parser
-  Parser -->|ParsedReceipt| R
-  Q --> DB
-  C --> IS
+flowchart LR
+  UI["📱 Flutter UI<br/>list · review · settings"] --> ST["⚙️ Riverpod providers<br/>scan flow controller"]
+  ST --> SC["📷 DocumentScanner"]
+  ST --> OCR["🔤 OcrEngine<br/>ML Kit, on-device"]
+  OCR -->|OcrDocument| P["🧩 receipt_parser · pure Dart<br/>rows → fields → validator"]
+  P -->|ParsedReceipt| UI
+  ST --> IMG["🖼️ ReceiptImageStore<br/>private files"]
+  ST --> DB[("💾 Drift · SQLite")]
 ```
 
 - Every platform plugin sits behind an interface (`DocumentScanner`, `OcrEngine`, `ReceiptImageStore`), so tests
