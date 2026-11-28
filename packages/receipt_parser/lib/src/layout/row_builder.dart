@@ -21,16 +21,31 @@ final class RowBuilder {
   const RowBuilder();
 
   List<ReceiptRowText> build(OcrDocument document) {
-    final lines = [
-      for (final l in document.lines)
-        if (l.text.trim().isNotEmpty) l,
-    ];
+    final lines = _textLines(document);
     if (!document.hasLayout || lines.isEmpty) {
       return [
         for (final (i, l) in lines.indexed) ReceiptRowText(i, l.text.trim()),
       ];
     }
+    return [for (final (i, r) in _group(lines).indexed) r.toRowText(i)];
+  }
 
+  /// The OCR lines of each row, grouped exactly as [build] groups them: row
+  /// `i` here is [ReceiptRowText] `i` of [build], its lines left to right.
+  /// Empty when the document has no boxes. The OCR debug screen draws these
+  /// rows, so the row numbers it shows match [ParsedField.rowIndex].
+  List<List<OcrLine>> rowLines(OcrDocument document) {
+    final lines = _textLines(document);
+    if (!document.hasLayout || lines.isEmpty) return const [];
+    return [for (final r in _group(lines)) r.orderedLines];
+  }
+
+  static List<OcrLine> _textLines(OcrDocument document) => [
+    for (final l in document.lines)
+      if (l.text.trim().isNotEmpty) l,
+  ];
+
+  static List<_Row> _group(List<OcrLine> lines) {
     final slope = math.tan(skewDegrees(lines) * math.pi / 180);
     final placed = [for (final l in lines) _Placed(l, _deskew(l.box!, slope))]
       ..sort((a, b) => a.box.centerY.compareTo(b.box.centerY));
@@ -54,7 +69,7 @@ final class RowBuilder {
       }
     }
     rows.sort((a, b) => a.top.compareTo(b.top));
-    return [for (final (i, r) in rows.indexed) r.toRowText(i)];
+    return rows;
   }
 
   /// Skews smaller than this are treated as level.
@@ -151,9 +166,13 @@ final class _Row {
     return overlap / smaller;
   }
 
+  List<_Placed> get _ordered =>
+      [..._lines]..sort((a, b) => a.box.left.compareTo(b.box.left));
+
+  List<OcrLine> get orderedLines => [for (final l in _ordered) l.line];
+
   ReceiptRowText toRowText(int index) {
-    final ordered = [..._lines]
-      ..sort((a, b) => a.box.left.compareTo(b.box.left));
+    final ordered = _ordered;
     final heights = [for (final l in _lines) l.box.height]..sort();
     return ReceiptRowText(
       index,

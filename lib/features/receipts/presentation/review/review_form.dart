@@ -169,12 +169,18 @@ class _ReviewFormState extends ConsumerState<ReviewForm> {
     if (initial.isBefore(first)) initial = first;
     if (initial.isAfter(last)) initial = last;
 
+    final format = datePickerFormat(
+      _dateOrder,
+      Localizations.localeOf(context),
+    );
     final picked = await showDatePicker(
       context: context,
       initialDate: initial,
       firstDate: first,
       lastDate: last,
       currentDate: DateTime(today.year, today.month, today.day),
+      locale: format.locale,
+      fieldHintText: format.hint,
     );
     if (picked == null || !mounted) return;
     final date = LocalDate.fromDateTime(picked);

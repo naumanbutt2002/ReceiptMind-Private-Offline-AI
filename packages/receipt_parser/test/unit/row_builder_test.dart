@@ -1,5 +1,4 @@
 import 'package:receipt_parser/receipt_parser.dart';
-import 'package:receipt_parser/src/layout/row_builder.dart';
 import 'package:test/test.dart';
 
 OcrLine line(String text, double left, double top, {double height = 40}) =>
@@ -93,6 +92,17 @@ void main() {
         'Total  116.50',
       ]);
       expect(RowBuilder.skewDegrees(doc.lines), -1.5);
+    });
+
+    test('rowLines groups the original lines exactly like build', () {
+      final rows = builder.rowLines(doc);
+      expect(
+        [for (final r in rows) r.map((l) => l.text).join('  ')],
+        [for (final r in builder.build(doc)) r.text],
+      );
+      // The original (not de-skewed) boxes, for drawing on the photo.
+      expect(rows.first.last.box, doc.lines[3].box);
+      expect(builder.rowLines(OcrDocument.fromPlainText('A\nB')), isEmpty);
     });
 
     test('the slant is taken out of the row height', () {

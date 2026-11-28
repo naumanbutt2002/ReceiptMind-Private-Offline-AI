@@ -203,6 +203,31 @@ void main() {
         findsOneWidget,
       );
     });
+    // QA M6 (B-1): the picker's text field used US order on an en-AU device.
+    testWidgets('a date typed in the picker follows the date order', (
+      tester,
+    ) async {
+      await pumpReview(
+        tester,
+        location: '/scan/review',
+        scanState: ScanReview(sampleReview()),
+      );
+
+      await tester.tap(find.byKey(ReviewKeys.datePickerButton));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byTooltip('Switch to input'));
+      await tester.pumpAndSettle();
+      final field = find.descendant(
+        of: find.byType(DatePickerDialog),
+        matching: find.byType(TextField),
+      );
+      expect(tester.widget<TextField>(field).controller!.text, '12/09/2026');
+      await tester.enterText(field, '01/11/2026');
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+
+      expect(fieldText(tester, ReviewKeys.dateField), '01/11/2026');
+    });
   });
 
   group('validation', () {

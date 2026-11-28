@@ -580,6 +580,51 @@ void main() {
       expect(exportedRange, (LocalDate(2026, 11, 3), LocalDate(2026, 11, 16)));
       expect(find.text('No receipts to export'), findsOneWidget);
     });
+
+    // QA M6 (B-1): an en-AU device resolves to plain `en`, whose date fields
+    // read mm/dd/yyyy, so "01/11/2026" became 11 January.
+    for (final (locale, stored, typed, hint) in [
+      (
+        'en_AU',
+        const <String, Object>{},
+        ('01/11/2026', '16/11/2026'),
+        'dd/mm/yyyy',
+      ),
+      (
+        'en_US',
+        {SettingsRepository.keyDateOrder: 'ymd'},
+        ('2026-11-01', '2026-11-16'),
+        'yyyy-mm-dd',
+      ),
+    ]) {
+      testWidgets('typed range dates follow the date order ($locale $stored)', (
+        tester,
+      ) async {
+        await pumpSettings(tester, locale: locale, stored: stored);
+        await tapTile(tester, 'Export to CSV');
+        await tester.tap(find.text('Choose dates…'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.byTooltip('Switch to input'));
+        await tester.pumpAndSettle();
+
+        expect(find.text(hint), findsWidgets);
+        final fields = find.descendant(
+          of: find.byType(DateRangePickerDialog),
+          matching: find.byType(TextField),
+        );
+        await tester.enterText(fields.at(0), typed.$1);
+        await tester.enterText(fields.at(1), typed.$2);
+        await tester.tap(find.text('OK'));
+        await tester.pump();
+        await tester.pump();
+        await tester.pumpAndSettle();
+
+        expect(exportedRange, (
+          LocalDate(2026, 11, 1),
+          LocalDate(2026, 11, 16),
+        ));
+      });
+    }
   });
 
   group('About & privacy', () {

@@ -254,6 +254,9 @@ class _IconOption extends StatelessWidget {
       selected: selected,
       label: label,
       excludeSemantics: true,
+      // excludeSemantics drops the InkResponse's tap action, so it is given
+      // here again; without it TalkBack can't pick the option.
+      onTap: onTap,
       child: Tooltip(
         message: label,
         child: InkResponse(
@@ -304,6 +307,9 @@ class _ColourOption extends StatelessWidget {
       selected: selected,
       label: label,
       excludeSemantics: true,
+      // excludeSemantics drops the InkResponse's tap action, so it is given
+      // here again; without it TalkBack can't pick the option.
+      onTap: onTap,
       child: InkResponse(
         onTap: onTap,
         radius: 24,

@@ -55,6 +55,34 @@ void main() {
   String fieldText(WidgetTester tester) =>
       tester.widget<TextField>(find.byType(TextField)).controller!.text;
 
+  // QA M8 (B-3): excludeSemantics dropped the options' tap action, so
+  // TalkBack could read the icon and colour options but not pick them (and
+  // the tap-target guideline skipped them).
+  testWidgets('icon and colour options can be picked with a screen reader', (
+    tester,
+  ) async {
+    final handle = tester.ensureSemantics();
+    await pumpScreen(tester);
+    await openNew(tester);
+
+    for (final label in ['Coffee', 'Colour 3 of 12']) {
+      final option = find.bySemanticsLabel(label);
+      expect(
+        tester.getSemantics(option),
+        isSemantics(isButton: true, hasTapAction: true),
+        reason: label,
+      );
+      tester.semantics.tap(find.semantics.byLabel(label));
+      await tester.pumpAndSettle();
+      expect(
+        tester.getSemantics(option),
+        isSemantics(isSelected: true),
+        reason: label,
+      );
+    }
+    handle.dispose();
+  });
+
   testWidgets('the counter counts emoji, flags and ZWJ families as one', (
     tester,
   ) async {
