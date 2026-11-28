@@ -33,5 +33,11 @@ and this project follows [Semantic Versioning](https://semver.org/).
   receipt not parsed) and a pull request template.
 
 ### Fixed
+- Search now ignores case and accents (`cafe` finds `CAFÉ`, `strasse` finds `Straße`).
+- Category names accept up to 40 visible characters including emoji, flags and ZWJ sequences.
+- Photos tilted 1–2° no longer give the wrong merchant or miss the subtotal (text boxes are straightened first).
+- Typed dates in the date pickers follow the user's date order (01/11/2026 is 1 November on day-first devices).
+- The OCR debug overlay uses the parser's own row grouping, so field markers sit on the right lines.
+- Category icon and colour options can be selected with a screen reader.
 - ML Kit text recognition failed in release builds because R8 renamed its classes; keep rules added.
 - Dates read by ML Kit with a stray space (`12/09/ 2026`) are now recognised.

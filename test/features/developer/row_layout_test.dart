@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:receipt_mind/features/developer/application/row_layout.dart';
@@ -10,6 +11,32 @@ void main() {
   test('rows match the parser rows on every layout fixture', () {
     final files = layoutFixtureFiles();
     expect(files, isNotEmpty);
+    for (final file in files) {
+      final document = OcrDocument.fromJson(
+        jsonDecode(file.readAsStringSync()) as Map<String, Object?>,
+      );
+      final parsed = const RuleReceiptParser().parse(document, auOptions);
+      final layout = buildRowLayout(document);
+      expect(
+        [for (final r in layout) '${r.index}: ${r.text}'],
+        [for (final r in parsed.rows) '${r.index}: ${r.text}'],
+        reason: file.path,
+      );
+    }
+  });
+
+  // QA M7 (B-2): the debug screen grouped rows without the parser's de-skew,
+  // so on a tilted photo it numbered 50 rows where the parser had 44 and
+  // tagged "total" on the CUSTOMER COPY line.
+  test('rows match the parser rows on real, tilted photo dumps', () {
+    final files =
+        Directory('packages/receipt_parser/test/data/photo_ocr')
+            .listSync()
+            .whereType<File>()
+            .where((f) => f.path.endsWith('.ocr.json'))
+            .toList()
+          ..sort((a, b) => a.path.compareTo(b.path));
+    expect(files, hasLength(6));
     for (final file in files) {
       final document = OcrDocument.fromJson(
         jsonDecode(file.readAsStringSync()) as Map<String, Object?>,

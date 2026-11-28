@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import '../date/local_date.dart';
 import 'daos/categories_dao.dart';
 import 'daos/receipts_dao.dart';
+import 'search_functions.dart';
 import 'seed.dart';
 import 'tables/categories.dart';
 import 'tables/enums.dart';
@@ -28,6 +29,7 @@ class AppDatabase extends _$AppDatabase {
       name: 'receipt_mind',
       native: const DriftNativeOptions(
         databaseDirectory: getApplicationSupportDirectory,
+        setup: registerSearchFunctions,
       ),
     ),
   );

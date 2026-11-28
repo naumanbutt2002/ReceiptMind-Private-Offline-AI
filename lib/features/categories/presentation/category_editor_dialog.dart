@@ -4,10 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/db/app_database.dart';
 import '../../../core/db/db_providers.dart';
+import '../../../core/db/tables/categories.dart' show categoryNameMaxCodeUnits;
 import '../../../core/widgets/category_icons.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
-/// Longest category name the database accepts.
+/// Longest category name, in visible characters (grapheme clusters), so an
+/// emoji, a flag or a ZWJ family counts as one. The text field's counter and
+/// length limit count the same way (`String.characters`).
 const categoryNameMaxLength = 40;
 
 /// What the category editor dialog ended with.
@@ -78,7 +81,10 @@ class _CategoryEditorDialogState extends ConsumerState<CategoryEditorDialog> {
 
   String? _validate(AppLocalizations l10n, String name) {
     if (name.isEmpty) return l10n.categoriesNameRequired;
-    if (name.length > categoryNameMaxLength) {
+    // The code-unit cap only trips on abuse such as stacked combining marks;
+    // it keeps the editor from offering a name the database would reject.
+    if (name.characters.length > categoryNameMaxLength ||
+        name.length > categoryNameMaxCodeUnits) {
       return l10n.categoriesNameTooLong(categoryNameMaxLength);
     }
     final lower = name.toLowerCase();
@@ -145,6 +151,7 @@ class _CategoryEditorDialogState extends ConsumerState<CategoryEditorDialog> {
           TextField(
             controller: _name,
             autofocus: _isNew,
+            // Counts and truncates by grapheme cluster, like [_validate].
             maxLength: categoryNameMaxLength,
             textCapitalization: TextCapitalization.sentences,
             textInputAction: TextInputAction.done,
@@ -247,6 +254,9 @@ class _IconOption extends StatelessWidget {
       selected: selected,
       label: label,
       excludeSemantics: true,
+      // excludeSemantics drops the InkResponse's tap action, so it is given
+      // here again; without it TalkBack can't pick the option.
+      onTap: onTap,
       child: Tooltip(
         message: label,
         child: InkResponse(
@@ -297,6 +307,9 @@ class _ColourOption extends StatelessWidget {
       selected: selected,
       label: label,
       excludeSemantics: true,
+      // excludeSemantics drops the InkResponse's tap action, so it is given
+      // here again; without it TalkBack can't pick the option.
+      onTap: onTap,
       child: InkResponse(
         onTap: onTap,
         radius: 24,

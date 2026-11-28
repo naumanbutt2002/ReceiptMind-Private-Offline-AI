@@ -10,7 +10,7 @@
   <a href="#build-from-source"><img src="https://img.shields.io/badge/platform-Android%20%7C%20iOS-3DDC84" alt="Android and iOS"></a>
   <a href="#privacy-you-can-verify"><img src="https://img.shields.io/badge/INTERNET%20permission-none-success" alt="No INTERNET permission"></a>
   <a href="#from-pixels-to-fields"><img src="https://img.shields.io/badge/OCR-on--device-00897B" alt="On-device OCR"></a>
-  <a href="#engineering-highlights"><img src="https://img.shields.io/badge/tests-400%2B-brightgreen" alt="400+ tests"></a>
+  <a href="#engineering-highlights"><img src="https://img.shields.io/badge/tests-800%2B-brightgreen" alt="800+ tests"></a>
 </p>
 
 <p align="center">
@@ -29,9 +29,9 @@
   <a href="#build-from-source">Build</a>
 </p>
 
-> **Status: v0.1 in active development.** Scanning, on-device OCR, parsing, review, the receipt list, categories,
-> settings and CSV export work today. Every screenshot below is from the current Android build. Hardening and the
-> first signed APK release are next ([roadmap](#roadmap)).
+> **Status: v0.1 feature-complete.** Scanning, on-device OCR, parsing, review, the receipt list, categories,
+> settings, CSV export and developer tools work today, and the app has been hardened and QA-tested on Android.
+> Every screenshot below is from the current Android build. The first signed APK release is next ([roadmap](#roadmap)).
 
 ## Demo
 
@@ -99,9 +99,10 @@
   tip, currency and payment method, with a confidence score per field. Unsure fields are flagged ⚠️.
 - **You stay in control**: every receipt is reviewed before saving; zoom into the photo, see the recognised text,
   fix anything. Manual entry works too.
-- **Expense tracker**: search (merchant, notes and receipt text), category filters, month sections and
-  monthly totals per currency, swipe to delete with undo.
-- **Categories**: 7 defaults (Groceries, Dining, Transport, …); add your own with icons and colours.
+- **Expense tracker**: search across merchant, notes and receipt text that ignores case and accents
+  (`cafe` finds *CAFÉ*, `strasse` finds *Straße*), category filters, month sections, monthly totals per currency,
+  swipe to delete with undo.
+- **Categories**: 7 defaults (Groceries, Dining, Transport, …); add your own with icons, colours and even emoji names.
 - **Multi-currency and locale aware**: every receipt keeps its own ISO currency; amounts are exact integer minor
   units (never floating point); default currency and date format follow your region.
 - **CSV export**: all receipts or a date range, Excel-friendly (UTF-8 BOM) with CSV-injection protection.
@@ -208,11 +209,12 @@ flowchart LR
 | | |
 |---|---|
 | 💰 **Exact money** | Integer minor units plus an ISO 4217 code everywhere. Never `double`, so totals never drift by a cent. |
-| 🧪 **Tested** | 400+ unit and widget tests (about 360 in the parser alone), an accuracy report with a blind holdout, and on-device integration tests for the OCR pipeline, image store and scan flow. |
+| 🧪 **Tested** | 800+ unit and widget tests (about 370 in the parser alone), an accuracy report with a blind holdout, real ML Kit output from photographed receipts as regression data, and on-device integration tests for the OCR pipeline, image store and scan flow. |
 | 🔒 **Offline by construction** | The release manifest removes `INTERNET`; release builds keep the ML Kit R8 rules so recognition still works after shrinking. |
 | 🌍 **Locale aware** | Comma or dot decimals, day- or month-first dates, VAT/MwSt tables, per-receipt currency, region defaults. |
 | 🧩 **Clean boundaries** | Pure-Dart parser package, plugins behind interfaces, generated code committed and checked for staleness. |
-| ♿ **Accessible** | Large-text and screen-reader friendly, light and dark themes. |
+| ♿ **Accessible** | Screen-reader labels and actions, 48 dp tap targets and contrast checked in automated tests, 200 % text, light and dark themes. |
+| 📐 **Robust on real photos** | Text boxes are straightened by the receipt's tilt before rows are rebuilt, long receipts stay readable, EXIF orientation is respected and GPS metadata removed. |
 
 ## Tech stack
 
@@ -249,7 +251,7 @@ integration_test/          on-device tests (OCR pipeline, image store, scan flow
 
 | Version | Scope | Status |
 |---|---|---|
-| **v0.1** | Scan / import, on-device OCR, rule parser, review screen, receipt list, search, categories, monthly totals, CSV export, dark mode, developer mode | 🚧 features done, hardening + first APK release next |
+| **v0.1** | Scan / import, on-device OCR, rule parser, review screen, receipt list, search, categories, monthly totals, CSV export, dark mode, developer mode | ✅ features, hardening and QA done · 🚀 first signed APK release next |
 | v0.2 | **Optional on-device AI**: a small Gemma model running on the phone (`flutter_gemma`) as a second parser for messy receipts, plus line items, auto-categorisation, charts and budgets. The model download is opt-in; receipts are still processed on the device. | planned |
 | v0.3 | App lock, encrypted backup, home-screen widget, batch import, share-to-app | planned |
 | v1.0 | Warranty reminders, tax reports, tap a field to see where it was found on the photo | planned |
@@ -277,8 +279,10 @@ annotated code. See [CONTRIBUTING.md](CONTRIBUTING.md).
 ## Contributing
 
 Contributions are welcome. **Adding receipts from your country** is the easiest way to help, and it
-needs no Flutter knowledge. Adding a language to the parser is just a keyword list. Start with
-[CONTRIBUTING.md](CONTRIBUTING.md).
+needs no Flutter knowledge: turn on developer mode, scan, fix the fields and use *Export as fixture*
+([guide](CONTRIBUTING.md#adding-receipt-fixtures)). Adding a language to the parser is just a keyword list.
+Pick one of the [good first issues](https://github.com/naumanbutt2002/ReceiptMind-Private-Offline-AI/labels/good%20first%20issue),
+or report a receipt the app misreads with the *Receipt not parsed* issue form.
 
 ## About the author
 

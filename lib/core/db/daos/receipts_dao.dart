@@ -1,7 +1,9 @@
 import 'package:drift/drift.dart';
 
 import '../../date/local_date.dart';
+import '../../text/search_fold.dart';
 import '../app_database.dart';
+import '../search_functions.dart';
 import '../tables/receipts.dart';
 
 part 'receipts_dao.g.dart';
@@ -12,17 +14,20 @@ class ReceiptsDao extends DatabaseAccessor<AppDatabase>
   ReceiptsDao(super.attachedDatabase);
 
   /// Receipts newest first. [query] matches merchant, notes and the recognised
-  /// text (case-insensitive for ASCII); [categoryId] filters by category.
+  /// text as a literal substring, ignoring case and accents ("cafe" finds
+  /// "CAFÉ", "strasse" finds "Straße", see [foldForSearch]); [categoryId]
+  /// filters by category.
   Stream<List<ReceiptRow>> watchReceipts({String? query, int? categoryId}) {
     final select = this.select(receipts);
-    final text = query?.trim() ?? '';
+    final text = foldForSearch(query?.trim() ?? '');
     if (text.isNotEmpty) {
       final pattern = '%${_escapeLike(text)}%';
+      Expression<bool> matches(Expression<String> column) =>
+          FunctionCallExpression<String>(searchFoldFunction, [
+            column,
+          ]).like(pattern, escapeChar: r'\');
       select.where(
-        (r) =>
-            r.merchant.like(pattern, escapeChar: r'\') |
-            r.notes.like(pattern, escapeChar: r'\') |
-            r.rawOcrText.like(pattern, escapeChar: r'\'),
+        (r) => matches(r.merchant) | matches(r.notes) | matches(r.rawOcrText),
       );
     }
     if (categoryId != null) {
