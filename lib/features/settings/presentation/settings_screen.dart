@@ -277,11 +277,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     LocalDate? to;
     if (scope == _ExportScope.dateRange) {
       final now = ref.read(clockProvider)();
+      final format = datePickerFormat(
+        ref.read(settingsControllerProvider).dateOrder,
+        Localizations.localeOf(context),
+      );
       final range = await showDateRangePicker(
         context: context,
         firstDate: DateTime(2000),
         lastDate: DateTime(now.year + 1, 12, 31),
         currentDate: now,
+        locale: format.locale,
+        fieldStartHintText: format.hint,
+        fieldEndHintText: format.hint,
       );
       if (range == null || !mounted) return;
       from = LocalDate.fromDateTime(range.start);

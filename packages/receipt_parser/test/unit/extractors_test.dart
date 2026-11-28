@@ -2,6 +2,7 @@ import 'package:receipt_parser/receipt_parser.dart';
 import 'package:receipt_parser/src/extract/currency_extractor.dart';
 import 'package:receipt_parser/src/extract/date_extractor.dart';
 import 'package:receipt_parser/src/extract/merchant_extractor.dart';
+import 'package:receipt_parser/src/extract/parse_context.dart';
 import 'package:receipt_parser/src/extract/payment_extractor.dart';
 import 'package:receipt_parser/src/extract/tax_extractor.dart';
 import 'package:receipt_parser/src/extract/total_extractor.dart';
@@ -253,6 +254,41 @@ void main() {
         'Tesco Express',
       );
       expect(merchant('SHELL\nColes Express\n12 Main Rd'), 'Shell');
+    });
+    test('a line taller only by its descenders is not a logo', () {
+      // Heights as ML Kit measured them on a photo: the all-caps store name
+      // 24 px, the branch line with "pp"/"y" descenders 31 px (1.3×).
+      OcrLine row(String text, double top, double height) => OcrLine(
+        text,
+        box: BoxRect(40, top, 40 + text.length * 18.0, top + height),
+      );
+      final doc = OcrDocument(
+        lines: [
+          row('WHSmith', 0, 24),
+          row('Manchester Piccadilly Station', 40, 31),
+          row('Unit 4, Station Approach', 80, 31),
+          row('THE GUARDIAN  2.20', 160, 24),
+          row('BALANCE DUE  44.16', 200, 24),
+          row('CASH  50.00', 240, 24),
+        ],
+      );
+      final context = ParseContext.build(doc, options(currency: 'GBP'));
+      expect(const MerchantExtractor().extract(context)?.value, 'WHSmith');
+    });
+    test('a double-height name wins over the first line', () {
+      OcrLine row(String text, double top, double height) =>
+          OcrLine(text, box: BoxRect(40, top, 400, top + height));
+      final doc = OcrDocument(
+        lines: [
+          row('Tax invoice copy', 0, 24),
+          row('BOOTS', 40, 50),
+          row('Leeds Briggate', 100, 24),
+          row('Milk  1.20', 140, 24),
+          row('TOTAL  1.20', 180, 24),
+        ],
+      );
+      final context = ParseContext.build(doc, options(currency: 'GBP'));
+      expect(const MerchantExtractor().extract(context)?.value, 'Boots');
     });
     test('German address lines', () {
       expect(

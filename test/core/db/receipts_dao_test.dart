@@ -140,6 +140,116 @@ void main() {
     });
   });
 
+  group('search ignores case and accents', () {
+    setUp(() async {
+      for (final (merchant, notes, ocr) in [
+        ('CAFÉ DE FLORE', null, null),
+        ('Bäckerei Müller', null, null),
+        ('Hauptbahnhof Kiosk', null, 'STRASSE 12\nBERLIN'),
+        ('Ålesund Fisk', 'Smørbrød with Øl', null),
+        ('Zakopane', null, 'ŁÓDŹ, UL. PIOTRKOWSKA'),
+        ('Crêperie', 'CRÈME BRÛLÉE x2', 'Œufs\nGarçon'),
+        ('東京 Ramen', null, null),
+        ('Café Decomposed', null, null), // é as e + combining accent
+      ]) {
+        await db.receiptsDao.insertReceipt(
+          receipt(
+            merchant: merchant,
+            date: LocalDate(2026, 9, 1),
+            notes: notes,
+            ocr: ocr,
+          ),
+        );
+      }
+    });
+
+    Future<Set<String>> search(String q) async =>
+        (await db.receiptsDao.watchReceipts(query: q).first)
+            .map((r) => r.merchant)
+            .toSet();
+
+    test('café finds CAFÉ, and the reverse', () async {
+      final both = {'CAFÉ DE FLORE', 'Café Decomposed'};
+      expect(await search('café'), both);
+      expect(await search('CAFÉ'), both);
+      expect(await search('cafe'), both);
+      expect(await search('Café'), both);
+    });
+
+    test('umlauts, sharp s and Nordic letters', () async {
+      expect(await search('Muller'), {'Bäckerei Müller'});
+      expect(await search('MÜLLER'), {'Bäckerei Müller'});
+      expect(await search('backerei'), {'Bäckerei Müller'});
+      expect(await search('straße'), {'Hauptbahnhof Kiosk'});
+      expect(await search('alesund'), {'Ålesund Fisk'});
+    });
+
+    test('notes and recognised text are folded too', () async {
+      expect(await search('smorbrod'), {'Ålesund Fisk'});
+      expect(await search('øl'), {'Ålesund Fisk'});
+      expect(await search('lodz'), {'Zakopane'});
+      expect(await search('Łódź'), {'Zakopane'});
+      expect(await search('creme brulee'), {'Crêperie'});
+      expect(await search('oeufs'), {'Crêperie'});
+      expect(await search('garcon'), {'Crêperie'});
+    });
+
+    test('mixed scripts', () async {
+      expect(await search('東京'), {'東京 Ramen'});
+      expect(await search('東京 RAMEN'), {'東京 Ramen'});
+      expect(await search('ramen'), {'東京 Ramen'});
+    });
+
+    test('no false positives', () async {
+      expect(await search('cafes'), isEmpty);
+      expect(await search('mueller'), isEmpty);
+      expect(await search('京東'), isEmpty);
+    });
+
+    test('accented % and _ are still literal', () async {
+      await db.receiptsDao.insertReceipt(
+        receipt(
+          merchant: 'Épicerie 50%',
+          date: LocalDate(2026, 9, 2),
+          notes: r'réf_A\B',
+        ),
+      );
+      expect(await search('epicerie 50%'), {'Épicerie 50%'});
+      expect(await search('ÉPICERIE_50'), isEmpty);
+      expect(await search('ref_a'), {'Épicerie 50%'});
+      expect(await search('refxa'), isEmpty);
+      expect(await search(r'_a\b'), {'Épicerie 50%'});
+      expect(await search(r'\'), {'Épicerie 50%'});
+    });
+
+    test('a watched search updates after an insert', () async {
+      final results = <Set<String>>[];
+      final sub = db.receiptsDao
+          .watchReceipts(query: 'ZÜRICH')
+          .listen((rows) => results.add({for (final r in rows) r.merchant}));
+      await pumpEventQueue();
+      await db.receiptsDao.insertReceipt(
+        receipt(merchant: 'Migros Zurich', date: LocalDate(2026, 9, 3)),
+      );
+      await pumpEventQueue();
+      await sub.cancel();
+      expect(results, [
+        <String>{},
+        {'Migros Zurich'},
+      ]);
+    });
+  });
+
+  test('rm_fold is registered on the connection', () async {
+    final row = await db
+        .customSelect(
+          "SELECT rm_fold('STRAẞE Øl CAFÉ') AS f, rm_fold(NULL) AS n",
+        )
+        .getSingle();
+    expect(row.read<String>('f'), 'strasse ol cafe');
+    expect(row.readNullable<String>('n'), isNull);
+  });
+
   test('filters by category', () async {
     final groceries = (await db.categoriesDao.watchAll().first).first;
     await db.receiptsDao.insertReceipt(

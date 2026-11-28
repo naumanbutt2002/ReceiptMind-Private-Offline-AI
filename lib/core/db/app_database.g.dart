@@ -30,7 +30,7 @@ class $CategoriesTable extends Categories
     false,
     additionalChecks: GeneratedColumn.checkTextLength(
       minTextLength: 1,
-      maxTextLength: 40,
+      maxTextLength: 1000,
     ),
     type: DriftSqlType.string,
     requiredDuringInsert: true,
@@ -155,6 +155,8 @@ class $CategoriesTable extends Categories
 
 class CategoryRow extends DataClass implements Insertable<CategoryRow> {
   final int id;
+
+  /// See [categoryNameMaxCodeUnits] for why the cap is in code units.
   final String name;
 
   /// Key into the app's curated icon map (keeps icon tree-shaking working).

@@ -6,6 +6,7 @@
 /// [ReceiptValidator] lists what doesn't add up.
 library;
 
+export 'src/layout/row_builder.dart' show RowBuilder;
 export 'src/lexicon/lexicon.dart';
 export 'src/model/date_order.dart';
 export 'src/model/local_date.dart';
