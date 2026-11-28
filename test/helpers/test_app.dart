@@ -5,15 +5,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:receipt_mind/app/app.dart';
 import 'package:receipt_mind/core/db/app_database.dart';
 import 'package:receipt_mind/core/db/db_providers.dart';
+import 'package:receipt_mind/core/db/search_functions.dart';
 import 'package:receipt_mind/core/settings/settings_providers.dart';
 import 'package:receipt_mind/core/settings/settings_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_platform_interface/in_memory_shared_preferences_async.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_async_platform_interface.dart';
 
-/// A fresh in-memory database (runs onCreate, so default categories exist).
+/// A fresh in-memory database (runs onCreate, so default categories exist),
+/// with the same SQL functions as the on-device one.
 AppDatabase inMemoryDatabase() => AppDatabase(
-  DatabaseConnection(NativeDatabase.memory(), closeStreamsSynchronously: true),
+  DatabaseConnection(
+    NativeDatabase.memory(setup: registerSearchFunctions),
+    closeStreamsSynchronously: true,
+  ),
 );
 
 /// SharedPreferences backed by memory, optionally pre-filled.

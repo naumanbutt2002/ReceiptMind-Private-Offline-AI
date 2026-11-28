@@ -20,7 +20,10 @@ final class MerchantExtractor {
       if (name == null) continue;
       var score = 0.5;
       final reasons = <String>['header'];
-      if (context.isTall(line, factor: 1.2)) {
+      // 1.5, not lower: a mixed-case line with descenders (`Surry Hills`,
+      // `Piccadilly`) measures ~1.3× an all-caps line of the same type
+      // size; a logo-sized name is printed at double height.
+      if (context.isTall(line, factor: 1.5)) {
         score += 0.3;
         reasons.add('tall');
       }

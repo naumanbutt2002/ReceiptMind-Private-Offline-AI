@@ -48,7 +48,7 @@
               {
                 "allowed-lengths": {
                   "min": 1,
-                  "max": 40
+                  "max": 1000
                 }
               }
             ]
