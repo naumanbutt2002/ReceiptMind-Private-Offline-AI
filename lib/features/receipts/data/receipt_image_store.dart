@@ -2,7 +2,8 @@
 typedef StoredImage = ({String image, String thumbnail});
 
 /// Keeps receipt photos in `<app support>/receipts/`: a JPEG (quality 80,
-/// long edge ≤ 2400 px, no EXIF) and a 360 px wide thumbnail in `thumbs/`.
+/// long edge ≤ 2400 px, no EXIF; very long receipts keep a readable width)
+/// and a 360 px wide thumbnail in `thumbs/`.
 /// The database stores the relative paths (see PLAN §10).
 abstract interface class ReceiptImageStore {
   /// Compresses the scan at [sourcePath] into `receipts/<id>.jpg` plus its

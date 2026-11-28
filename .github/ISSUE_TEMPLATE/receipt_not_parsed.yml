@@ -1,0 +1,101 @@
+name: Receipt not parsed correctly
+description: The app read a wrong merchant, date, total, tax or other field from a receipt.
+title: "[Receipt]: "
+labels: ["parser", "fixture"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks! Hard receipts are the best way to improve the parser. Each one becomes a test fixture.
+
+        **Anonymise before you post.** Everything in this issue is public. Remove or replace card numbers
+        (even partly masked ones), names (customer and cashier), loyalty, member and customer IDs, phone numbers,
+        e-mail addresses and home addresses. Store names, store addresses, dates and amounts can stay.
+        **Don't post photos of receipts**, only the text.
+
+        **How to get the OCR text**
+        - *Easiest:* turn on developer mode (Settings → tap **Version** 7 times), scan the receipt, fix the fields
+          on the review screen, then tap the bug icon → **Export as fixture** and attach the three files below
+          (zip them if GitHub refuses a file type). See "Add a receipt fixture in 5 minutes" in CONTRIBUTING.md.
+        - *Without developer mode:* on the review screen tap **View recognised text**, select the text, copy it
+          and paste it below.
+  - type: input
+    id: country
+    attributes:
+      label: Country
+      description: Where the receipt was printed.
+      placeholder: France
+    validations:
+      required: true
+  - type: dropdown
+    id: store-type
+    attributes:
+      label: Store type
+      options:
+        - Supermarket or grocery
+        - Restaurant, café or bar
+        - Fast food or takeaway
+        - Fuel station
+        - Pharmacy
+        - Retail or clothing
+        - Hardware or DIY
+        - Bakery
+        - Transport, taxi or parking
+        - Hotel
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: language-currency
+    attributes:
+      label: Receipt language and currency
+      placeholder: French, EUR
+    validations:
+      required: true
+  - type: textarea
+    id: ocr-text
+    attributes:
+      label: Anonymised OCR text or fixture files
+      description: |
+        Paste the recognised text, or attach the `.ocr.json`, `.txt` and `.expected.json` files from
+        **Export as fixture**. Replace personal data with placeholders such as `XXXX` or `Jane Doe`; keep the
+        layout and the amounts as they are.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected values
+      description: What a person reads on the paper receipt. Leave out fields that aren't printed.
+      value: |
+        merchant:
+        date (YYYY-MM-DD):
+        total:
+        subtotal:
+        tax:
+        tip:
+        currency:
+        payment (card / cash):
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What the app read (optional)
+      description: The values that were wrong on the review screen.
+      placeholder: "total: 4.15 (that's the tax line), date: empty"
+  - type: input
+    id: app-version
+    attributes:
+      label: App version
+      description: Settings → Version, e.g. `0.1.0 (1)`.
+  - type: checkboxes
+    id: anonymised
+    attributes:
+      label: Anonymisation and license
+      options:
+        - label: I removed or replaced card numbers, names, loyalty/member IDs, phone numbers, e-mail and home addresses from the text and files above.
+          required: true
+        - label: I agree that this text may be added to the project's test fixtures under the Apache-2.0 license.
+          required: true

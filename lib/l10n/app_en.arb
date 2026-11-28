@@ -331,9 +331,9 @@
   "@detailBackToList": {
     "description": "Button on the not-found state that returns to the list."
   },
-  "detailPhoto": "Receipt photo. Double-tap to view full screen.",
+  "detailPhoto": "Receipt photo",
   "@detailPhoto": {
-    "description": "Screen-reader label of the receipt photo on the detail screen."
+    "description": "Screen-reader label of the receipt photo on the detail screen and in the full-screen view."
   },
   "detailPhotoMissing": "Photo not available",
   "@detailPhotoMissing": {
@@ -1312,5 +1312,9 @@
   "categoriesDeleteError": "Couldn't delete the category. Please try again.",
   "@categoriesDeleteError": {
     "description": "SnackBar when deleting a category fails."
+  },
+  "detailPhotoOpenHint": "view full screen",
+  "@detailPhotoOpenHint": {
+    "description": "Screen-reader hint for tapping the receipt photo on the detail screen; TalkBack reads it as 'Double-tap to view full screen'."
   }
 }

@@ -276,7 +276,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     LocalDate? from;
     LocalDate? to;
     if (scope == _ExportScope.dateRange) {
-      final now = DateTime.now();
+      final now = ref.read(clockProvider)();
       final range = await showDateRangePicker(
         context: context,
         firstDate: DateTime(2000),

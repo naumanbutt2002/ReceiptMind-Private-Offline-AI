@@ -121,6 +121,79 @@ void main() {
     await ReceiptScreensHarness.finishSnackBars(tester);
   });
 
+  group('photo', () {
+    /// Lets the (non-existent) photo file fail to load for real.
+    Future<void> letImageFail(WidgetTester tester) async {
+      for (var i = 0; i < 20; i++) {
+        await tester.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 10)),
+        );
+        await tester.pump();
+        if (find
+            .byKey(const Key('detail-photo-missing'))
+            .evaluate()
+            .isNotEmpty) {
+          break;
+        }
+      }
+      await tester.pump();
+    }
+
+    testWidgets('screen readers hear "Receipt photo" with a full-screen hint', (
+      tester,
+    ) async {
+      final handle = tester.ensureSemantics();
+      final id = await addFullReceipt();
+      await h.pump(tester, location: '/receipts/$id');
+
+      expect(
+        tester.getSemantics(find.byKey(const Key('detail-photo'))),
+        isSemantics(
+          label: 'Receipt photo',
+          isButton: true,
+          hasTapAction: true,
+          onTapHint: 'view full screen',
+        ),
+      );
+
+      await tester.tap(find.byKey(const Key('detail-photo')));
+      await tester.pumpAndSettle();
+      // Full screen: no "double-tap to view full screen" any more.
+      expect(find.bySemanticsLabel('Receipt photo'), findsOneWidget);
+      expect(find.bySemanticsLabel(RegExp('full screen')), findsNothing);
+      handle.dispose();
+    });
+
+    testWidgets('a missing photo file is not offered as a button', (
+      tester,
+    ) async {
+      final handle = tester.ensureSemantics();
+      // An earlier test's load of the same file may still be pending in the
+      // shared cache, inside that test's (finished) fake-async zone.
+      imageCache
+        ..clear()
+        ..clearLiveImages();
+      final id = await addFullReceipt();
+      await h.pump(tester, location: '/receipts/$id');
+      await letImageFail(tester);
+
+      expect(find.byKey(const Key('detail-photo-missing')), findsOneWidget);
+      expect(
+        tester.getSemantics(find.byKey(const Key('detail-photo'))),
+        isSemantics(
+          label: 'Photo not available',
+          isButton: false,
+          hasTapAction: false,
+        ),
+      );
+
+      await tester.tap(find.byKey(const Key('detail-photo')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('detail-fullscreen')), findsNothing);
+      handle.dispose();
+    });
+  });
+
   group('accessibility guidelines', () {
     for (final mode in [ThemeMode.light, ThemeMode.dark]) {
       testWidgets('detail meets them in ${mode.name} mode', (tester) async {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ReceiptMind adaptive-icon foreground: a paper receipt with an AI sparkle.
+     Generated together with the PNG icons from one geometry; artwork stays inside the 72dp safe zone. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- receipt paper: rounded top, torn zig-zag bottom -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M34,36 C34,33.791 35.791,32 38,32 H58 C60.209,32 62,33.791 62,36 V80 L58.5,75.5 L55,80 L51.5,75.5 L48,80 L44.5,75.5 L41,80 L37.5,75.5 L34,80 Z" />
+    <!-- item lines -->
+    <path
+        android:fillColor="#FF80CBC4"
+        android:pathData="M40.8,40 H55.2 C56.194,40 57,40.806 57,41.8 V41.8 C57,42.794 56.194,43.6 55.2,43.6 H40.8 C39.806,43.6 39,42.794 39,41.8 V41.8 C39,40.806 39.806,40 40.8,40 Z M40.8,47 H49.2 C50.194,47 51,47.806 51,48.8 V48.8 C51,49.794 50.194,50.6 49.2,50.6 H40.8 C39.806,50.6 39,49.794 39,48.8 V48.8 C39,47.806 39.806,47 40.8,47 Z M40.8,54 H52.2 C53.194,54 54,54.806 54,55.8 V55.8 C54,56.794 53.194,57.6 52.2,57.6 H40.8 C39.806,57.6 39,56.794 39,55.8 V55.8 C39,54.806 39.806,54 40.8,54 Z" />
+    <!-- total line -->
+    <path
+        android:fillColor="#FF00897B"
+        android:pathData="M41.5,64 H54.5 C55.881,64 57,65.119 57,66.5 V66.5 C57,67.881 55.881,69 54.5,69 H41.5 C40.119,69 39,67.881 39,66.5 V66.5 C39,65.119 40.119,64 41.5,64 Z" />
+    <!-- AI sparkles -->
+    <path
+        android:fillColor="#FFFFD54F"
+        android:pathData="M71.5,23.5 Q72.86,30.64 80,32 Q72.86,33.36 71.5,40.5 Q70.14,33.36 63,32 Q70.14,30.64 71.5,23.5 Z M79,40.4 Q79.576,43.424 82.6,44 Q79.576,44.576 79,47.6 Q78.424,44.576 75.4,44 Q78.424,43.424 79,40.4 Z" />
+</vector>

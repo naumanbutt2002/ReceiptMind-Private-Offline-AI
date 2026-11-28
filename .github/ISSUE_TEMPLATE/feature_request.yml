@@ -1,0 +1,57 @@
+name: Feature request
+description: Suggest an idea or an improvement for ReceiptMind.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea! ReceiptMind is private and offline by design: the app has no internet permission
+        and nothing leaves the phone. Ideas that need a server, an account or cloud sync are out of scope.
+        Check the roadmap in the README first; your idea may already be planned.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      placeholder: I scan receipts from trips abroad and want to see the total per trip.
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: What would you like to happen?
+      description: Describe the change from a user's point of view. Sketches or screenshots are welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered (optional)
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Scanning and OCR
+        - Receipt parser (fields read from the receipt)
+        - Review screen
+        - Receipt list, search and categories
+        - Settings and CSV export
+        - Developer mode
+        - Languages and translations
+        - Something else
+    validations:
+      required: true
+  - type: checkboxes
+    id: offline
+    attributes:
+      label: Offline first
+      options:
+        - label: This idea works without an internet connection and without sending data off the phone.
+          required: true
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Contributing
+      options:
+        - label: I'd like to work on this myself.
