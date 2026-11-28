@@ -1,7 +1,9 @@
 // M3 on-device test: the real FileReceiptImageStore (flutter_image_compress +
 // ui.ImageDescriptor) shrinks large scans, strips EXIF (including GPS) and
 // writes a 360 px thumbnail. M8: a camera photo whose EXIF says "rotate 90°"
-// is stored upright, because stripping EXIF also drops that tag.
+// is stored upright, because stripping EXIF also drops that tag, and very
+// long receipts (1:6, 1:20) keep a readable width instead of being squeezed
+// to a 2400 px long edge.
 //
 //   flutter test integration_test/image_store_test.dart -d emulator-5554
 import 'dart:io';
@@ -27,9 +29,14 @@ void main() {
   });
   tearDown(() => base.delete(recursive: true));
 
-  for (final (name, width, height) in [
-    ('photo', 3000, 4000),
-    ('tall receipt', 1000, 6000),
+  // Sizes may be 1 px smaller: the plugin scales in 32-bit floats.
+  // Budgets: receipts must stay under ~600 KB (PLAN §10). The "photo" case
+  // fills every pixel with random noise, a worst case real camera photos
+  // don't reach (their noise is smoothed), so it gets more room.
+  for (final (name, width, height, expected, budgetKb) in [
+    ('photo', 3000, 4000, (width: 1800, height: 2400), 900),
+    ('1:6 receipt', 1000, 6000, (width: 600, height: 3600), 600),
+    ('1:20 receipt', 600, 12000, (width: 400, height: 8000), 600),
   ]) {
     testWidgets('stores a $width×$height $name small and without EXIF', (
       tester,
@@ -61,17 +68,16 @@ void main() {
         '${watch.elapsedMilliseconds} ms',
       );
 
-      expect(image.length, lessThanOrEqualTo(600 * 1024));
+      expect(image.length, lessThanOrEqualTo(budgetKb * 1024));
       expect(
-        math.max(imageSize.width, imageSize.height),
-        lessThanOrEqualTo(2400),
+        imageSize.width,
+        inInclusiveRange(expected.width - 1, expected.width),
       );
       expect(
-        math.max(imageSize.width, imageSize.height),
-        greaterThan(2390),
-        reason: 'scaled to the limit, not further',
+        imageSize.height,
+        inInclusiveRange(expected.height - 1, expected.height),
       );
-      expect(thumbSize.width, 360);
+      expect(thumbSize.width, inInclusiveRange(359, 360));
       expect(_hasExif(image), isFalse, reason: 'image EXIF stripped');
       expect(_hasExif(thumb), isFalse, reason: 'thumbnail EXIF stripped');
       expect(await source.exists(), isTrue, reason: 'source left alone');
@@ -114,7 +120,9 @@ void main() {
           .readAsBytes();
       expect(_hasExif(image), isFalse, reason: 'EXIF stripped');
       expect(_jpegSize(image), (width: 800, height: 1200), reason: 'portrait');
-      expect(_jpegSize(thumb), (width: 360, height: 540));
+      // 800 → 360 is 359 px on Android (32-bit float scaling).
+      expect(_jpegSize(thumb).width, inInclusiveRange(359, 360));
+      expect(_jpegSize(thumb).height, inInclusiveRange(539, 540));
 
       // The pixels were turned, not just the size: the square is top-right.
       final pixels = await _decodeGrey(image);

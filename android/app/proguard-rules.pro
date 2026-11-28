@@ -18,3 +18,8 @@
 -keep class com.google.android.libraries.vision.** { *; }
 -keep class com.google_mlkit_text_recognition.** { *; }
 -keep class com.google_mlkit_commons.** { *; }
+
+# The ML Kit document scanner client (cunning_document_scanner) is built like the text
+# recognizer (component registrars, firebase-encoders telemetry) but ships no consumer rules
+# for its internal package, so it is kept the same way.
+-keep class com.google.android.gms.internal.mlkit_vision_document_scanner.** { *; }

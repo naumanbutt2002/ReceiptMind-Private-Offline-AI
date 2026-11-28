@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/naumanbutt2002/ReceiptMind-Private-Offline-AI/security/advisories/new
+    about: Please report security and privacy problems privately through GitHub Private Vulnerability Reporting, not as a public issue. See SECURITY.md.
+  - name: Security policy
+    url: https://github.com/naumanbutt2002/ReceiptMind-Private-Offline-AI/blob/main/SECURITY.md
+    about: What counts as a security issue for ReceiptMind and what to expect after you report one.

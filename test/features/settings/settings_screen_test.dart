@@ -57,12 +57,15 @@ void main() {
   late List<ReceiptRow> receipts;
   late Directory temp;
   late DateTime now;
+  // The last date range the export asked for: (from, to).
+  (LocalDate?, LocalDate?)? exportedRange;
 
   setUpAll(initializeDateFormatting);
   setUp(() {
     db = inMemoryDatabase();
     sharer = FakeFileSharer();
     receipts = [];
+    exportedRange = null;
     now = DateTime(2026, 11, 16, 9);
     temp = Directory.systemTemp.createTempSync('settings_test');
   });
@@ -115,7 +118,10 @@ void main() {
           ),
           exportServiceProvider.overrideWithValue(
             ExportService(
-              loadReceipts: ({from, to}) async => receipts,
+              loadReceipts: ({from, to}) async {
+                exportedRange = (from, to);
+                return receipts;
+              },
               loadCategoryNames: () async => {},
               tempDirectory: () async => temp,
               sharer: sharer,
@@ -546,6 +552,33 @@ void main() {
       expect(find.byType(DateRangePickerDialog), findsNothing);
       expect(find.text('No receipts to export'), findsNothing);
       expect(sharer.paths, isEmpty);
+      expect(exportedRange, isNull);
+    });
+
+    testWidgets('a chosen date range is exported with both ends included', (
+      tester,
+    ) async {
+      await pumpSettings(tester);
+      await tapTile(tester, 'Export to CSV');
+      await tester.tap(find.text('Choose dates…'));
+      await tester.pumpAndSettle();
+
+      // Type the dates instead of scrolling the calendar.
+      await tester.tap(find.byTooltip('Switch to input'));
+      await tester.pumpAndSettle();
+      final fields = find.descendant(
+        of: find.byType(DateRangePickerDialog),
+        matching: find.byType(TextField),
+      );
+      await tester.enterText(fields.at(0), '11/03/2026');
+      await tester.enterText(fields.at(1), '11/16/2026');
+      await tester.tap(find.text('OK'));
+      await tester.pump();
+      await tester.pump();
+      await tester.pumpAndSettle();
+
+      expect(exportedRange, (LocalDate(2026, 11, 3), LocalDate(2026, 11, 16)));
+      expect(find.text('No receipts to export'), findsOneWidget);
     });
   });
 

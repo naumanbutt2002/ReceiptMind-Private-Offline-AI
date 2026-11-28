@@ -130,7 +130,7 @@ List<ReceiptsCompanion> demoReceipts({
     final total = between(min, max) ~/ 5 * 5 + (random.nextBool() ? 0 : 4);
 
     final date = today.addDays(-random.nextInt(demoDaySpan));
-    final createdAt = DateTime(
+    final scanned = DateTime(
       date.year,
       date.month,
       date.day,
@@ -138,6 +138,8 @@ List<ReceiptsCompanion> demoReceipts({
       random.nextInt(60),
       random.nextInt(60),
     );
+    // A receipt dated today can't have been saved later than now.
+    final createdAt = scanned.isAfter(now) ? now : scanned;
 
     int? categoryId;
     if (categoryIds.isNotEmpty && random.nextInt(10) != 0) {

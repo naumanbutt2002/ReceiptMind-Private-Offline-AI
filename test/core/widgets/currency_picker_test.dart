@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:receipt_mind/app/theme.dart';
 import 'package:receipt_mind/core/widgets/currency_picker.dart';
 import 'package:receipt_mind/l10n/generated/app_localizations.dart';
 
 /// A button that opens the picker; the picker's result goes to [onResult].
 Widget host(
   Future<Object?> Function(BuildContext) open,
-  void Function(Object?) onResult,
-) => MaterialApp(
+  void Function(Object?) onResult, {
+  ThemeMode themeMode = ThemeMode.light,
+}) => MaterialApp(
+  theme: AppTheme.light,
+  darkTheme: AppTheme.dark,
+  themeMode: themeMode,
   localizationsDelegates: AppLocalizations.localizationsDelegates,
   supportedLocales: AppLocalizations.supportedLocales,
   home: Builder(
@@ -49,6 +54,35 @@ void main() {
     );
     await tester.tap(find.text('open'));
     await tester.pumpAndSettle();
+  }
+
+  for (final mode in [ThemeMode.light, ThemeMode.dark]) {
+    testWidgets('the settings picker meets the accessibility guidelines in '
+        '${mode.name} mode', (tester) async {
+      final handle = tester.ensureSemantics();
+      await tester.pumpWidget(
+        host(
+          (context) => showDefaultCurrencyPicker(
+            context,
+            selected: 'AUD',
+            locale: 'en_AU',
+            deviceDefault: 'AUD',
+            followsDevice: true,
+          ),
+          record,
+          themeMode: mode,
+        ),
+      );
+      await tester.tap(find.text('open'));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byType(TextField), 'a');
+      await tester.pumpAndSettle();
+
+      await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
+      await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));
+      await expectLater(tester, meetsGuideline(textContrastGuideline));
+      handle.dispose();
+    });
   }
 
   testWidgets('lists currencies with a localised example amount', (
