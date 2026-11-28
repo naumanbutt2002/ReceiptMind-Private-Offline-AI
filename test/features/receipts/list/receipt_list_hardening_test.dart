@@ -10,7 +10,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:receipt_mind/core/date/local_date.dart';
 import 'package:receipt_mind/core/db/app_database.dart';
+import 'package:receipt_mind/core/money/money.dart';
 import 'package:receipt_mind/core/settings/settings_providers.dart';
+import 'package:receipt_mind/core/settings/settings_repository.dart';
 import 'package:receipt_mind/features/receipts/data/receipt_image_store.dart';
 import 'package:receipt_mind/features/receipts/data/receipt_repository.dart';
 import 'package:receipt_mind/features/receipts/data/receipts_providers.dart';
@@ -320,6 +322,63 @@ void main() {
       );
     });
 
+    testWidgets('December sums only that December, per currency, with the '
+        'default currency first', (tester) async {
+      tester.view.physicalSize = const Size(800, 2400);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      await addReceipt(
+        h.db,
+        merchant: 'Last Year',
+        date: LocalDate(2025, 12, 31),
+        totalMinor: 9900,
+      );
+      await addReceipt(h.db, date: LocalDate(2026, 12, 1), totalMinor: 100);
+      await addReceipt(h.db, date: LocalDate(2026, 12, 31), totalMinor: 250);
+      await addReceipt(
+        h.db,
+        date: LocalDate(2026, 12, 31),
+        currency: 'AUD',
+        totalMinor: 1000,
+      );
+      await addReceipt(
+        h.db,
+        merchant: 'Next Year',
+        date: LocalDate(2027, 1, 1),
+        totalMinor: 5000,
+      );
+      await h.prefs.setString(SettingsRepository.keyDefaultCurrency, 'AUD');
+      h.now = DateTime(2026, 12, 31, 23, 59);
+      await h.pump(tester);
+
+      final card = find.byKey(const Key('list-month-summary'));
+      expect(
+        find.descendant(of: card, matching: find.text('December 2026')),
+        findsOneWidget,
+      );
+      final aud = find.byKey(const ValueKey('list-month-total-AUD'));
+      final usd = find.byKey(const ValueKey('list-month-total-USD'));
+      expect(
+        find.descendant(
+          of: aud,
+          matching: find.text(const Money(1000, 'AUD').format('en_US')),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: usd,
+          matching: find.text(const Money(350, 'USD').format('en_US')),
+        ),
+        findsOneWidget,
+      );
+      expect(tester.getTopLeft(aud).dy, lessThan(tester.getTopLeft(usd).dy));
+      // Headers: January 2027, December 2026 and December 2025, in order.
+      double y(String text) => tester.getTopLeft(find.text(text).last).dy;
+      expect(y('January 2027'), lessThan(y('December 2026')));
+      expect(y('December 2026'), lessThan(y('December 2025')));
+    });
+
     testWidgets('screen readers read it as one item', (tester) async {
       final handle = tester.ensureSemantics();
       await addReceipt(h.db, totalMinor: 1250);
@@ -333,6 +392,43 @@ void main() {
         findsOneWidget,
       );
       handle.dispose();
+    });
+  });
+
+  group('thumbnails', () {
+    testWidgets('a missing thumbnail file shows a placeholder, not an error', (
+      tester,
+    ) async {
+      // A load of the same file from an earlier test may still be pending
+      // in the shared cache, inside that test's finished fake-async zone.
+      imageCache
+        ..clear()
+        ..clearLiveImages();
+      await addReceipt(
+        h.db,
+        merchant: 'Lost Photo',
+        imagePath: 'receipts/lost.jpg',
+      );
+      await h.pump(tester);
+
+      // Let the file read fail for real (no such file under the fake dir).
+      for (var i = 0; i < 20; i++) {
+        await tester.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 10)),
+        );
+        await tester.pump();
+        if (find.byIcon(Icons.broken_image_outlined).evaluate().isNotEmpty) {
+          break;
+        }
+      }
+
+      expect(tester.takeException(), isNull);
+      expect(find.byIcon(Icons.broken_image_outlined), findsOneWidget);
+      expect(find.text('Lost Photo'), findsOneWidget);
+      // The row still opens its detail.
+      await tester.tap(find.text('Lost Photo'));
+      await tester.pumpAndSettle();
+      expect(h.router.state.uri.path, startsWith('/receipts/'));
     });
   });
 
@@ -351,6 +447,21 @@ void main() {
         await h.pump(tester, themeMode: mode);
 
         await expectLater(tester, meetsGuideline(const _TapTargetGuideline()));
+        await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));
+        await expectLater(tester, meetsGuideline(textContrastGuideline));
+        handle.dispose();
+      });
+
+      testWidgets('the add sheet meets them in ${mode.name} mode', (
+        tester,
+      ) async {
+        final handle = tester.ensureSemantics();
+        await addReceipt(h.db, merchant: 'Freshway');
+        await h.pump(tester, themeMode: mode);
+        await tester.tap(find.byKey(const Key('list-fab')));
+        await tester.pumpAndSettle();
+
+        await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
         await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));
         await expectLater(tester, meetsGuideline(textContrastGuideline));
         handle.dispose();

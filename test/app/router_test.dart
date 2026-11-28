@@ -78,4 +78,29 @@ void main() {
       findsOneWidget,
     );
   });
+
+  testWidgets('editing an unknown receipt returns to the list', (tester) async {
+    await pumpApp(tester);
+    await go(tester, '/receipts/unknown-id/edit');
+
+    expect(tester.takeException(), isNull);
+    expect(find.text('This receipt no longer exists.'), findsOneWidget);
+    expect(find.text('No receipts yet'), findsOneWidget);
+  });
+
+  testWidgets('/scan/review without a scan returns to the list', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await go(tester, '/scan/review');
+
+    expect(tester.takeException(), isNull);
+    expect(
+      find.text(
+        'This scan is no longer available. Please scan the receipt again.',
+      ),
+      findsOneWidget,
+    );
+    expect(find.text('No receipts yet'), findsOneWidget);
+  });
 }

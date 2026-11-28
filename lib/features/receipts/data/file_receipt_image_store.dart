@@ -22,6 +22,9 @@ typedef CompressBounds = ({int minWidth, int minHeight});
 /// receipts/thumbs/<id>.jpg  JPEG q70, 360 px wide
 /// ```
 ///
+/// Very long receipts (narrower than 1:4) keep a readable width instead, see
+/// [imageBounds].
+///
 /// Files are written under a temporary name (`<id>.tmp.jpg`) and renamed when
 /// complete, so a stored image is never half-written. The temporary name ends
 /// in `.jpg` because `flutter_image_compress` rejects any other extension for
@@ -46,6 +49,15 @@ class FileReceiptImageStore implements ReceiptImageStore {
   static const thumbnailDirectoryName = 'thumbs';
   static const imageQuality = 80;
   static const maxLongEdge = 2400;
+
+  /// Width a very long receipt keeps (if the scan is that wide), so its text
+  /// stays readable: at a 2400 px long edge a 1:20 receipt would be 120 px
+  /// wide.
+  static const minShortEdge = 600;
+
+  /// Long edge limit for those very long receipts, below the 8192 px texture
+  /// limit of most GPUs.
+  static const maxTallLongEdge = 8000;
   static const thumbnailQuality = 70;
   static const thumbnailWidth = 360;
 
@@ -58,18 +70,25 @@ class FileReceiptImageStore implements ReceiptImageStore {
   /// Bounds that scale [source] down so its long edge is at most
   /// [maxLongEdge], or keep its size if it is already small enough.
   ///
+  /// A receipt narrower than 1:4 would end up less than [minShortEdge] wide
+  /// that way, so it keeps that width (or its own, if narrower) and may be up
+  /// to [maxTallLongEdge] long; beyond that it is scaled down further.
+  ///
   /// Both bounds are equal, so the result doesn't depend on which side is the
   /// width (the plugin swaps them for EXIF-rotated images) and is the same on
   /// Android (`scale = max(1, min(w / minW, h / minH))`) and iOS
-  /// (`scale = min(1, minW / shortSide)` when `minW == minH`). With
-  /// `m = ⌊short · 2400 / long⌋` the scale is `short / m`, so the long edge
-  /// becomes `⌊long · m / short⌋ ≤ 2400`.
+  /// (`scale = min(1, minW / shortSide)` when `minW == minH`). The result
+  /// `m ≤ short` is the new short edge: the scale is `short / m`, so the long
+  /// edge becomes `⌊long · m / short⌋`, which is at most 2400 for
+  /// `m = ⌊short · 2400 / long⌋` (and at most 8000 for the cap below).
   static CompressBounds imageBounds(ImageSize source) {
     final short = math.min(source.width, source.height);
     final long = math.max(source.width, source.height);
-    final m = long <= maxLongEdge
-        ? short
-        : math.max(1, short * maxLongEdge ~/ long);
+    if (long <= maxLongEdge) return (minWidth: short, minHeight: short);
+    final fit = short * maxLongEdge ~/ long;
+    final readable = math.min(short, minShortEdge);
+    final cap = short * maxTallLongEdge ~/ long;
+    final m = math.max(1, math.min(math.max(fit, readable), cap));
     return (minWidth: m, minHeight: m);
   }
 

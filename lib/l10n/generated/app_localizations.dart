@@ -513,10 +513,10 @@ abstract class AppLocalizations {
   /// **'Back to receipts'**
   String get detailBackToList;
 
-  /// Screen-reader label of the receipt photo on the detail screen.
+  /// Screen-reader label of the receipt photo on the detail screen and in the full-screen view.
   ///
   /// In en, this message translates to:
-  /// **'Receipt photo. Double-tap to view full screen.'**
+  /// **'Receipt photo'**
   String get detailPhoto;
 
   /// Shown when the receipt photo file is missing.
@@ -1820,6 +1820,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t delete the category. Please try again.'**
   String get categoriesDeleteError;
+
+  /// Screen-reader hint for tapping the receipt photo on the detail screen; TalkBack reads it as 'Double-tap to view full screen'.
+  ///
+  /// In en, this message translates to:
+  /// **'view full screen'**
+  String get detailPhotoOpenHint;
 }
 
 class _AppLocalizationsDelegate

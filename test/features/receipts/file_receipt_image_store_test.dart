@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math' as math;
+import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -8,31 +9,30 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as p;
 import 'package:receipt_mind/features/receipts/data/file_receipt_image_store.dart';
 
-/// Output size of flutter_image_compress on Android:
+/// Rounds to the nearest 32-bit float: both plugins scale with `float`s.
+double f32(double value) => (Float32List(1)..[0] = value)[0];
+
+/// Output size of flutter_image_compress on Android (`BitmapCompressExt.kt`):
 /// `scale = max(1, min(w / minW, h / minH))`, then `(w / scale).toInt()`.
 ImageSize androidScale(ImageSize source, CompressBounds bounds) {
+  final w = source.width.toDouble(), h = source.height.toDouble();
   final scale = math.max(
     1.0,
-    math.min(source.width / bounds.minWidth, source.height / bounds.minHeight),
+    math.min(f32(w / bounds.minWidth), f32(h / bounds.minHeight)),
   );
-  return (
-    width: (source.width / scale).toInt(),
-    height: (source.height / scale).toInt(),
-  );
+  return (width: f32(w / scale).toInt(), height: f32(h / scale).toInt());
 }
 
 /// Output size on iOS (`UIImage+scale.m`).
 ImageSize iosScale(ImageSize source, CompressBounds bounds) {
-  final imgRatio = source.width / source.height;
-  final maxRatio = bounds.minWidth / bounds.minHeight;
+  final w = source.width.toDouble(), h = source.height.toDouble();
+  final imgRatio = f32(w / h);
+  final maxRatio = f32(bounds.minWidth / bounds.minHeight);
   var ratio = imgRatio < maxRatio
-      ? bounds.minWidth / source.width
-      : bounds.minHeight / source.height;
+      ? f32(bounds.minWidth / w)
+      : f32(bounds.minHeight / h);
   ratio = math.min(1, ratio);
-  return (
-    width: (ratio * source.width).floor(),
-    height: (ratio * source.height).floor(),
-  );
+  return (width: f32(ratio * w).floor(), height: f32(ratio * h).floor());
 }
 
 /// The real plugin's target-name check (flutter_image_compress 2.5): JPEG
@@ -125,10 +125,45 @@ void main() {
       expect(iosScale(source, bounds), image, reason: 'iOS');
     }
 
-    test('a tall receipt ends 2400 px on the long edge', () {
+    test('a 1:4 receipt ends 2400 px on the long edge', () {
+      expectWithin(
+        (width: 1000, height: 4000),
+        image: (width: 600, height: 2400),
+      );
+    });
+
+    test('a narrower receipt keeps a readable 600 px width', () {
       expectWithin(
         (width: 1000, height: 6000),
-        image: (width: 400, height: 2400),
+        image: (width: 600, height: 3600),
+      );
+      expectWithin(
+        (width: 6000, height: 1000),
+        image: (width: 3600, height: 600),
+      );
+    });
+
+    test('a 1:20 receipt is not squeezed to 120 px wide', () {
+      // At a 2400 px long edge it would be 120 × 2400 and unreadable. It
+      // keeps 600 px if that stays within 8000 px, else it is capped.
+      expectWithin(
+        (width: 400, height: 8000),
+        image: (width: 400, height: 8000),
+      );
+      expectWithin(
+        (width: 600, height: 12000),
+        image: (width: 400, height: 8000),
+      );
+      expectWithin(
+        (width: 1200, height: 24000),
+        image: (width: 400, height: 8000),
+      );
+    });
+
+    test('a narrow scan is never upscaled to the readable width', () {
+      expectWithin(
+        (width: 300, height: 4000),
+        image: (width: 300, height: 4000),
       );
     });
 
@@ -161,8 +196,7 @@ void main() {
       for (final (w, h) in [
         (2401, 2401),
         (3001, 4007),
-        (1237, 9999),
-        (100, 30000),
+        (1237, 4947),
         (4032, 3024),
         (2448, 3264),
       ]) {
@@ -179,6 +213,35 @@ void main() {
       }
     });
 
+    test('very long receipts stay readable and within 8000 px', () {
+      for (final (w, h) in [
+        (1237, 9999),
+        (100, 30000),
+        (601, 2401),
+        (2999, 60001),
+        (7, 40000),
+      ]) {
+        final source = (width: w, height: h);
+        final bounds = FileReceiptImageStore.imageBounds(source);
+        for (final out in [
+          androidScale(source, bounds),
+          iosScale(source, bounds),
+        ]) {
+          final short = math.min(out.width, out.height);
+          final long = math.max(out.width, out.height);
+          expect(long, lessThanOrEqualTo(8000), reason: '$source → $out');
+          expect(short, greaterThan(0), reason: '$source → $out');
+          // One pixel wider would break the 8000 px cap.
+          final capped = (short + 1) * math.max(w, h) / math.min(w, h) > 8000;
+          expect(
+            short == math.min(math.min(w, h), 600) || capped,
+            isTrue,
+            reason: '$source → $out: 600 px wide unless capped',
+          );
+        }
+      }
+    });
+
     test('bounds are equal, so EXIF rotation does not change the result', () {
       final bounds = FileReceiptImageStore.imageBounds((
         width: 3000,
@@ -190,14 +253,32 @@ void main() {
     test('thumbnails are 360 px wide and never upscaled', () {
       for (final (source, expected) in [
         ((width: 400, height: 2400), (width: 360, height: 2160)),
+        ((width: 600, height: 3600), (width: 360, height: 2160)),
+        ((width: 400, height: 8000), (width: 360, height: 7200)),
         ((width: 1800, height: 2400), (width: 360, height: 480)),
         ((width: 2400, height: 1800), (width: 360, height: 270)),
         ((width: 300, height: 500), (width: 300, height: 500)),
         ((width: 360, height: 100), (width: 360, height: 100)),
       ]) {
         final bounds = FileReceiptImageStore.thumbnailBounds(source);
-        expect(androidScale(source, bounds), expected, reason: '$source');
-        expect(iosScale(source, bounds), expected, reason: '$source');
+        for (final (platform, out) in [
+          ('Android', androidScale(source, bounds)),
+          ('iOS', iosScale(source, bounds)),
+        ]) {
+          // 32-bit float rounding may cost a pixel (e.g. 400 → 359 on
+          // Android).
+          final reason = '$platform: $source → $out';
+          expect(
+            out.width,
+            inInclusiveRange(expected.width - 1, expected.width),
+            reason: reason,
+          );
+          expect(
+            out.height,
+            inInclusiveRange(expected.height - 1, expected.height),
+            reason: reason,
+          );
+        }
       }
     });
   });
@@ -224,8 +305,8 @@ void main() {
         endsWith('receipts/thumbs/abc.tmp.jpg'),
       );
       expect(compressor.sizes[file('receipts/abc.jpg').path], (
-        width: 400,
-        height: 2400,
+        width: 600,
+        height: 3600,
       ));
       expect(compressor.sizes[file('receipts/thumbs/abc.jpg').path], (
         width: 360,

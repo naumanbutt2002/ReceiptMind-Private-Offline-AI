@@ -65,6 +65,25 @@ void main() {
         expect(confidence, isNull);
       }
       expect(r.createdAt.value, r.updatedAt.value);
+      expect(r.createdAt.value.isAfter(now), isFalse, reason: 'saved later');
+    }
+  });
+
+  test('receipts dated today are never saved after now', () {
+    // At 07:00 almost every random time of day (07:00–22:59) is later.
+    final early = DateTime(2026, 11, 16, 7);
+    final receipts = demoReceipts(
+      count: 5000,
+      categoryIds: categoryIds,
+      now: early,
+    );
+    final todays = [
+      for (final r in receipts)
+        if (r.purchaseDate.value == LocalDate.fromDateTime(early)) r,
+    ];
+    expect(todays, isNotEmpty);
+    for (final r in todays) {
+      expect(r.createdAt.value.isAfter(early), isFalse);
     }
   });
 

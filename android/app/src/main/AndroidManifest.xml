@@ -6,7 +6,10 @@
         android:label="ReceiptMind"
         android:name="${applicationName}"
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher">
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        tools:replace="android:dataExtractionRules,android:fullBackupContent">
         <activity
             android:name=".MainActivity"
             android:exported="true"

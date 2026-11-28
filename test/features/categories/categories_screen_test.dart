@@ -23,6 +23,15 @@ final class _FailingDeleteDao extends CategoriesDao {
       throw StateError('database is locked');
 }
 
+/// A DAO that can't count a category's receipts (e.g. a locked database).
+final class _FailingCountDao extends CategoriesDao {
+  _FailingCountDao(super.attachedDatabase);
+
+  @override
+  Future<int> countReceipts(int categoryId) async =>
+      throw StateError('database is locked');
+}
+
 void main() {
   late AppDatabase db;
 
@@ -306,6 +315,32 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(tester.takeException(), isNull);
+    expect(
+      find.text("Couldn't delete the category. Please try again."),
+      findsOneWidget,
+    );
+    expect(find.text('Transport'), findsOneWidget);
+    expect(await categoryCount(), 7);
+  });
+
+  testWidgets('a failed receipt count keeps the category and says so', (
+    tester,
+  ) async {
+    t = tester;
+    await pumpScreen(
+      tester,
+      overrides: [
+        categoriesDaoProvider.overrideWithValue(_FailingCountDao(db)),
+      ],
+    );
+
+    await tester.tap(find.byTooltip('More options for Transport'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Delete'));
+    await tester.pumpAndSettle();
+
+    expect(tester.takeException(), isNull);
+    expect(find.byType(AlertDialog), findsNothing);
     expect(
       find.text("Couldn't delete the category. Please try again."),
       findsOneWidget,

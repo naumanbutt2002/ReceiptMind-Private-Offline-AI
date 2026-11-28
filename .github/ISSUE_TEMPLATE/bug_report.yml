@@ -1,0 +1,77 @@
+name: Bug report
+description: Something in the app doesn't work as expected (crash, wrong screen, lost data).
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug.
+        - A receipt was read wrongly (wrong total, date or merchant)? Please use **Receipt not parsed correctly** instead.
+        - A security or privacy problem? Don't open a public issue; see the security policy.
+
+        Please don't attach real receipt photos or text with personal data (names, card numbers, loyalty IDs, addresses).
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A short description of the problem.
+      placeholder: After saving a receipt, the list stays empty until I restart the app.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Tap Add receipt → Import from photos
+        2. Pick a photo and crop it
+        3. Tap Save
+        4. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: input
+    id: app-version
+    attributes:
+      label: App version
+      description: Settings → Version, e.g. `0.1.0 (1)`. Write "built from source" plus the commit if you built it yourself.
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Phone and OS version
+      placeholder: Pixel 7, Android 16
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: Where did you install the app from?
+      options:
+        - GitHub Release APK
+        - IzzyOnDroid
+        - Built from source
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots (optional)
+      description: |
+        For example `flutter logs` or `adb logcat` output around the crash. Remove anything personal first.
+      render: shell
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I removed personal data (names, card numbers, loyalty or member IDs, addresses) from everything I attached.
+          required: true

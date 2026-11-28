@@ -326,15 +326,43 @@ class _Field extends StatelessWidget {
 }
 
 /// The receipt photo (tap for full screen), or a small "No photo" note.
-class _Photo extends ConsumerWidget {
+///
+/// When the photo file can't be read (deleted or damaged), it shows
+/// "Photo not available" and is no longer offered as a button.
+class _Photo extends ConsumerStatefulWidget {
   const _Photo({required this.receipt});
 
   final ReceiptRow receipt;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_Photo> createState() => _PhotoState();
+}
+
+class _PhotoState extends ConsumerState<_Photo> {
+  /// The file failed to load; reset when the receipt gets another photo.
+  bool _missing = false;
+
+  @override
+  void didUpdateWidget(_Photo oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.receipt.imagePath != widget.receipt.imagePath) {
+      _missing = false;
+    }
+  }
+
+  void _markMissing() {
+    if (_missing) return;
+    // Called from the image's errorBuilder, during a build.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && !_missing) setState(() => _missing = true);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final scheme = Theme.of(context).colorScheme;
+    final receipt = widget.receipt;
     final imagePath = receipt.imagePath;
     if (imagePath == null) {
       return Padding(
@@ -353,17 +381,19 @@ class _Photo extends ConsumerWidget {
     final size = MediaQuery.sizeOf(context);
     final height = (size.height * 0.4).clamp(160.0, 420.0);
     final missing = _MissingPhoto(height: height);
+    final open = absolute == null || _missing
+        ? null
+        : () => _openFullScreen(context, absolute);
     return Semantics(
-      label: l10n.detailPhoto,
-      button: true,
+      label: _missing ? l10n.detailPhotoMissing : l10n.detailPhoto,
+      button: open != null,
       image: true,
       excludeSemantics: true,
-      onTap: absolute == null ? null : () => _openFullScreen(context, absolute),
+      onTap: open,
+      onTapHint: open == null ? null : l10n.detailPhotoOpenHint,
       child: GestureDetector(
         key: const Key('detail-photo'),
-        onTap: absolute == null
-            ? null
-            : () => _openFullScreen(context, absolute),
+        onTap: open,
         child: Hero(
           tag: receiptHeroTag(receipt.id),
           child: Container(
@@ -378,7 +408,10 @@ class _Photo extends ConsumerWidget {
                         (height * MediaQuery.devicePixelRatioOf(context))
                             .round(),
                     gaplessPlayback: true,
-                    errorBuilder: (context, error, stackTrace) => missing,
+                    errorBuilder: (context, error, stackTrace) {
+                      _markMissing();
+                      return missing;
+                    },
                   ),
           ),
         ),

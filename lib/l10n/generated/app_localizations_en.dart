@@ -247,7 +247,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get detailBackToList => 'Back to receipts';
 
   @override
-  String get detailPhoto => 'Receipt photo. Double-tap to view full screen.';
+  String get detailPhoto => 'Receipt photo';
 
   @override
   String get detailPhotoMissing => 'Photo not available';
@@ -965,4 +965,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get categoriesDeleteError =>
       'Couldn\'t delete the category. Please try again.';
+
+  @override
+  String get detailPhotoOpenHint => 'view full screen';
 }

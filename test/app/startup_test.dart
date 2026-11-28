@@ -8,11 +8,15 @@ import 'package:receipt_mind/features/receipts/data/receipt_image_store.dart';
 import '../helpers/test_app.dart';
 
 class RecordingImageStore implements ReceiptImageStore {
+  RecordingImageStore(this.log);
+
+  final List<String> log;
   Set<String>? referenced;
   bool fail = false;
 
   @override
   Future<int> deleteOrphans(Set<String> referencedImagePaths) async {
+    log.add('orphans');
     if (fail) throw StateError('disk error');
     referenced = referencedImagePaths;
     return 2;
@@ -36,10 +40,12 @@ void main() {
   late AppDatabase db;
   late RecordingImageStore images;
   late int cacheCleans;
+  late List<String> log;
 
   setUp(() async {
     db = inMemoryDatabase();
-    images = RecordingImageStore();
+    log = [];
+    images = RecordingImageStore(log);
     cacheCleans = 0;
     final now = DateTime.utc(2026, 11, 16);
     await db.receiptsDao.insertReceipt(
@@ -63,17 +69,21 @@ void main() {
         images: images,
         receipts: db.receiptsDao,
         cleanScannerCache: () async {
+          log.add('cache');
           cacheCleans++;
           if (failCache) throw StateError('cache error');
         },
       );
 
   test(
-    'deletes orphans against the stored paths, then cleans the cache',
+    'cleans the scanner cache, then deletes orphans against stored paths',
     () async {
       await housekeeping().run();
       expect(images.referenced, {'receipts/a.jpg'});
       expect(cacheCleans, 1);
+      // The quick cache clean runs first, so it can't race a scan the user
+      // finishes while a long orphan cleanup is still running.
+      expect(log, ['cache', 'orphans']);
     },
   );
 

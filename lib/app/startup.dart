@@ -18,9 +18,14 @@ Future<void> startupHousekeeping(Ref ref) => StartupHousekeeping(
   cleanScannerCache: ref.read(documentScannerProvider).cleanCache,
 ).run();
 
-/// Clean-up that runs once after the first frame: removes image files that no
-/// receipt references any more (deleted receipts, imports interrupted by a
-/// killed app) and the document scanner's temporary files.
+/// Clean-up that runs once after the first frame: removes the document
+/// scanner's temporary files left by the previous run, and image files that
+/// no receipt references any more (deleted receipts, imports interrupted by a
+/// killed app).
+///
+/// The scanner cache goes first: it is one quick call, and it must finish
+/// before the user can complete a scan in this run, or it would delete the
+/// photo being reviewed. Orphan cleanup may take longer with many images.
 ///
 /// Every step is best effort: failures are logged and never thrown.
 class StartupHousekeeping {
@@ -36,16 +41,16 @@ class StartupHousekeeping {
 
   Future<void> run() async {
     try {
+      await _cleanScannerCache();
+    } catch (e, stack) {
+      debugPrint('Housekeeping: scanner cache cleanup failed: $e\n$stack');
+    }
+    try {
       final referenced = await _receipts.allImagePaths();
       final removed = await _images.deleteOrphans(referenced);
       if (removed > 0) debugPrint('Housekeeping: removed $removed images');
     } catch (e, stack) {
       debugPrint('Housekeeping: orphan cleanup failed: $e\n$stack');
-    }
-    try {
-      await _cleanScannerCache();
-    } catch (e, stack) {
-      debugPrint('Housekeeping: scanner cache cleanup failed: $e\n$stack');
     }
   }
 }

@@ -113,7 +113,18 @@ Future<void> confirmDeleteCategory(
 ) async {
   final l10n = AppLocalizations.of(context);
   final dao = ref.read(categoriesDaoProvider);
-  final count = await dao.countReceipts(category.id);
+  final int count;
+  try {
+    count = await dao.countReceipts(category.id);
+  } on Object catch (error) {
+    debugPrint('CategoriesScreen: counting receipts failed: $error');
+    if (context.mounted) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(l10n.categoriesDeleteError)));
+    }
+    return;
+  }
   if (!context.mounted) return;
 
   final confirmed = await showDialog<bool>(

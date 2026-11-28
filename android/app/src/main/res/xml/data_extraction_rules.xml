@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 12+ backup rules. The app's data (database, receipt photos, settings) is never
+     uploaded to cloud backup; allowBackup="false" already turns that off, and this replaces the
+     rules cunning_document_scanner's manifest would otherwise merge in. A device-to-device
+     transfer (setting up a new phone from the old one, over cable or Wi-Fi) still copies it,
+     as Android does by default. -->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="root" path="." />
+        <exclude domain="file" path="." />
+        <exclude domain="database" path="." />
+        <exclude domain="sharedpref" path="." />
+        <exclude domain="external" path="." />
+        <exclude domain="device_root" path="." />
+        <exclude domain="device_file" path="." />
+        <exclude domain="device_database" path="." />
+        <exclude domain="device_sharedpref" path="." />
+    </cloud-backup>
+</data-extraction-rules>
